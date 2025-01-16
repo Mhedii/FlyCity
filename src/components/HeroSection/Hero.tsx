@@ -5,7 +5,7 @@ import { TbEyeClosed } from "react-icons/tb";
 
 const Hero: React.FC = () => {
   return (
-    <div className="  xl:my-10 2xl:mt-60  mb-12">
+    <div className="  xl:my-10   mb-12">
       <section className="relative bg-cover bg-center lg:py-16 flex flex-col md:flex-row justify-between items-center mx-[1rem] lg:mx-[6rem] xl:mx-[13rem] 2xl:mx-[16rem]   px-[1rem] md:px-10 ">
         <div className="w-full  flex justify-center md:absolute md:left-0 ">
           <img
