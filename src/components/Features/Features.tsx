@@ -1,7 +1,7 @@
 import React from "react";
 import featuresData from "../../data/features.json";
-import eclipse_1 from "../../assets/images/eclipse_1.png";
-import eclipse_2 from "../../assets/images/eclipse_2.png";
+import eclipse_1 from "/assets/images/eclipse_1.png";
+import eclipse_2 from "/assets/images/eclipse_2.png";
 interface Feature {
   title: string;
   description: string;

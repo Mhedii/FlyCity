@@ -1,12 +1,12 @@
 [
   {
-    "image": "/src/assets/images/solution1.png",
+    "image": "/assets/images/solution1.png",
     "title": "For Travellers",
     "background": "#FFF6DA",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an "
   },
   {
-    "image": "/src/assets/images/solution2.png",
+    "image": "/assets/images/solution2.png",
     "title": "For Travel Organizers",
     "background": "#ECDDF9",
     "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an "

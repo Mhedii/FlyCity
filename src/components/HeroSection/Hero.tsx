@@ -1,5 +1,5 @@
 import React from "react";
-import HeroBg from "../../assets/images/Hero_bg.png";
+import HeroBg from "/assets/images/Hero_bg.png";
 import Button from "../Shared/Button";
 import { TbEyeClosed } from "react-icons/tb";
 

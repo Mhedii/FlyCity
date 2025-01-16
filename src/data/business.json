@@ -1,22 +1,22 @@
 [
   {
     "title": "Seamless Scheduling",
-    "icon": "/src/assets/images/icon_7.png",
+    "icon": "/assets/images/icon_7.png",
     "description": "One platform for all your travel needs."
   },
   {
     "title": "Exclusive Travel Discount",
-    "icon": "/src/assets/images/icon_8.png",
+    "icon": "/assets/images/icon_8.png",
     "description": "Access special rates and deals. "
   },
   {
     "title": "Flexible Payment Options",
-    "icon": "/src/assets/images/icon_9.png",
+    "icon": "/assets/images/icon_9.png",
     "description": "Pay the way that works best for you."
   },
   {
     "title": "24/7 Customer Support",
-    "icon": "/src/assets/images/icon_10.png",
+    "icon": "/assets/images/icon_10.png",
     "description": "Always here to assist you, day or night."
   }
 ]

@@ -1,8 +1,8 @@
 import React from "react";
-import logo from "../../assets/images/logo_footer.png";
-import google from "../../assets/images/google.png";
-import app_store from "../../assets/images/app_store.png";
-import visa from "../../assets/images/visa.png";
+import logo from "/assets/images/logo_footer.png";
+import google from "/assets/images/google.png";
+import app_store from "/assets/images/app_store.png";
+import visa from "/assets/images/visa.png";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 

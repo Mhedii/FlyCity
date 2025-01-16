@@ -1,6 +1,6 @@
 import React from "react";
 import businessData from "../../data/business.json";
-import business from "../../assets/images/business.png";
+import business from "/assets/images/business.png";
 const Business: React.FC = () => {
   return (
     <section className="pt-16 pb-10 md:pb-28 bg-[#F7F9FC] text-center ">

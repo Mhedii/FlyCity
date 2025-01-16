@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/images/logo.svg";
+import logo from "/assets/images/logo.svg";
 import Button from "../Shared/Button";
 import { FiMenu } from "react-icons/fi";
 const Header: React.FC = () => {
