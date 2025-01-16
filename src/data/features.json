@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Fast & Easy Booking",
+    "icon": "/src/assets/images/icon_1.png",
+    "description": "Quick and efficient booking for your convenience."
+  },
+  {
+    "title": "Global Network Access",
+    "icon": "/src/assets/images/icon_2.png",
+    "description": "Expand your reach with our worldwide connections."
+  },
+  {
+    "title": "Advanced Technology",
+    "icon": "/src/assets/images/icon_3.png",
+    "description": "Enhance your bookings with cutting-edge tools."
+  },
+  {
+    "title": "Industry-Leading Rates",
+    "icon": "/src/assets/images/icon_4.png",
+    "description": "Earn more with Fly City’s generous commissions."
+  },
+  {
+    "title": "Priority Helpdesk",
+    "icon": "/src/assets/images/icon_5.png",
+    "description": "Fast-track your requests with dedicated support."
+  },
+  {
+    "title": "Easy Group Booking",
+    "icon": "/src/assets/images/icon_6.png",
+    "description": "Effortless booking for large groups and corporate travel."
+  }
+]
