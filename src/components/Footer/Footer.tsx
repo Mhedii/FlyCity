@@ -8,11 +8,11 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="py-8 pt-16 bg-dark  text-center px-[1rem] md:px-[13rem] xxl:px-[16rem]">
+    <footer className="py-8 pt-16 bg-dark  text-center px-[1rem] md:px-[3rem] lg:px-[6rem] xl:px-[13rem] 2xl:px-[16rem]">
       <div className="grid gap-8 grid-cols-12  mb-6 md:mb-0 ">
-        <div className="col-span-12 md:col-span-4 ">
+        <div className="col-span-12  lg:col-span-5  ">
           <img src={logo} alt="" />
-          <div className="flex gap-4 my-6 pe-2  ">
+          <div className="flex gap-4 my-6 pe-2  max-w-[25rem]">
             <input
               type="text"
               className="max-w-44  pl-2 rounded-md py-[0.55rem]"
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
             <img className=" " src={app_store} alt="" />
           </div>
         </div>
-        <div className="col-span-12 md:col-span-8">
+        <div className="col-span-12 lg:col-span-7">
           <div className=" text-gray_light text-lg  flex flex-col md:flex-row  justify-around gap-4 text-start px-4 ">
             <nav className="leading-[2rem] md:leading-[2.5rem]">
               <h6 className="text-xl text-white font-bold mb-2  ">About</h6>

@@ -5,9 +5,9 @@ import { TbEyeClosed } from "react-icons/tb";
 
 const Hero: React.FC = () => {
   return (
-    <div className=" my-10 lg:my-40">
-      <section className="relative bg-cover bg-center py-16 flex flex-col md:flex-row justify-between items-center mx-[1rem] md:mx-[13rem] xxl:mx-[16rem]  px-[1rem] md:px-10">
-        <div className="w-full  flex justify-center md:absolute md:left-0">
+    <div className="  xl:my-10 2xl:mt-60  mb-12">
+      <section className="relative bg-cover bg-center lg:py-16 flex flex-col md:flex-row justify-between items-center mx-[1rem] lg:mx-[6rem] xl:mx-[13rem] 2xl:mx-[16rem]   px-[1rem] md:px-10 ">
+        <div className="w-full  flex justify-center md:absolute md:left-0 ">
           <img
             src={HeroBg}
             alt="Hero Background"
@@ -15,10 +15,8 @@ const Hero: React.FC = () => {
           />
         </div>
 
-        <div className="bg-white p-10 shadow-xl rounded-2xl w-full md:w-[25rem] mt-8 md:mt-0 md:ml-auto relative z-10 md:static">
-          <h2 className="text-2xl font-extrabold text-gray-800 mb-4">
-            Welcome Back!
-          </h2>
+        <div className="bg-white p-10 px-5 md:px-10  2xl:py-20 shadow-xl rounded-2xl w-full md:w-[20rem] xl:w-[25rem] 2xl:w-[30rem]  mt-8 md:mt-0 md:ml-auto relative z-10 md:static  ">
+          <h2 className="text-2xl font-extrabold  mb-4">Welcome Back!</h2>
 
           <form className="space-y-6">
             <div className="relative">
@@ -54,13 +52,13 @@ const Hero: React.FC = () => {
               </label>
             </div>
 
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center ">
               <label className="flex items-center space-x-2">
                 <input
                   type="checkbox"
                   className="checkbox checkbox-primary checkbox-sm"
                 />
-                <span className="text-sm text-gray-600">Remember me</span>
+                <span className="text-sm ">Remember me</span>
               </label>
               <a
                 href="#"
@@ -70,7 +68,7 @@ const Hero: React.FC = () => {
               </a>
             </div>
 
-            <Button text="Login" className="my-[1rem] text-xl w-full" />
+            <Button text="Login" className="  text-xl w-full" />
           </form>
 
           <p className="text-sm text-center mt-4">

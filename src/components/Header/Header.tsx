@@ -4,12 +4,12 @@ import Button from "../Shared/Button";
 import { FiMenu } from "react-icons/fi";
 const Header: React.FC = () => {
   return (
-    <div className="">
-      <header className="justify-between items-center py-4  active:text-primary font-bold text-xl mx-[1rem] lg:mx-[13rem] xxl:mx-[16rem] md:flex hidden">
-        <div className="text-2xl font-bold">
+    <div className=" ">
+      <header className=" justify-between items-center py-4  active:text-primary font-bold text-xl mx-[1rem] md:mx-[3rem] lg:mx-[6rem] xl:mx-[13rem] 2xl:mx-[16rem] md:flex hidden">
+        <div className=" text-2xl font-bold md:w-[4rem]">
           <img src={logo} alt="" className="w-[120px] h-[69px]" />
         </div>
-        <nav className=" space-x-16 me-12 ms-[-6rem]">
+        <nav className=" md:space-x-6 lg:space-x-10 xl:space-x-16 xl:me-12 xl:ms-[-6rem]">
           <a href="#home" className="text-primary hover:text-primary">
             Home
           </a>
@@ -23,11 +23,7 @@ const Header: React.FC = () => {
             Career
           </a>
         </nav>
-        <Button
-          text="Contact Us"
-          // onClick={() => console.log("Button clicked")}
-          className="my-[1rem]"
-        />
+        <Button text="Contact Us" className="md:text-sm lg:text-base" />
       </header>
       <header className="flex md:hidden mx-[2rem] justify-between items-center">
         <div className="text-2xl font-bold">
@@ -36,7 +32,7 @@ const Header: React.FC = () => {
         {/* <FiMenu className="text-2xl" /> */}
 
         <div className="navbar-end  ">
-          <div className="dropdown flex justify-end">
+          <div className="dropdown flex justify-end ">
             <div
               tabIndex={0}
               role="button"

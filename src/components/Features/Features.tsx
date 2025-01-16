@@ -15,11 +15,11 @@ const Features: React.FC = () => {
         <img src={eclipse_1} alt="" className="w-12 h-12  " />
         <img src={eclipse_2} alt="" className="w-12 h-12  " />
       </div>
-      <section className="  py-10 md:py-28 pb-1 bg-secondary   text-start px-[1rem]  lg:px-[13rem] xxl:px-[16rem] ">
+      <section className="  py-10 md:py-28  pb-1 bg-secondary   text-start px-[1rem] lg:px-[6rem] xl:px-[13rem] 2xl:px-[16rem] ">
         <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 md:mb-16 text-center">
           Fly City <span className="text-[#F5C603]">Advantage</span>
         </h2>
-        <div className="mb-[-2rem] md:mb-[-5rem] grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
+        <div className="mb-[-2rem] md:mb-[-10rem] grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 ">
           {featuresData.map((feature: Feature, index: number) => (
             <div
               key={index}
