@@ -1,5 +1,5 @@
 import React from "react";
-import businessData from "../../data/business.json";
+import businessData from "../../../data/business.json";
 import business from "/assets/images/business.png";
 const Business: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ const Business: React.FC = () => {
           </span>
         </h2>
       </div>
-      <div className=" mx-[1rem] lg:mx-[5rem]  xl:mx-[13rem] 2xl:mx-[16rem] items-center grid  grid-cols-1 md:grid-cols-2 ">
+      <div className=" mx-[1rem] lg:mx-[5rem]  xl:mx-[13rem] 2xl:mx-[15.75rem] items-center grid  grid-cols-1 md:grid-cols-2 ">
         <div className="flex justify-center text-center md:block mb-8 md:mb-0">
           <img src={business} alt="" className="w-72 h-72  md:w-96 md:h-96" />
         </div>

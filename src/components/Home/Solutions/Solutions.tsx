@@ -1,9 +1,9 @@
 import React from "react";
-import solutionsData from "../../data/solutions.json";
+import solutionsData from "../../../data/solutions.json";
 
 const Solutions: React.FC = () => {
   return (
-    <section className=" md:py-16 mb-10 bg-gray-50 text-center px-[1rem] md:px-[3rem] lg:px-[6rem] xl:px-[13rem] 2xl:px-[16rem]">
+    <section className=" md:py-16 mb-10 bg-gray-50 text-center px-[1rem] md:px-[3rem] lg:px-[6rem] xl:px-[13rem] 2xl:px-[15.75rem]">
       <div className="flex justify-center">
         <h2 className="text-3xl md:text-5xl font-bold  mb-2 md:mb-8 max-w-xl mt-4 md:mt-10 md:leading-[4rem]">
           Solutions For The Whole Travel{" "}

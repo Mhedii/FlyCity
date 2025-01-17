@@ -1,5 +1,5 @@
 import React from "react";
-import featuresData from "../../data/features.json";
+import featuresData from "../../../data/features.json";
 import eclipse_1 from "/assets/images/eclipse_1.png";
 import eclipse_2 from "/assets/images/eclipse_2.png";
 interface Feature {
@@ -15,7 +15,7 @@ const Features: React.FC = () => {
         <img src={eclipse_1} alt="" className="w-12 h-12  " />
         <img src={eclipse_2} alt="" className="w-12 h-12  " />
       </div>
-      <section className="  py-10 md:py-28  pb-1 bg-secondary   text-start px-[1rem] lg:px-[6rem] xl:px-[13rem] 2xl:px-[16rem] ">
+      <section className="  py-10 md:py-28  pb-1 bg-secondary   text-start px-[1rem] lg:px-[6rem] xl:px-[13rem] 2xl:px-[15.75rem] ">
         <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 md:mb-16 text-center">
           Fly City <span className="text-[#F5C603]">Advantage</span>
         </h2>
