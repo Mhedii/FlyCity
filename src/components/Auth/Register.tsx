@@ -1,8 +1,10 @@
 import React from "react";
-import registration from "/assets/images/registration.png";
-import FormInput from "../Shared/FormInput";
-import { FiPhone } from "react-icons/fi";
+import { IoIosArrowDown } from "react-icons/io";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
 import Button from "../Shared/Button";
+import FormInput from "../Shared/FormInput";
+import registration from "/assets/images/registration.png";
+import ReCAPTCHA from "react-google-recaptcha";
 const Register: React.FC = () => {
   return (
     <div className="px-[1rem] lg:px-[6rem] xl:px-[13rem] 2xl:px-[15.75rem] mt-[1.563rem]">
@@ -23,7 +25,12 @@ const Register: React.FC = () => {
           </div>
           <div className="grid grid-cols-2 gap-[1.5rem]">
             <FormInput label="Agency Name" type="text" name="agency_name" />
-            <FormInput label="Country" type="dropdown" name="country" />
+            <FormInput
+              label="Country"
+              type="dropdown"
+              name="country"
+              icon={<IoIosArrowDown />}
+            />
           </div>
           <div className="grid grid-cols-2 gap-[1.5rem]">
             <FormInput label="City name" type="text" name="city_name" />
@@ -38,13 +45,13 @@ const Register: React.FC = () => {
               label="Password"
               type="password"
               name="password"
-              icon={<FiPhone />}
+              icon={<MdOutlineRemoveRedEye />}
             />
             <FormInput
               label="Confirm password"
               type="password"
               name="confirm_password"
-              icon={<FiPhone />}
+              icon={<MdOutlineRemoveRedEye />}
             />
           </div>
           <div className="grid grid-cols-2 gap-[1.5rem]">
@@ -59,8 +66,14 @@ const Register: React.FC = () => {
               City
             </label>
           </div>
-          <div className="text-center ">
-            <div className="g-recaptcha" data-sitekey="your-site-key"></div>
+          <div className="flex justify-center ">
+            <ReCAPTCHA
+              sitekey={`${import.meta.env.VITE_RECAPTHA_API_KEY}`}
+              className=" w-[22.125rem] h-[5.313rem] text-center flex justify-center scale-[120%] "
+            />
+          </div>
+
+          <div className="text-center mt-3">
             <Button
               text="Submit"
               className="px-[8.125rem] py-[1.438rem] text-[1.625rem] rounded-full leading-none"

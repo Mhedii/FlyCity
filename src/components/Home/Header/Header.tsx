@@ -2,6 +2,7 @@ import React from "react";
 import logo from "/assets/images/logo.svg";
 import Button from "../../Shared/Button";
 import { FiMenu } from "react-icons/fi";
+import { Link } from "react-router";
 const Header: React.FC = () => {
   return (
     <div className=" ">
@@ -9,9 +10,9 @@ const Header: React.FC = () => {
         <div className="  text-2xl font-bold flex items-center ">
           <img src={logo} alt="" className="w-[7.5rem] h-[4.313rem]" />
           <nav className="  text-black_1 text-2xl md:space-x-6 lg:space-x-10 xl:space-x-[5.5rem] xl:me-12 ml-[5.875rem]">
-            <a href="#home" className="text-primary hover:text-primary">
+            <Link to="/" className="text-primary hover:text-primary">
               Home
-            </a>
+            </Link>
             <a href="#why-us" className="hover:text-primary">
               Why Choose Us
             </a>
@@ -47,7 +48,7 @@ const Header: React.FC = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-10 w-40 p-2 shadow"
             >
               <li>
-                <a>Home</a>
+                <Link to="/">Home</Link>
               </li>
               <li>
                 <a> Why Choose Us</a>

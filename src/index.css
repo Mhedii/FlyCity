@@ -10,6 +10,16 @@ body {
 .font-roboto {
   font-family: "Roboto", sans-serif;
 }
+.recaptcha-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(1.2);
+  transform-origin: center;
+}
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

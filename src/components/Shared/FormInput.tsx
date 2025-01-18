@@ -64,7 +64,11 @@ const FormInput: React.FC<FormInputProps> = ({
         {label}
       </label>
 
-      {icon && <div className="absolute right-3 top-3 text-gray ">{icon}</div>}
+      {icon && (
+        <div className="absolute right-[1.375rem] top-[1.563rem] text-2xl text-primary">
+          {icon}
+        </div>
+      )}
     </div>
   );
 };
