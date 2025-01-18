@@ -3,84 +3,66 @@ import HeroBg from "/assets/images/Hero_bg.png";
 import Button from "../../Shared/Button";
 import { TbEyeClosed } from "react-icons/tb";
 import { Link } from "react-router";
+import FormInput from "../../Shared/FormInput";
 
 const Hero: React.FC = () => {
   return (
-    <div className="  xl:my-10   mb-12">
-      <section className="relative bg-cover bg-center lg:py-16 flex flex-col md:flex-row justify-between items-center mx-[1rem] lg:mx-[6rem] xl:mx-[13rem] 2xl:mx-[15.75rem]   px-[1rem] md:px-10 ">
-        <div className="w-full  flex justify-center md:absolute md:left-0 ">
+    <div className="mb-[6.375rem]">
+      <section className="relative  flex flex-col md:flex-row    mx-[1rem] lg:mx-[6rem] xl:mx-[13rem] 2xl:mx-[15.75rem]">
+        <div className="w-full  flex justify-center relative ">
           <img
             src={HeroBg}
             alt="Hero Background"
-            className="w-full h-auto object-cover"
+            className="w-full h-[41.688rem] "
           />
         </div>
+        <div className="relative">
+          <div className="absolute -bottom-7 right-[2.25rem] w-full md:w-[20rem] xl:w-[25rem] 2xl:w-[31.563rem] h-[36.5rem] bg-black opacity-10 rounded-3xl z-0"></div>
+          <div className=" bg-white    px-[3.313rem] pt-[3.563rem] shadow-xl rounded-3xl w-full md:w-[20rem] xl:w-[25rem] 2xl:w-[31.563rem] h-[35.938rem]   md:ml-auto absolute bottom-0 right-[4.563rem] z-10 ">
+            <h2 className="text-[2.313rem] font-bold leading-[3.25rem]  mb-[2.625rem]">
+              Welcome Back!
+            </h2>
 
-        <div className="bg-white p-10 px-5 md:px-10  2xl:py-20 shadow-xl rounded-2xl w-full md:w-[20rem] xl:w-[25rem] 2xl:w-[30rem]  mt-8 md:mt-0 md:ml-auto relative z-10 md:static  ">
-          <h2 className="text-2xl font-extrabold  mb-4">Welcome Back!</h2>
-
-          <form className="space-y-6">
-            <div className="relative">
-              <input
-                type="email"
-                id="emailInput"
-                className="peer block w-full rounded-lg border border-gray bg-transparent px-3 py-2 text-gray-900 focus:outline-none   focus:border-primary transition-all duration-200"
-                placeholder="Enter Email"
-              />
-              <label
-                htmlFor="emailInput"
-                className="absolute left-3  text-sm bg-white px-1  peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary peer-focus:z-10 peer-focus:block hidden"
-              >
-                Email
-              </label>
-            </div>
-
-            <div className="relative">
-              <input
+            <form className="flex flex-col ">
+              <div className="mb-[2.563rem]">
+                <FormInput label="Enter Email" type="email" name="email" />
+              </div>
+              <FormInput
+                label="Enter Password"
                 type="password"
-                id="passwordInput"
-                className="peer block w-full rounded-lg border border-gray bg-transparent px-3 py-2 text-gray-900 focus:outline-none  focus:border-primary transition-all duration-200 pr-10"
-                placeholder="Enter Password"
+                name="password"
+                icon={<TbEyeClosed />}
               />
-              <span className="absolute top-1/2 right-3 -translate-y-1/2 text-primary cursor-pointer">
-                <TbEyeClosed />
-              </span>
-              <label
-                htmlFor="passwordInput"
-                className="absolute left-3  text-sm bg-white px-1  peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary peer-focus:z-10 peer-focus:block hidden"
+
+              <div className="flex justify-between items-center text-[1.188rem]  mt-5">
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    className="checkbox checkbox-primary checkbox-sm"
+                  />
+                  <span className="">Remember me</span>
+                </label>
+                <a href="#" className=" text-primary font-semibold underline">
+                  Forgot Password
+                </a>
+              </div>
+
+              <Button
+                text="Login"
+                className="  text-[1.625rem] w-full mt-[2.125rem] h-[66px] "
+              />
+            </form>
+
+            <p className="text-[1.188rem]  mt-[2.313rem] ml-3 leading-none">
+              Already have an account?{" "}
+              <Link
+                to="/registration"
+                className="text-primary font-semibold underline "
               >
-                Password
-              </label>
-            </div>
-
-            <div className="flex justify-between items-center ">
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  className="checkbox checkbox-primary checkbox-sm"
-                />
-                <span className="text-sm ">Remember me</span>
-              </label>
-              <a
-                href="#"
-                className="text-sm text-primary font-semibold underline"
-              >
-                Forgot Password
-              </a>
-            </div>
-
-            <Button text="Login" className="  text-xl w-full" />
-          </form>
-
-          <p className="text-sm text-center mt-4">
-            Already have an account?{" "}
-            <Link
-              to="/registration"
-              className="text-primary font-semibold underline "
-            >
-              Register
-            </Link>
-          </p>
+                Register
+              </Link>
+            </p>
+          </div>
         </div>
       </section>
     </div>
