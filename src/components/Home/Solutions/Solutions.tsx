@@ -26,7 +26,7 @@ const Solutions: React.FC = () => {
             className=" relative shadow-sm  md:pl-[62px] pe-[21px] md:pe-8 pt-[211px] md:pt-[16.75rem]    rounded-xl  "
           >
             <div className="">
-              <div className="  absolute top-[-8rem] md:top-[-12rem] ">
+              <div className="  absolute top-[-8rem] md:top-[-10rem] lg:top-[-12rem] ">
                 {/* <div className="  mt-[-10.5rem]    flex text-center justify-center "> */}
                 <img
                   src={solution.image}

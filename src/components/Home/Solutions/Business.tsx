@@ -5,7 +5,7 @@ const Business: React.FC = () => {
   return (
     <section className=" pt-16 pb-10 md:pb-28 bg-[#F7F9FC] text-center ">
       <div className=" w-full text-center justify-center mt-2 md:mt-32 flex ">
-        <p className="text-[28px] md:text-[3.875rem] md:leading-[5.181rem] font-bold  mb-[3.875rem] max-w-[20rem]  md:max-w-4xl  md:font-['Roboto']  ">
+        <p className="text-[28px] md:text-[2.875rem] lg:text-[3.875rem] md:leading-[4.181rem] lg:leading-[5.181rem] font-bold  mb-[3.875rem] max-w-[20rem]  md:max-w-2xl  lg:max-w-4xl  md:font-['Roboto']  ">
           Begin Your Travel Business
           <br />
           Now with The Leading B2B Travel Platform in
@@ -20,7 +20,7 @@ const Business: React.FC = () => {
         </p>
       </div>
       <div className=" mx-[1.313rem] lg:mx-[4rem]  xl:mx-[8rem] 2xl:mx-[15.75rem]  items-center grid  grid-cols-1 md:grid-cols-2 ">
-        <div className="flex justify-center text-center md:block mb-8 md:mb-0 ml-[3.813rem]">
+        <div className="flex justify-center text-center md:block mb-8 md:mb-0 xl:ml-[3.813rem]">
           <img
             src={business}
             alt=""
@@ -35,10 +35,10 @@ const Business: React.FC = () => {
             >
               <img
                 src={item.icon}
-                className="md:h-[4.063rem] md:w-[4.063rem]  h-[40px] w-[40px]"
+                className="h-[40px] w-[40px] xl:h-[4.063rem] xl:w-[4.063rem]  "
                 alt=""
               />
-              <h3 className="mt-[6px] md:mt-8 text-xl md:text-2xl md:leading-[2.375rem] font-bold mb-4 md:mb-[20px] ">
+              <h3 className="mt-[6px] xl:mt-8 text-xl xl:text-2xl xl:leading-[2.375rem] font-bold mb-4 xl:mb-[20px] ">
                 {item.title}
               </h3>
               <p className="text-gray text-[14px] md:text-[1.063rem] md:leading-[1.825rem] h-[87px] md:h-auto  max-h-[3.625rem] mb-[31px] ">

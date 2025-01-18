@@ -7,12 +7,15 @@ import registration from "/assets/images/registration.png";
 import ReCAPTCHA from "react-google-recaptcha";
 const Register: React.FC = () => {
   return (
-    <div className="px-[1.313rem] lg:px-[6rem] xl:px-[13rem] 2xl:px-[15.75rem] mt-[1.563rem]">
+    <div className="px-[1.313rem] lg:px-[4rem] xl:px-[8rem] 2xl:px-[15.75rem] mt-[1.563rem]">
       <h2 className="text-[24px] md:text-[2.313rem] font-bold ">
         Register Your Account
       </h2>
-      <div className="w-full  rounded-lg  grid grid-cols-12   mt-[2rem] md:mt-[6.375rem] pb-[5rem] md:mb-[9rem]">
-        <form className="w-full md:space-y-[3.063rem]  col-span-12 md:col-span-6">
+      <div className="   lg:hidden mt-2 justify-center items-center  flex w-full">
+        <img src={registration} alt="Register Illustration" className="" />
+      </div>
+      <div className="w-full  rounded-lg  grid grid-cols-12   mt-[2rem] lg:mt-[4rem] xl:mt-[6.375rem] pb-[5rem] lg:mb-[9rem]">
+        <form className="w-full md:space-y-[1.5rem] xl:space-y-[3.063rem]  col-span-12 lg:col-span-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-[1.5rem] mb-[1.5rem] md:mb-0">
             <FormInput label="First Name" type="text" name="firstname" />
             <FormInput label="Last Name" type="text" name="lastname" />
@@ -63,7 +66,7 @@ const Register: React.FC = () => {
             <FormInput label="CR copy" type="password" name="cr_copy" /> */}
           </div>
 
-          <div className="flex items-center gap-[0.438rem] text-[14px] my-6 md:my-0 md:text-[1.188rem] ">
+          <div className="flex items-center gap-[0.438rem] text-[14px] my-6 md:my-0 md:text-base xl:text-[1.188rem] ">
             <input type="checkbox" required />
             <label className="">
               I accept the terms of sharing the specified information with Fly
@@ -84,11 +87,11 @@ const Register: React.FC = () => {
             ></Button>
           </div>
         </form>
-        <div className=" hidden md:block ml-[3.125rem] justify-center items-center col-span-6">
+        <div className=" hidden lg:block ml-[3.125rem] justify-center items-center col-span-6">
           <img
             src={registration}
             alt="Register Illustration"
-            className="w-[41.063rem] h-[27.419rem]"
+            className="xl:w-[41.063rem] xl:h-[27.419rem]"
           />
         </div>
       </div>

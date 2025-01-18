@@ -11,7 +11,7 @@ interface Feature {
 const Features: React.FC = () => {
   return (
     <div className="relative  bg-secondary  ">
-      <div className=" hidden   absolute md:flex justify-between   w-full mt-6  ">
+      <div className=" hidden   absolute lg:flex justify-between   w-full mt-6  ">
         <img src={eclipse_1} alt="" className=" ml-[5.125rem]   " />
         <img src={eclipse_2} alt="" className="me-[2.813rem]  " />
       </div>
@@ -22,7 +22,7 @@ const Features: React.FC = () => {
         >
           Fly City <span className="text-yellow">Advantage</span>
         </h2>
-        <div className="top-[4rem] md:top-[7.563rem]   relative grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3  ">
+        <div className="top-[4rem] md:top-[7.563rem]   relative grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3  ">
           {featuresData.map((feature: Feature, index: number) => (
             <div
               key={index}
