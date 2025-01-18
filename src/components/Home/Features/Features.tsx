@@ -15,7 +15,7 @@ const Features: React.FC = () => {
         <img src={eclipse_1} alt="" className=" ml-[5.125rem]   " />
         <img src={eclipse_2} alt="" className="me-[2.813rem]  " />
       </div>
-      <section className="    pt-[46px] md:pt-[7.75rem]     text-start px-[1.313rem] lg:px-[6rem] xl:px-[13rem] 2xl:px-[15.75rem] ">
+      <section className="    pt-[46px] md:pt-[7.75rem]     text-start px-[1.313rem] lg:px-[4rem] xl:px-[8rem] 2xl:px-[15.75rem] ">
         <h2
           className=" text-[28px] md:text-[3.875rem] font-bold text-white  text-center md:leading-[5.181rem]"
           style={{ fontFamily: "Roboto, sans-serif" }}

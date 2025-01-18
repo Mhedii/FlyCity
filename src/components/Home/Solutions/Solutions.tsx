@@ -3,7 +3,7 @@ import solutionsData from "../../../data/solutions.json";
 
 const Solutions: React.FC = () => {
   return (
-    <section className="pt-[22px] md:pt-[8.063rem]  pb-[32px] md:pb-[9rem]  md:mb-10 text-center px-[1.313rem] md:px-[3rem] lg:px-[6rem] xl:px-[13rem] 2xl:px-[15.75rem]">
+    <section className="pt-[22px] md:pt-[8.063rem]  pb-[32px] md:pb-[9rem]  md:mb-10 text-center px-[1.313rem] md:px-[3rem] lg:px-[4rem] xl:px-[8rem] 2xl:px-[15.75rem]">
       <div className="flex justify-center">
         <h2
           className="text-[28px] md:text-[3.875rem] md:leading-[5.181rem] font-bold   max-w-3xl  "
@@ -39,7 +39,7 @@ const Solutions: React.FC = () => {
               <h3 className="pl-[42px] md:pl-0 text-[24px] md:text-[2.313rem] font-bold mb-[0.938rem] leading-[3.25rem]">
                 {solution.title}
               </h3>
-              <p className="md:block hidden text-[1.188rem] leading-[29.2px ]  text-gray h-[5.438rem] mb-8">
+              <p className="md:block hidden text-[1.188rem] leading-[29.2px ]  text-gray h-[5.438rem] mb-8 line-clamp-3">
                 {solution.description}
               </p>
             </div>

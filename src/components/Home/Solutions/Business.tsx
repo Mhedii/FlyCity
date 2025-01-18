@@ -19,7 +19,7 @@ const Business: React.FC = () => {
           </span>
         </p>
       </div>
-      <div className=" mx-[1.313rem] lg:mx-[5rem]  xl:mx-[13rem] 2xl:mx-[15.75rem]  items-center grid  grid-cols-1 md:grid-cols-2 ">
+      <div className=" mx-[1.313rem] lg:mx-[4rem]  xl:mx-[8rem] 2xl:mx-[15.75rem]  items-center grid  grid-cols-1 md:grid-cols-2 ">
         <div className="flex justify-center text-center md:block mb-8 md:mb-0 ml-[3.813rem]">
           <img
             src={business}
