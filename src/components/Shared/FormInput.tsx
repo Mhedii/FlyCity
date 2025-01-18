@@ -32,7 +32,7 @@ const FormInput: React.FC<FormInputProps> = ({
           id={name}
           value={value}
           onChange={onChange}
-          className="block w-full   pl-[1.188rem]  py-[1.375rem] text-[1.188rem] text-gray bg-transparent border border-gray_light_2 rounded-[0.75rem] appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
+          className="block w-full   pl-[1.188rem]  py-[1.375rem] text-base md:text-[1.188rem] text-gray bg-transparent border border-gray_light_2 rounded-[0.75rem] appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
           required={required}
         >
           <option value="" disabled>
@@ -52,14 +52,14 @@ const FormInput: React.FC<FormInputProps> = ({
           value={value}
           placeholder=" "
           onChange={onChange}
-          className="block w-full   pl-[1.188rem]  py-[1.375rem] text-[1.188rem] text-gray bg-transparent border border-gray_light_2 rounded-[0.75rem] appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
+          className="block w-full   pl-[1.188rem]  py-[1.375rem] text-base md:text-[1.188rem] text-gray bg-transparent border border-gray_light_2 rounded-[0.75rem] appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
           required={required}
         />
       )}
 
       <label
         htmlFor={name}
-        className="absolute left-[1.188rem] text-[1.188rem] text-gray duration-300 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-white peer-focus:text-primary peer-focus:text-[1.063rem] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-4"
+        className="absolute left-[1.188rem] text-[14px] md:text-[1.188rem] text-gray duration-300 transform -translate-y-4 scale-75 top-1 z-10 origin-[0] bg-white peer-focus:text-primary peer-focus:text-[1.063rem] peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-4"
       >
         {label}
       </label>

@@ -6,7 +6,7 @@ import { Link } from "react-router";
 const Header: React.FC = () => {
   return (
     <div className=" ">
-      <header className=" justify-between items-center pt-[1.938rem] pb-[1.889rem]   active:text-primary font-bold text-xl mx-[1rem] md:mx-[3rem] lg:mx-[6rem] xl:mx-[13rem] 2xl:mx-[15.75rem] md:flex hidden">
+      <header className=" justify-between items-center  pt-[1.938rem] pb-[1.889rem]   active:text-primary font-bold text-xl mx-[1.313rem] md:mx-[3rem] lg:mx-[6rem] xl:mx-[13rem] 2xl:mx-[15.75rem] md:flex hidden">
         <div className="  text-2xl font-bold flex items-center ">
           <img src={logo} alt="" className="w-[7.5rem] h-[4.313rem]" />
           <nav className="  text-black_1 text-2xl md:space-x-6 lg:space-x-10 xl:space-x-[5.5rem] xl:me-12 ml-[5.875rem]">
@@ -29,9 +29,9 @@ const Header: React.FC = () => {
           className="md:text-sm lg:text-[1.5rem] py-[1.313rem] px-[2.25rem] "
         />
       </header>
-      <header className="flex md:hidden mx-[2rem] justify-between items-center">
+      <header className="flex md:hidden mx-[1.313rem] justify-between items-center">
         <div className="text-2xl font-bold">
-          <img src={logo} alt="" className="w-20 h-20" />
+          <img src={logo} alt="" className="w-[50px] h-[28px]" />
         </div>
 
         <div className="navbar-end  ">
@@ -41,7 +41,7 @@ const Header: React.FC = () => {
               role="button"
               className="btn btn-ghost btn-circle  "
             >
-              <FiMenu className="text-2xl " />
+              <FiMenu className="text-2xl h-[22px] w-[22px]" />
             </div>
             <ul
               tabIndex={0}
