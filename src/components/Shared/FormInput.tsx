@@ -46,7 +46,10 @@ const FormInput: React.FC<FormInputProps> = ({
         </select>
       ) : type === "file" ? (
         <div className="flex items-center justify-between border border-gray_light_2 rounded-[0.75rem] p-[0.938rem]">
-          <label htmlFor={name} className="text-gray text-sm">
+          <label
+            htmlFor={name}
+            className="text-gray  text-base md:text-[1.188rem"
+          >
             {label}
           </label>
           <input
