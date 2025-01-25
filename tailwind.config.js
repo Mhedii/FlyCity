@@ -17,6 +17,9 @@ export default {
         gray: "#7A7A7A",
         gray_light: "#F6F6F6",
         gray_light_2: "#E4E7E8",
+        gray_light_3: "#F6F6F8",
+        gray_light_4: "#F1F2F6",
+        skyblue: "#E3EAFF",
       },
     },
   },
@@ -37,6 +40,7 @@ export default {
           gray: "#7A7A7A",
           gray_light: "#F6F6F6",
           gray_light_2: "#E4E7E8",
+          skyblue: "#E3EAFF",
 
 
         },
