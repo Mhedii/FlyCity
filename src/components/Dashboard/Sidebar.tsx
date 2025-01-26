@@ -1,11 +1,15 @@
 import React from "react";
-import { FiHome, FiSettings, FiBook } from "react-icons/fi";
+import { FaUsers } from "react-icons/fa";
+import { FiBook, FiSettings } from "react-icons/fi";
+import { IoMdAirplane } from "react-icons/io";
 import { IoMenuOutline } from "react-icons/io5";
+import { MdDashboard } from "react-icons/md";
 import { Link } from "react-router";
 const Sidebar: React.FC = () => {
   const menuItems = [
-    { label: "Dashboard", icon: <FiHome />, link: "/" },
-    { label: "Search Flight", icon: <FiHome />, link: "/search-flight" },
+    { label: "Dashboard", icon: <MdDashboard />, link: "/" },
+    { label: "Search Flight", icon: <IoMdAirplane />, link: "/search-flight" },
+    { label: "Group Flight", icon: <FaUsers />, link: "/search-flight" },
     { label: "My Booking", icon: <FiBook />, link: "/bookings" },
     { label: "Settings", icon: <FiSettings />, link: "/settings" },
   ];

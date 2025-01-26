@@ -1,21 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
+import SearchBox from "./SearchBox";
 
 const Navbar: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+    console.log("Searching for:", query);
+  };
+
   return (
-    <header className="flex justify-between items-center py-[1.875rem] pe-[1.938rem] bg-white ">
-      <div className="flex items-center w-full md:w-auto">
-        <input
-          type="text"
-          placeholder="Search PNR..."
-          className="w-full md:w-auto border border-gray-300 rounded-lg p-2"
+    <header className="flex items-center justify-between px-6 py-4">
+      <div className="flex-1"></div>
+
+      <div className="flex-1 flex justify-center">
+        <SearchBox
+          searchQuery={searchQuery}
+          onSearchChange={handleSearchChange}
         />
       </div>
-      <div className="flex items-center space-x-4">
-        <div>My Balance: SAR 500.00</div>
+
+      <div className="flex-1 flex justify-end items-center gap-4">
+        <button className="bg-gray_light_4 rounded-full  ">
+          <img
+            src="/assets/images/CustomerServiceIcon.png"
+            className="w-6 h-6 m-3"
+            alt=""
+          />
+        </button>
+        <button className="bg-gray_light_4 rounded-full ">
+          <img
+            src="/assets/images/NotificationIcon.png"
+            alt=""
+            className="w-6 h-6 m-3"
+          />
+        </button>
+
+        <div className="bg-gray_light_4 flex gap-[0.188rem] items-center p-[10px]   rounded-xl text-[0.875rem]">
+          <img src="/assets/images/Money.png" alt="" className="w-6 h-6" />
+          <span className="">My Balance </span>
+          <span className="ml-2 text-primary font-medium">SAR 500.00</span>
+        </div>
+
+        {/* Profile Image */}
         <img
-          src="https://via.placeholder.com/40"
+          src="/assets/images/profileImage.png"
           alt="Profile"
-          className="w-10 h-10 rounded-full"
+          className="w-[4.375rem] h-[4.375rem] rounded-full "
         />
       </div>
     </header>

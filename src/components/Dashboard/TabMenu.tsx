@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaHotel, FaUsers } from "react-icons/fa";
 import { ImArrowDown } from "react-icons/im";
 import { IoMdAirplane } from "react-icons/io";
 import { TbWorld } from "react-icons/tb";
-const TabMenu: React.FC = () => {
-  const [activeTab, setActiveTab] = useState("Flight");
-  const tabs = [
+import { TabName } from "../Shared/types/TabTypes";
+
+interface TabMenuProps {
+  activeTab: TabName;
+  onTabChange: (tabName: TabName) => void;
+}
+const TabMenu: React.FC<TabMenuProps> = ({ activeTab, onTabChange }) => {
+  const tabs: { name: TabName; icon: React.ReactNode }[] = [
     { name: "Flight", icon: <IoMdAirplane /> },
     { name: "Group Flight", icon: <FaUsers /> },
     { name: "PNR Import", icon: <ImArrowDown /> },
@@ -23,7 +28,7 @@ const TabMenu: React.FC = () => {
                 ? " bg-primary text-[1.625rem] text-white font-bold"
                 : ""
             }`}
-            onClick={() => setActiveTab(tab.name)}
+            onClick={() => onTabChange(tab.name)}
           >
             <span
               className={`text-2xl ${
