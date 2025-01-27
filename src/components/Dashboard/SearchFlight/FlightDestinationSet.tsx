@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BsXLg } from "react-icons/bs";
 import DashboardInfoCard from "../../Shared/DashboardInfoCard";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 interface FlightCardProps {
   showReturn: boolean;
   onRemove?: () => void;
@@ -27,14 +28,25 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
   const [rotateImage, setRotateImage] = useState(false);
   const dropdownRef = useRef<HTMLUListElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [departureDate, setDepartureDate] = useState<Date>(new Date()); // Default to today's date
+  const [returnDate, setReturnDate] = useState<Date>(new Date());
+
   const handleSelectLocation = (type: "from" | "to", value: string) => {
     onLocationChange(type, value);
     setShowLocationDropdown(null);
   };
+
   const handleSwap = () => {
     onLocationChange("from", selectedTo);
     onLocationChange("to", selectedFrom);
     setRotateImage((prev) => !prev);
+  };
+  const handleDateChange = (date: Date, type: "departure" | "return") => {
+    if (type === "departure") {
+      setDepartureDate(date);
+    } else {
+      setReturnDate(date);
+    }
   };
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -131,21 +143,81 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
           )}
         </div>
       </div>
-      <DashboardInfoCard
-        label="Departure"
-        mainText="06"
-        subText="November"
-        description="Friday, 2024"
-        className="flex-1"
-      />
+
+      <div className="flex-1">
+        <div className="relative">
+          <DashboardInfoCard
+            label="Departure"
+            mainText={String(
+              departureDate.getDate() < 10
+                ? `0${departureDate.getDate()}`
+                : departureDate.getDate()
+            )}
+            subText={departureDate.toLocaleDateString("en-US", {
+              month: "long",
+            })}
+            description={departureDate.toLocaleDateString("en-US", {
+              weekday: "long",
+              year: "numeric",
+            })}
+            className="flex-1"
+            onClick={() => setShowLocationDropdown("departure")}
+          />
+          {showLocationDropdown === "departure" && (
+            <div className="absolute mt-2 z-20">
+              <DatePicker
+                selected={departureDate}
+                onChange={(date) => handleDateChange(date as Date, "departure")}
+                className="  bg-white rounded-lg shadow  w-full max-h-48"
+                dateFormat="dd/MM/yyyy"
+                inline
+                minDate={new Date()}
+                maxDate={
+                  new Date(new Date().setDate(new Date().getDate() + 90))
+                }
+              />
+            </div>
+          )}
+        </div>
+      </div>
+
       {showReturn && (
-        <DashboardInfoCard
-          label="Return"
-          mainText="07"
-          subText="November"
-          description="Saturday, 2024"
-          className="flex-1"
-        />
+        <div className="flex-1">
+          <div className="relative ">
+            <DashboardInfoCard
+              label="Return"
+              mainText={String(
+                departureDate.getDate() < 10
+                  ? `0${departureDate.getDate()}`
+                  : departureDate.getDate()
+              )}
+              subText={returnDate.toLocaleDateString("en-US", {
+                month: "long",
+              })}
+              description={returnDate.toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+              })}
+              className="flex-1"
+              onClick={() => setShowLocationDropdown("return")}
+            />
+            {showLocationDropdown === "return" && (
+              <div className="absolute z-20 mt-2">
+                <DatePicker
+                  selected={returnDate}
+                  onChange={(date) => handleDateChange(date as Date, "return")}
+                  className=" bg-white rounded-lg shadow w-full max-h-48"
+                  dateFormat="dd/MM/yyyy"
+                  inline
+                  minDate={new Date()}
+                  maxDate={
+                    new Date(new Date().setDate(new Date().getDate() + 90))
+                  }
+                />
+              </div>
+            )}
+          </div>
+        </div>
       )}
       {allowRemove && (
         <button

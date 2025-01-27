@@ -28,7 +28,9 @@ const DashboardInfoCard: React.FC<InfoCardProps> = ({
 
         <div>
           <div className="flex items-center space-x-2 ">
-            <p className="text-[1.625rem] font-bold ">{mainText}</p>
+            <p className={`text-[1.625rem] font-bold  min-w-[2rem]`}>
+              {mainText}
+            </p>
             <div className="divider divider-horizontal divider-primary "></div>
 
             <div>
