@@ -3,6 +3,7 @@ import TabMenu from "../../components/Dashboard/TabMenu";
 import FlightSearchForm from "../../components/Dashboard/SearchFlight/FlightSearchForm";
 import DynamicList from "../../components/Dashboard/DynamicList";
 import { TabName } from "../../components/Shared/types/TabTypes";
+import Visa from "../../components/Dashboard/Visa/Visa";
 
 const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabName>("Flight");
@@ -25,8 +26,8 @@ const Dashboard: React.FC = () => {
         // return <HotelForm />;
         return null;
       case "Visa":
-        // return <VisaForm />;
-        return null;
+        return <Visa />;
+
       default:
         return null;
     }
@@ -35,14 +36,10 @@ const Dashboard: React.FC = () => {
     <div>
       <div className="pb-[4.625rem]  bg-white rounded-xl">
         <div className=" px-[3.25rem] ">
-          {/* <TabMenu /> */}
           <TabMenu activeTab={activeTab} onTabChange={setActiveTab} />
         </div>
         <hr className="pt-[11.5px] pb-[1.813rem] text-gray_light" />
-        <div className=" px-[3.25rem] ">
-          {/* <FlightSearchForm /> */}
-          {renderTabContent()}
-        </div>
+        <div className=" px-[3.25rem] ">{renderTabContent()}</div>
       </div>
       <DynamicList items={dynamicData} />
     </div>

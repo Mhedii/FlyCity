@@ -1,18 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown, IoMdAdd } from "react-icons/io";
 import Button from "../../Shared/Button";
-import DashboardInfoCard from "../../Shared/DashboardInfoCard";
-import { BsXLg } from "react-icons/bs";
+import FlightDestinationSet from "./FlightDestinationSet";
 
 interface DropdownOption {
   label: string;
   options: string[];
 }
+const MAX_FLIGHT_SETS = 5;
 
 const FlightSearchForm: React.FC = () => {
   const [selectedTrip, setSelectedTrip] = useState<string>("oneway");
   const [selectedFareOption, setSelectedFareOption] =
     useState<string>("rugularfare");
+  const [flights, setFlights] = useState<number[]>([1]);
+  const [flightData, setFlightData] = useState<{ from: string; to: string }[]>([
+    { from: "JFK", to: "DHK" },
+  ]);
+  const locationOptions = [
+    { label: "JFK", value: "JFK", subText: "New York, USA" },
+    { label: "DHK", value: "DHK", subText: "Dhaka, Bangladesh" },
+    { label: "LHR", value: "LHR", subText: "London, UK" },
+    { label: "DXB", value: "DXB", subText: "Dubai, UAE" },
+  ];
 
   const trip_types = [
     { label: "One way", value: "oneway" },
@@ -71,6 +81,26 @@ const FlightSearchForm: React.FC = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+  const handleLocationChange = (
+    index: number,
+    type: "from" | "to",
+    value: string
+  ) => {
+    const updatedFlightData = [...flightData];
+    updatedFlightData[index][type] = value;
+    setFlightData(updatedFlightData);
+  };
+  const handleAddFlight = () => {
+    if (flights.length < MAX_FLIGHT_SETS) {
+      setFlights((prev) => [...prev, prev.length + 1]);
+      setFlightData((prev) => [...prev, { from: "JFK", to: "DHK" }]);
+    }
+  };
+
+  const handleRemoveFlight = (index: number) => {
+    setFlights((prev) => prev.filter((_, i) => i !== index));
+    setFlightData((prev) => prev.filter((_, i) => i !== index));
+  };
   return (
     <div>
       <div className="flex justify-between mb-[2.438rem]">
@@ -128,57 +158,34 @@ const FlightSearchForm: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="relative">
-        <div className="flex justify-between w-full items-center gap-6">
-          <DashboardInfoCard
-            label="From"
-            mainText="JFK"
-            subText="New York"
-            description="John F. Kennedy Inter..."
-            className="flex-1  "
-          />
-          <div className="mt-[2%] ">
-            <img
-              src="/assets/images/SwitchDestination.png"
-              className="w-8 h-8"
-              alt=""
+
+      <div className="space-y-6">
+        {(selectedTrip === "multiway" ? flights : flights.slice(0, 1)).map(
+          (flight, index) => (
+            <FlightDestinationSet
+              key={index}
+              showReturn={selectedTrip !== "oneway"}
+              onRemove={() => handleRemoveFlight(index)}
+              allowRemove={selectedTrip === "multiway" && flights.length > 1}
+              selectedFrom={flightData[index].from}
+              selectedTo={flightData[index].to}
+              locationOptions={locationOptions}
+              onLocationChange={(type, value) =>
+                handleLocationChange(index, type, value)
+              }
             />
-          </div>
-          <DashboardInfoCard
-            label="From"
-            mainText="DHK"
-            subText="Dhaka"
-            description="Hazrat Shahjalal Inter..."
-            className="flex-1"
-          />
-          <DashboardInfoCard
-            label="Departure"
-            mainText="06"
-            subText="November"
-            description="Friday,2024"
-            className="flex-1"
-          />
-          {selectedTrip === "roundway" && (
-            <DashboardInfoCard
-              label="Return"
-              mainText="07"
-              subText="November"
-              description="Saturday,2024"
-              className="flex-1"
-            />
-          )}
-        </div>
-        {selectedTrip === "multiway" && (
-          <button className="absolute top-[50%] right-[-2.375rem] ">
-            <BsXLg className="bg-red-200 text-red-600  rounded-full p-1 text-2xl" />
-          </button>
+          )
         )}
       </div>
-      <div className=" w-full  flex gap-[3.313rem] items-center   mt-[2.563rem] justify-end">
+      <div className="   w-full  flex gap-[3.313rem] items-center   mt-[2.563rem] justify-end">
         {selectedTrip === "multiway" && (
-          <div className="w-4/12">
+          <div className="w-5/12 ">
             <button
-              className={`text-primary  bg-gray_light_4  rounded-xl px-[2.594rem] py-[1.125rem] gap-2 flex items-center  `}
+              className={`text-primary  bg-gray_light_4  rounded-xl px-[2.594rem] py-[1.125rem] gap-2 flex items-center ${
+                flights.length >= MAX_FLIGHT_SETS ? "opacity-50" : ""
+              } `}
+              disabled={flights.length >= MAX_FLIGHT_SETS}
+              onClick={handleAddFlight}
             >
               <span>
                 <IoMdAdd />
