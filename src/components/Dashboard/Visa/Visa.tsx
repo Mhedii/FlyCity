@@ -1,6 +1,3 @@
-import React from "react";
-import FlightCard from "../FlightCard/FlightCard";
-
 const Visa = () => {
   return (
     <div>

@@ -2,10 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown, IoMdAdd } from "react-icons/io";
 import Button from "../../Shared/Button";
 import FlightDestinationSet from "./FlightDestinationSet";
+import PassengerDropdown from "./PassengerDropdown";
 
 interface DropdownOption {
   label: string;
   options: string[];
+}
+interface PassengerCounts {
+  adults: number;
+  children: number;
+  kids: number;
+  infants: number;
 }
 const MAX_FLIGHT_SETS = 5;
 
@@ -17,6 +24,15 @@ const FlightSearchForm: React.FC = () => {
   const [flightData, setFlightData] = useState<{ from: string; to: string }[]>([
     { from: "JFK", to: "DHK" },
   ]);
+  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const dropdownRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [passengerCounts, setPassengerCounts] = useState<PassengerCounts>({
+    adults: 1,
+    children: 0,
+    kids: 0,
+    infants: 0,
+  });
+
   const locationOptions = [
     { label: "JFK", value: "JFK", subText: "New York, USA" },
     { label: "DHK", value: "DHK", subText: "Dhaka, Bangladesh" },
@@ -35,19 +51,6 @@ const FlightSearchForm: React.FC = () => {
     { label: "NOC", value: "noc" },
   ];
   const dropdownData: DropdownOption[] = [
-    {
-      label: "1 Passenger",
-      options: [
-        "1 Passenger",
-        "2 Passenger",
-        "3 Passenger",
-        "4 Passenger",
-        "5 Passenger",
-        "6 Passenger",
-        "7 Passenger",
-        "8 Passenger",
-      ],
-    },
     { label: "Economy", options: ["Economy", "Business", "Business Plus"] },
     {
       label: "Preferred Airline",
@@ -63,17 +66,13 @@ const FlightSearchForm: React.FC = () => {
       ],
     },
   ];
-  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
-
-  const dropdownRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRefs.current.some(
-          (ref) => ref && !ref.contains(event.target as Node)
-        )
-      ) {
+      const clickedInsideDropdown = dropdownRefs.current.some(
+        (ref) => ref && ref.contains(event.target as Node)
+      );
+      if (!clickedInsideDropdown) {
         setOpenDropdown(null);
       }
     };
@@ -81,6 +80,7 @@ const FlightSearchForm: React.FC = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
   const handleLocationChange = (
     index: number,
     type: "from" | "to",
@@ -101,6 +101,17 @@ const FlightSearchForm: React.FC = () => {
     setFlights((prev) => prev.filter((_, i) => i !== index));
     setFlightData((prev) => prev.filter((_, i) => i !== index));
   };
+  const handleSearch = () => {
+    const searchData = {
+      tripType: selectedTrip,
+      fareOption: selectedFareOption,
+      passengerCounts,
+      flightData: selectedTrip === "multiway" ? flightData : [flightData[0]],
+    };
+
+    console.log("Search Data:", searchData);
+  };
+
   return (
     <div>
       <div className="flex justify-between mb-[2.438rem]">
@@ -124,17 +135,43 @@ const FlightSearchForm: React.FC = () => {
           ))}
         </div>
         <div className="flex gap-[1.563rem]">
+          <div
+            className="relative"
+            ref={(el) => (dropdownRefs.current[0] = el)}
+          >
+            <div
+              role="button"
+              className="flex justify-between items-center border-b border-gray_light_3 cursor-pointer w-[14.188rem] 2xl:w-[13rem]"
+              onClick={() => setOpenDropdown((prev) => (prev === 0 ? null : 0))}
+            >
+              <span className="text-black_1 text-[1.375rem]">
+                {`${passengerCounts.adults} Passenger${
+                  passengerCounts.adults > 1 ? "s" : ""
+                }`}
+              </span>
+              <IoIosArrowDown className="text-primary" size={20} />
+            </div>
+            {openDropdown === 0 && (
+              <PassengerDropdown
+                initialCounts={passengerCounts}
+                onChange={setPassengerCounts}
+              />
+            )}
+          </div>
+
           {dropdownData.map((dropdown, index) => (
             <div
-              key={index}
+              key={index + 1}
               className="relative"
-              ref={(el) => (dropdownRefs.current[index] = el)}
+              ref={(el) => (dropdownRefs.current[index + 1] = el)}
             >
               <div
                 role="button"
                 className="flex justify-between items-center border-b border-gray_light_3 cursor-pointer w-[14.188rem] 2xl:w-[13rem]"
                 onClick={() =>
-                  setOpenDropdown((prev) => (prev === index ? null : index))
+                  setOpenDropdown((prev) =>
+                    prev === index + 1 ? null : index + 1
+                  )
                 }
               >
                 <span className="text-black_1 text-[1.375rem]">
@@ -143,7 +180,7 @@ const FlightSearchForm: React.FC = () => {
                 <IoIosArrowDown className="text-primary" size={20} />
               </div>
 
-              {openDropdown === index && (
+              {openDropdown === index + 1 && (
                 <ul className="absolute left-0 mt-1 bg-base-100 rounded-box shadow z-[10] w-[12rem] p-2">
                   {dropdown.options.map((item, idx) => (
                     <li key={idx}>
@@ -161,7 +198,7 @@ const FlightSearchForm: React.FC = () => {
 
       <div className="space-y-6">
         {(selectedTrip === "multiway" ? flights : flights.slice(0, 1)).map(
-          (flight, index) => (
+          (_, index) => (
             <FlightDestinationSet
               key={index}
               showReturn={selectedTrip !== "oneway"}
@@ -216,6 +253,7 @@ const FlightSearchForm: React.FC = () => {
         <Button
           text="Search"
           className="h-[4.375rem] px-[4.969rem] py-[0.969rem] text-[1.625rem] leading-none"
+          onClick={handleSearch}
         />
       </div>
     </div>
