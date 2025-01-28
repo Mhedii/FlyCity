@@ -206,7 +206,7 @@ const FlightSearchForm: React.FC = () => {
               </div>
 
               {openDropdown === index + 1 && (
-                <ul className="absolute left-0 mt-1 bg-white rounded-box shadow z-[10] w-[12rem] p-2">
+                <ul className="absolute left-0 mt-1 bg-white rounded-lg shadow z-[10] w-[12rem] p-2">
                   {dropdown.options.map((item, idx) => (
                     <li
                       key={idx}
@@ -238,7 +238,7 @@ const FlightSearchForm: React.FC = () => {
               onClick={() => setOpenDropdown((prev) => (prev === 2 ? null : 2))}
             />
             {airlineSearch && openDropdown === 2 && (
-              <ul className="absolute left-0 mt-1 bg-base-100 rounded-box shadow z-[10] w-[14.188rem] p-2">
+              <ul className="absolute left-0 mt-1 bg-base-100 rounded-lg shadow z-[10] w-[14.188rem] p-2">
                 {filteredAirlines.length > 0 ? (
                   filteredAirlines.map((airline) => (
                     <li
@@ -278,7 +278,11 @@ const FlightSearchForm: React.FC = () => {
           )
         )}
       </div>
-      <div className="   w-full  flex gap-[3.313rem] items-center   mt-[2.563rem] justify-end">
+      <div
+        className={`   w-full  flex gap-[3.313rem] items-center   mt-[2.563rem]  ${
+          selectedTrip === "multiway" ? "justify-between" : "justify-end"
+        }`}
+      >
         {selectedTrip === "multiway" && (
           <div className="w-5/12 ">
             <button
@@ -295,30 +299,34 @@ const FlightSearchForm: React.FC = () => {
             </button>
           </div>
         )}
-        <div className="flex gap-[1.563rem]  items-center">
-          {fare_type.map((option) => (
-            <label
-              key={option.value}
-              className="flex gap-[1.063rem] items-center cursor-pointer"
-            >
-              <input
-                type="radio"
-                name="fare-type"
-                value={option.value}
-                checked={selectedFareOption === option.value}
-                onChange={() => setSelectedFareOption(option.value)}
-                className="radio radio-primary"
-              />
+        <div className="flex gap-[3.313rem]">
+          <div className="flex gap-[1.563rem]  items-center">
+            {fare_type.map((option) => (
+              <label
+                key={option.value}
+                className="flex gap-[1.063rem] items-center cursor-pointer"
+              >
+                <input
+                  type="radio"
+                  name="fare-type"
+                  value={option.value}
+                  checked={selectedFareOption === option.value}
+                  onChange={() => setSelectedFareOption(option.value)}
+                  className="radio radio-primary"
+                />
 
-              <span className="text-[1.188rem] text-gray ">{option.label}</span>
-            </label>
-          ))}
+                <span className="text-[1.188rem] text-gray ">
+                  {option.label}
+                </span>
+              </label>
+            ))}
+          </div>
+          <Button
+            text="Search"
+            className="h-[4.375rem] px-[4.969rem] py-[0.969rem] text-[1.625rem] leading-none"
+            onClick={handleSearch}
+          />
         </div>
-        <Button
-          text="Search"
-          className="h-[4.375rem] px-[4.969rem] py-[0.969rem] text-[1.625rem] leading-none"
-          onClick={handleSearch}
-        />
       </div>
     </div>
   );

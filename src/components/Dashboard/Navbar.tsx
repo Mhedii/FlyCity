@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="flex items-center justify-between px-6 py-4">
+    <header className="flex items-center justify-between px-6 py-[1.875rem]">
       <div className="flex-1"></div>
 
       <div className="flex-1 flex justify-center">
