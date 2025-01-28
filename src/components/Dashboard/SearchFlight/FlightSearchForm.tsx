@@ -32,14 +32,24 @@ const FlightSearchForm: React.FC = () => {
     kids: 0,
     infants: 0,
   });
-
+  const [totalPassengers, setTotalPassengers] = useState<number>(1);
+  const [selectedEconomy, setSelectedEconomy] = useState<string>("Economy");
+  const [airlineSearch, setAirlineSearch] = useState<string>("");
+  const [filteredAirlines, setFilteredAirlines] = useState<string[]>([]);
   const locationOptions = [
     { label: "JFK", value: "JFK", subText: "New York, USA" },
     { label: "DHK", value: "DHK", subText: "Dhaka, Bangladesh" },
     { label: "LHR", value: "LHR", subText: "London, UK" },
     { label: "DXB", value: "DXB", subText: "Dubai, UAE" },
   ];
-
+  const airlines = [
+    "Emirates",
+    "American Airlines",
+    "Delta Airlines",
+    "United Airlines",
+    "Qatar Airways",
+    "British Airways",
+  ];
   const trip_types = [
     { label: "One way", value: "oneway" },
     { label: "Round way", value: "roundway" },
@@ -52,19 +62,19 @@ const FlightSearchForm: React.FC = () => {
   ];
   const dropdownData: DropdownOption[] = [
     { label: "Economy", options: ["Economy", "Business", "Business Plus"] },
-    {
-      label: "Preferred Airline",
-      options: [
-        "Emirates",
-        "Item Y",
-        "Item Z",
-        "American Airlines",
-        "Delta Airlines",
-        "United Airlines",
-        "Qatar Airways",
-        "British Airways",
-      ],
-    },
+    // {
+    //   label: "Preferred Airline",
+    //   options: [
+    //     "Emirates",
+    //     "Item Y",
+    //     "Item Z",
+    //     "American Airlines",
+    //     "Delta Airlines",
+    //     "United Airlines",
+    //     "Qatar Airways",
+    //     "British Airways",
+    //   ],
+    // },
   ];
 
   useEffect(() => {
@@ -111,6 +121,19 @@ const FlightSearchForm: React.FC = () => {
 
     console.log("Search Data:", searchData);
   };
+  useEffect(() => {
+    setFilteredAirlines(
+      airlines.filter((airline) =>
+        airline.toLowerCase().includes(airlineSearch.toLowerCase())
+      )
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [airlineSearch]);
+
+  const handleEconomySelect = (option: string) => {
+    setSelectedEconomy(option);
+    setOpenDropdown(null);
+  };
 
   return (
     <div>
@@ -145,8 +168,8 @@ const FlightSearchForm: React.FC = () => {
               onClick={() => setOpenDropdown((prev) => (prev === 0 ? null : 0))}
             >
               <span className="text-black_1 text-[1.375rem]">
-                {`${passengerCounts.adults} Passenger${
-                  passengerCounts.adults > 1 ? "s" : ""
+                {`${totalPassengers} Passenger${
+                  totalPassengers > 1 ? "s" : ""
                 }`}
               </span>
               <IoIosArrowDown className="text-primary" size={20} />
@@ -155,6 +178,8 @@ const FlightSearchForm: React.FC = () => {
               <PassengerDropdown
                 initialCounts={passengerCounts}
                 onChange={setPassengerCounts}
+                setTotalPassengers={setTotalPassengers}
+                setOpenDropdown={setOpenDropdown}
               />
             )}
           </div>
@@ -175,16 +200,22 @@ const FlightSearchForm: React.FC = () => {
                 }
               >
                 <span className="text-black_1 text-[1.375rem]">
-                  {dropdown.label}
+                  {selectedEconomy}
                 </span>
                 <IoIosArrowDown className="text-primary" size={20} />
               </div>
 
               {openDropdown === index + 1 && (
-                <ul className="absolute left-0 mt-1 bg-base-100 rounded-box shadow z-[10] w-[12rem] p-2">
+                <ul className="absolute left-0 mt-1 bg-white rounded-box shadow z-[10] w-[12rem] p-2">
                   {dropdown.options.map((item, idx) => (
-                    <li key={idx}>
-                      <a className="block px-3 py-2 rounded hover:bg-skyblue cursor-pointer">
+                    <li
+                      key={idx}
+                      className={` cursor-pointer ${
+                        selectedEconomy === item ? "rounded bg-skyblue" : ""
+                      }`}
+                      onClick={() => handleEconomySelect(item)}
+                    >
+                      <a className="block px-3 py-2 rounded my-1 hover:bg-skyblue cursor-pointer">
                         {item}
                       </a>
                     </li>
@@ -193,6 +224,39 @@ const FlightSearchForm: React.FC = () => {
               )}
             </div>
           ))}
+
+          <div
+            className="relative"
+            ref={(el) => (dropdownRefs.current[2] = el)}
+          >
+            <input
+              type="text"
+              value={airlineSearch}
+              onChange={(e) => setAirlineSearch(e.target.value)}
+              className="border-b  border-gray_light_3 w-[14.188rem]  text-[1.375rem]  px-2   focus:outline-none    "
+              placeholder="Preferred Airline"
+              onClick={() => setOpenDropdown((prev) => (prev === 2 ? null : 2))}
+            />
+            {airlineSearch && openDropdown === 2 && (
+              <ul className="absolute left-0 mt-1 bg-base-100 rounded-box shadow z-[10] w-[14.188rem] p-2">
+                {filteredAirlines.length > 0 ? (
+                  filteredAirlines.map((airline) => (
+                    <li
+                      key={airline}
+                      className="block px-3 py-2 rounded cursor-pointer hover:bg-skyblue"
+                      onClick={() => setAirlineSearch(airline)}
+                    >
+                      {airline}
+                    </li>
+                  ))
+                ) : (
+                  <li className="block px-3 py-2 text-gray-500">
+                    No results found
+                  </li>
+                )}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
 

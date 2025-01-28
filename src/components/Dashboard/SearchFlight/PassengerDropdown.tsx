@@ -10,11 +10,15 @@ interface PassengerCounts {
 interface PassengerDropdownProps {
   initialCounts: PassengerCounts;
   onChange: (counts: PassengerCounts) => void;
+  setTotalPassengers: (total: number) => void;
+  setOpenDropdown: (value: number) => void;
 }
 
 const PassengerDropdown: React.FC<PassengerDropdownProps> = ({
   initialCounts,
   onChange,
+  setTotalPassengers,
+  setOpenDropdown,
 }) => {
   const [counts, setCounts] = useState<PassengerCounts>(initialCounts);
   const MAX_PASSENGERS = 9;
@@ -34,6 +38,19 @@ const PassengerDropdown: React.FC<PassengerDropdownProps> = ({
 
   const handleDecrement = (type: keyof PassengerCounts) => {
     setCounts((prev) => {
+      if (type === "adults" && prev.adults <= 1) {
+        return prev;
+      }
+      if (type === "adults" && prev[type] > 0) {
+        if (prev.infants >= prev.adults) {
+          return {
+            ...prev,
+            adults: prev.adults - 1,
+            infants: prev.infants - 1,
+          };
+        }
+        return { ...prev, [type]: prev[type] - 1 };
+      }
       if (prev[type] > 0) {
         return { ...prev, [type]: prev[type] - 1 };
       }
@@ -57,7 +74,10 @@ const PassengerDropdown: React.FC<PassengerDropdownProps> = ({
   };
   useEffect(() => {
     onChange(counts);
-  }, [counts, onChange]);
+    setTotalPassengers(
+      counts.adults + counts.children + counts.kids + counts.infants
+    );
+  }, [counts, onChange, setTotalPassengers]);
 
   return (
     <div className="absolute bg-white rounded-md shadow-lg w-80 p-4 z-50">
@@ -102,7 +122,10 @@ const PassengerDropdown: React.FC<PassengerDropdownProps> = ({
           </div>
         </div>
       ))}
-      <button className="w-full py-2 bg-primary text-white rounded-md mt-4">
+      <button
+        className="w-full py-2 bg-primary text-white rounded-md mt-4"
+        onClick={() => setOpenDropdown(1)}
+      >
         Done
       </button>
     </div>
