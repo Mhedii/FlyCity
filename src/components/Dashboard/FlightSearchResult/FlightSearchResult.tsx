@@ -1,12 +1,12 @@
-import FlightCard from "../FlightSearchResult/FlightCard/FlightCard";
+import FlightCard from "./FlightCard/FlightCard";
 
-const Visa = () => {
+const FlightSearchResult = () => {
   return (
     <div>
       <FlightCard
         airline={{
           name: "Garuda Indonesia",
-          logoUrl: "/path-to-logo.png",
+          logoUrl: "/assets/images/FlightSchedules/garuda_airlines.png",
           flightNumber: "VO 963",
           classType: "Business",
         }}
@@ -43,4 +43,4 @@ const Visa = () => {
   );
 };
 
-export default Visa;
+export default FlightSearchResult;

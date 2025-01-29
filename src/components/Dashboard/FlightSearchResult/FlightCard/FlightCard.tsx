@@ -1,8 +1,7 @@
 import React from "react";
-import FlightInfo from "./FlightInfo";
-import FlightFareDetails from "./FlightFareDetails";
-import FlightLinks from "./FlightLinks";
 import FlightFeatures from "./FlightFeatures";
+import FlightInfo from "./FlightInfo";
+import FlightLinks from "./FlightLinks";
 
 interface FlightCardProps {
   airline: {
@@ -43,26 +42,25 @@ const FlightCard: React.FC<FlightCardProps> = ({
   onChooseFlight,
 }) => {
   return (
-    <div className=" rounded-xl  p-4 bg-white">
+    <div className=" rounded-xl   bg-white">
       <FlightInfo
         airline={airline}
         departure={departure}
         arrival={arrival}
         duration={duration}
         isDirect={isDirect}
-      />
-      <hr className="my-4" />
-      {features.length > 0 && <FlightFeatures features={features} />}
-      <hr className="my-4" />
-      <FlightFareDetails
         grossFare={grossFare}
         netFare={netFare}
         currency={currency}
         onChooseFlight={onChooseFlight}
       />
+
+      <hr className="my-4 text-gray_light_2" />
+      {features.length > 0 && <FlightFeatures features={features} />}
+      <hr className="my-4 text-gray_light_2" />
+
       {links.length > 0 && (
         <>
-          <hr className="my-4" />
           <FlightLinks links={links} />
         </>
       )}

@@ -4,10 +4,11 @@ interface FlightFeaturesProps {
 
 const FlightFeatures: React.FC<FlightFeaturesProps> = ({ features }) => {
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="flex   px-[1.313rem]">
       {features.map((feature, index) => (
-        <div key={index} className="text-gray-600 text-sm">
+        <div key={index} className="text-black_1 text-[1.063rem]">
           {feature}
+          {index < features.length - 1 && <span className="px-4">|</span>}
         </div>
       ))}
     </div>
