@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { FaUsers } from "react-icons/fa";
 import { FiBook, FiSettings } from "react-icons/fi";
 import { IoMdAirplane } from "react-icons/io";
-import { IoMenuOutline } from "react-icons/io5";
+import { IoMenuOutline, IoPerson } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
 import { Link } from "react-router";
+import { CgSandClock } from "react-icons/cg";
+import { BsBank, BsBank2, BsPeopleFill } from "react-icons/bs";
+import { AiFillPieChart } from "react-icons/ai";
 
 const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -14,6 +17,12 @@ const Sidebar: React.FC = () => {
     { label: "Search Flight", icon: <IoMdAirplane />, link: "/search-flight" },
     { label: "Group Flight", icon: <FaUsers />, link: "/search-flight" },
     { label: "My Booking", icon: <FiBook />, link: "/bookings" },
+    { label: "Partial Issue", icon: <CgSandClock />, link: "/bookings" },
+    { label: "Traveler", icon: <IoPerson />, link: "/bookings" },
+    { label: "My Account", icon: <BsPeopleFill />, link: "/bookings" },
+    { label: "Add Deposit", icon: <BsBank />, link: "/bookings" },
+    { label: "Bank List", icon: <BsBank2 />, link: "/bookings" },
+    { label: "Report", icon: <AiFillPieChart />, link: "/bookings" },
     { label: "Settings", icon: <FiSettings />, link: "/settings" },
   ];
 

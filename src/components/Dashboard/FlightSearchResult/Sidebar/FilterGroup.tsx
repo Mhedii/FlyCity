@@ -65,11 +65,11 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
                 value={option.value}
                 checked={selectedValues.includes(option.value)}
                 onChange={() => handleChange(option.value)}
-                className={`form-${type} rounded-md focus:ring-primary w-[1.25rem] h-[1.25rem] 
+                className={`form-${type} w-[1.25rem] h-[1.25rem] 
                 ${
-                  selectedValues.includes(option.value)
-                    ? "bg-primary border-primary"
-                    : "bg-white border-gray_light_2"
+                  type === "radio"
+                    ? "radio radio-primary"
+                    : "checkbox checkbox-primary bg-white"
                 }
               `}
               />

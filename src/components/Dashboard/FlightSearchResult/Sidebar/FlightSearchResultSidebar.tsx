@@ -1,10 +1,14 @@
 import React from "react";
 import FilterGroup from "./FilterGroup";
 import FilterSchedules from "./FlightSchedules";
+import PriceRangeSlider from "./PriceRangeSlider";
 
 const FlightSearchResultSidebar: React.FC = () => {
   const handleFilterChange = (selectedValues: string[]) => {
     console.log("Selected values:", selectedValues);
+  };
+  const handlePriceChange = (values: { min: number; max: number }) => {
+    console.log("Selected Price Range:", values);
   };
   return (
     <aside
@@ -12,6 +16,15 @@ const FlightSearchResultSidebar: React.FC = () => {
     >
       <nav className="">
         <FilterSchedules />
+        <PriceRangeSlider
+          title="Price Range"
+          min={0}
+          max={500}
+          defaultMinValue={50}
+          defaultMaxValue={100}
+          popularityData={[10, 30, 50, 70, 90, 60, 40, 20]} // Example popularity data
+          onChange={handlePriceChange}
+        />
         <FilterGroup
           title="Fare Type"
           type="checkbox"
