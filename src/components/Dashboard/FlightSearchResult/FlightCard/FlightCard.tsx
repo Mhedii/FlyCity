@@ -1,7 +1,7 @@
 import React from "react";
 import FlightFeatures from "./FlightFeatures";
 import FlightInfo from "./FlightInfo";
-import FlightLinks from "./FlightLinks";
+import FlightLinks from "./FlightLink/FlightLinks";
 
 interface FlightCardProps {
   airline: {

@@ -10,8 +10,14 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="flex items-center justify-between px-6 py-[1.875rem]">
-      <div className="flex-1"></div>
+    <header className="flex items-center justify-between pl-[2.063rem] px-6 py-[1.875rem]">
+      <div className="flex-1  ">
+        <img
+          src="/assets/images/logo.svg"
+          className={`h-[4.298rem] w-[7.5rem] `}
+          alt="Logo"
+        />
+      </div>
 
       <div className="flex-1 flex justify-center">
         <SearchBox

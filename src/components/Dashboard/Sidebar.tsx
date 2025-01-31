@@ -32,11 +32,11 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside
-      className={`pt-[1.913rem] pl-[2.063rem] pe-[0.875rem]  ${
-        isCollapsed ? "w-20" : "w-full md:w-[21.625rem]"
+      className={`pl-[2.063rem] pe-[0.875rem]  ${
+        isCollapsed ? "w-20 " : "w-full md:w-[21.625rem] "
       } bg-white transition-all duration-300 h-screen  flex flex-col`}
     >
-      <div className={` ${isCollapsed ? "justify-center" : ""}`}>
+      {/* <div className={` ${isCollapsed ? "justify-center" : ""}`}>
         <img
           src="/assets/images/logo.svg"
           className={`h-[4.298rem] w-[7.5rem] ${
@@ -44,19 +44,19 @@ const Sidebar: React.FC = () => {
           } transition-all duration-300`}
           alt="Logo"
         />
-      </div>
+      </div> */}
 
-      <nav className="pt-[3.413rem]">
+      <nav className="pt-6">
         <div
           className={`flex gap-[10px] items-center mb-[1.563rem]  ${
-            isCollapsed ? "justify-center pt-[4.3rem]" : ""
+            isCollapsed ? "justify-center " : ""
           }`}
         >
           <button
             onClick={toggleSidebar}
             className="text-primary  flex items-center justify-center focus:outline-none"
           >
-            <IoMenuOutline className={`text-primary w-8 h-8 `} />
+            <IoMenuOutline className={`text-primary text-4xl `} />
           </button>
           {!isCollapsed && <p className="text-2xl font-bold">Menu</p>}
         </div>

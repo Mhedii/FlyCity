@@ -69,7 +69,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
                 ${
                   type === "radio"
                     ? "radio radio-primary"
-                    : "checkbox checkbox-primary bg-white"
+                    : "checkbox checkbox-primary"
                 }
               `}
               />

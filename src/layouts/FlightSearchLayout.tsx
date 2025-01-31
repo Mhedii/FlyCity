@@ -1,11 +1,11 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import FlightSearchNavbar from "../components/Dashboard/FlightSearchResult/FlightSearchNavbar";
 import FlightSearchResultSidebar from "../components/Dashboard/FlightSearchResult/Sidebar/FlightSearchResultSidebar";
+import Navbar from "../components/Dashboard/Navbar";
 const FlightSearchLayout: React.FC = () => {
   return (
     <div>
-      <FlightSearchNavbar />
+      <Navbar />
       <div className="flex flex-col md:flex-row min-h-screen">
         <FlightSearchResultSidebar />
         <div className="flex-1 flex flex-col ">
