@@ -99,12 +99,6 @@ const FlightDetails: React.FC<FlightDetailsProps> = ({
           Cabin <span className="text-gray font-normal text-sm">{cabin}</span>
         </p>
       </div>
-
-      <div className="flex justify-between mt-4 text-sm text-gray-700">
-        <p>Baggage: {baggage}</p>
-        <p>Check-In: {checkIn}</p>
-        <p>Cabin: {cabin}</p>
-      </div>
     </div>
   );
 };

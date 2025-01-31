@@ -68,42 +68,44 @@ const FlightSearchResult = () => {
       <p className="font-bold text-[2.063rem] mt-[1.944rem] mb-[1.188rem]">
         160 Available Flights
       </p>
-      <FlightCard
-        airline={{
-          name: "Garuda Indonesia",
-          logoUrl: "/assets/images/FlightSchedules/garuda_airlines.png",
-          flightNumber: "VO 963",
-          classType: "Business",
-        }}
-        departure={{
-          time: "06:00",
-          airport: "JKTC",
-        }}
-        arrival={{
-          time: "07:00",
-          airport: "SUB",
-        }}
-        duration="1h 40m"
-        isDirect={true}
-        features={[
-          "Checked in: 20kg",
-          "Carry in: 7kg",
-          "In-flight entertainment",
-          "In-flight meal",
-          "Power & USB port",
-        ]}
-        grossFare={79423}
-        netFare={79423}
-        currency="SAR"
-        links={[
-          "Flight Details",
-          "Fare Summary",
-          "Baggage",
-          "Cancellation",
-          "Fare terms & policy",
-        ]}
-        onChooseFlight={() => console.log("Flight chosen!")}
-      />
+      {Array.from({ length: 5 }, () => (
+        <FlightCard
+          airline={{
+            name: "Garuda Indonesia",
+            logoUrl: "/assets/images/FlightSchedules/garuda_airlines.png",
+            flightNumber: "VO 963",
+            classType: "Business",
+          }}
+          departure={{
+            time: "06:00",
+            airport: "JKTC",
+          }}
+          arrival={{
+            time: "07:00",
+            airport: "SUB",
+          }}
+          duration="1h 40m"
+          isDirect={true}
+          features={[
+            "Checked in: 20kg",
+            "Carry in: 7kg",
+            "In-flight entertainment",
+            "In-flight meal",
+            "Power & USB port",
+          ]}
+          grossFare={79423}
+          netFare={79423}
+          currency="SAR"
+          links={[
+            "Flight Details",
+            "Fare Summary",
+            "Baggage",
+            "Cancellation",
+            "Fare terms & policy",
+          ]}
+          onChooseFlight={() => console.log("Flight chosen!")}
+        />
+      ))}
     </div>
   );
 };

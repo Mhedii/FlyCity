@@ -121,7 +121,7 @@ const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
                 step={step}
                 value={minValue}
                 onChange={handleMinChange}
-                className="absolute w-full appearance-none h-1 bg-transparent outline-none cursor-pointer accent-[#F5C603] z-10"
+                className="absolute w-full appearance-none h-1 pointer-events-none custom-range bg-transparent outline-none cursor-pointer accent-[#F5C603] z-10"
               />
               <input
                 type="range"
@@ -130,7 +130,7 @@ const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
                 step={step}
                 value={maxValue}
                 onChange={handleMaxChange}
-                className="absolute w-full appearance-none h-1 bg-transparent outline-none cursor-pointer accent-[#F5C603] z-10"
+                className="absolute w-full appearance-none h-1 bg-transparent outline-none pointer-events-none custom-range cursor-pointer accent-[#F5C603] z-10"
               />
             </div>
 

@@ -42,7 +42,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
   onChooseFlight,
 }) => {
   return (
-    <div className=" rounded-xl   bg-white">
+    <div className=" rounded-xl  mb-[2.063rem] bg-white">
       <FlightInfo
         airline={airline}
         departure={departure}

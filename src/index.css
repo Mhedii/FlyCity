@@ -19,6 +19,23 @@ body {
   transform: scale(1.2);
   transform-origin: center;
 }
+/* Disable pointer events on the track and enable them on the thumb */
+.custom-range::-webkit-slider-runnable-track {
+  pointer-events: none;
+}
+
+.custom-range::-webkit-slider-thumb {
+  pointer-events: auto;
+}
+
+/* For Firefox */
+.custom-range::-moz-range-track {
+  pointer-events: none;
+}
+
+.custom-range::-moz-range-thumb {
+  pointer-events: auto;
+}
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
