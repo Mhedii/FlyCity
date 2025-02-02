@@ -20,13 +20,13 @@ const FilterByAmount: React.FC<FilterByAmountProps> = ({
   onSelect,
 }) => {
   return (
-    <div className=" bg-white grid grid-cols-12  items-center gap-[1.875rem] py-6 pl-[3.125rem] pe-[1.313rem]  rounded-xl">
-      <div className="col-span-10 gap-6 flex">
+    <div className=" bg-white grid grid-cols-12  items-center gap-4 lg:gap-[1.875rem] py-2 lg:py-6 lg:pl-[3.125rem] lg:pe-[1.313rem] px-[1rem]  rounded-xl">
+      <div className="col-span-12 lg:col-span-10 gap-2 lg:gap-6 flex">
         {options.map((option) => (
           <button
             key={option.value}
             onClick={() => onSelect(option.value)}
-            className={`px-3 leading-[3rem] py-1 rounded-xl text-[1.625rem] w-full text-start ${
+            className={`px-3 lg:leading-[3rem] py-1 rounded-xl text-base lg:text-[1.625rem] w-full text-start ${
               selected === option.value
                 ? "bg-skyblue text-primary font-medium"
                 : "bg-gray_light_3 "
@@ -39,7 +39,7 @@ const FilterByAmount: React.FC<FilterByAmountProps> = ({
 
       <Button
         text="Modify"
-        className=" col-span-2 h-full text-[1.188rem] font-semibold  w-full"
+        className=" col-span-12 lg:col-span-2 h-full text-[1.188rem] font-semibold  w-full"
       />
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
@@ -21,7 +21,22 @@ const AirlineSlider: React.FC<AirlineSliderProps> = ({
   onToggle,
 }) => {
   const [startIndex, setStartIndex] = useState(0);
-  const visibleCount = 3;
+  const [visibleCount, setVisibleCount] = useState(3);
+
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      if (window.innerWidth < 1024) {
+        setVisibleCount(1);
+      } else {
+        setVisibleCount(3);
+      }
+    };
+
+    updateVisibleCount();
+    window.addEventListener("resize", updateVisibleCount);
+
+    return () => window.removeEventListener("resize", updateVisibleCount);
+  }, []);
 
   const handleNext = () => {
     if (startIndex + visibleCount < airlines.length) {
@@ -36,17 +51,12 @@ const AirlineSlider: React.FC<AirlineSliderProps> = ({
   };
 
   return (
-    <div className="bg-white mt-[2.25rem]  relative flex items-center gap-[1.563rem] overflow-hidden  pl-[2.438rem] pe-[0.688rem] py-[1.438rem] rounded-lg w-full">
+    <div className="bg-white mt-[2.25rem]  relative flex items-center gap-[1.563rem] overflow-hidden  px-2 lg:pl-[2.438rem] lg:pe-[0.688rem] py-[1.438rem] rounded-lg w-full">
       {startIndex > 0 && (
         <button
           onClick={handlePrev}
-          //  className="p-2 text-gray-600"
-          // disabled={startIndex === 0}
-          // className={`p-2 transition ${
-          //   startIndex === 0 ? "opacity-50 cursor-not-allowed" : "text-gray-600"
-          // }`}
           disabled={startIndex === 0}
-          className={`p-2 transition ${
+          className={`lg:p-2 transition ${
             startIndex === 0 ? "opacity-50 cursor-not-allowed" : "text-gray-600"
           }`}
         >
@@ -70,7 +80,7 @@ const AirlineSlider: React.FC<AirlineSliderProps> = ({
                 .map((airline) => (
                   <label
                     key={airline.id}
-                    className="flex bg-gray_light_3 items-center gap-4 pl-[0.938rem] py-[0.688rem]  rounded-lg w-full cursor-pointer text-[1.625rem] leading-[3rem]"
+                    className="flex bg-gray_light_3 items-center gap-4 pl-[0.938rem] py-[0.688rem]  rounded-lg w-full cursor-pointer text-sm lg:text-[1.625rem] lg:leading-[3rem]"
                   >
                     <input
                       type="checkbox"
@@ -100,7 +110,6 @@ const AirlineSlider: React.FC<AirlineSliderProps> = ({
       {startIndex + visibleCount < airlines.length && (
         <button
           onClick={handleNext}
-          // className="p-2 text-gray-600"
           disabled={startIndex + visibleCount >= airlines.length}
           className={`p-2 transition ${
             startIndex + visibleCount >= airlines.length

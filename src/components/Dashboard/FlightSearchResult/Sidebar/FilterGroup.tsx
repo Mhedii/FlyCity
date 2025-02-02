@@ -9,8 +9,8 @@ interface FilterOption {
 interface FilterGroupProps {
   title: string;
   options: FilterOption[];
-  type: "checkbox" | "radio"; // Determines whether the group is for checkboxes or radio buttons
-  onChange: (selectedValues: string[]) => void; // Callback to pass selected values
+  type: "checkbox" | "radio";
+  onChange: (selectedValues: string[]) => void;
 }
 
 const FilterGroup: React.FC<FilterGroupProps> = ({

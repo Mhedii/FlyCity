@@ -2,6 +2,7 @@ import { useState } from "react";
 import AirlineSlider from "./Filters/AirlineSlider";
 import FilterByAmount from "./Filters/FilterByAmount";
 import FlightCard from "./FlightCard/FlightCard";
+import { CiFilter } from "react-icons/ci";
 const airlinesData = [
   {
     id: "biman",
@@ -65,9 +66,18 @@ const FlightSearchResult = () => {
         />
         <AirlineSlider airlines={airlines} onToggle={toggleAirline} />
       </div>
-      <p className="font-bold text-[2.063rem] mt-[1.944rem] mb-[1.188rem]">
-        160 Available Flights
-      </p>
+      <div className=" flex justify-between items-center  mt-[1.944rem] mb-[1.188rem]">
+        <p className="font-semibold lg:font-bold text-base  lg:text-[2.063rem]">
+          160 Available Flights
+        </p>
+
+        <button className="flex gap-1 items-center  lg:hidden bg-white py-1 px-2 rounded-lg">
+          <span>
+            <CiFilter />
+          </span>
+          All Filters
+        </button>
+      </div>
       {Array.from({ length: 5 }, () => (
         <FlightCard
           airline={{
