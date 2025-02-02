@@ -32,7 +32,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside
-      className={`pl-[2.063rem] pe-[0.875rem]  ${
+      className={`lg:pl-[2.063rem] pe-[0.875rem]  ${
         isCollapsed ? "w-20 " : "w-full md:w-[21.625rem] "
       } bg-white transition-all duration-300 h-screen  flex flex-col`}
     >
@@ -48,7 +48,7 @@ const Sidebar: React.FC = () => {
 
       <nav className="pt-6">
         <div
-          className={`flex gap-[10px] items-center mb-[1.563rem]  ${
+          className={`hidden lg:flex gap-[10px] items-center mb-[1.563rem]  ${
             isCollapsed ? "justify-center " : ""
           }`}
         >
@@ -60,6 +60,15 @@ const Sidebar: React.FC = () => {
           </button>
           {!isCollapsed && <p className="text-2xl font-bold">Menu</p>}
         </div>
+        {!isCollapsed && (
+          <div className="flex lg:hidden  absolute top-4">
+            <img
+              src="/assets/images/logo.svg"
+              className={`h-[3rem] w-[7.5rem] `}
+              alt="Logo"
+            />
+          </div>
+        )}
         {menuItems.map((item, index) => (
           <Link
             key={index}
