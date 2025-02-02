@@ -33,7 +33,7 @@ const Sidebar: React.FC = () => {
   return (
     <aside
       className={`lg:pl-[2.063rem] pe-[0.875rem]  ${
-        isCollapsed ? "w-20 " : "w-full md:w-[21.625rem] "
+        isCollapsed ? "w-20 " : "w-full md:w-[17rem] xl:w-[21.625rem] "
       } bg-white transition-all duration-300 h-screen  flex flex-col`}
     >
       {/* <div className={` ${isCollapsed ? "justify-center" : ""}`}>

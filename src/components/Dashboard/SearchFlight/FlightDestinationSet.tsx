@@ -66,10 +66,10 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
   }, []);
   return (
     <div
-      className="relative flex justify-between items-center gap-6"
+      className="relative flex flex-col lg:flex-row justify-between items-center gap-2 lg:gap-6"
       ref={containerRef}
     >
-      <div className="flex-1">
+      <div className="flex-1  w-full lg:w-auto ">
         <div className="relative">
           <DashboardInfoCard
             label="From"
@@ -101,7 +101,7 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
         </div>
       </div>
 
-      <div className="mt-[2%]">
+      <div className="lg:mt-[2%]">
         <img
           src="/assets/images/SwitchDestination.png"
           className={`w-8 h-8 transition-transform duration-300 cursor-pointer ${
@@ -112,7 +112,7 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
         />
       </div>
 
-      <div className="flex-1">
+      <div className="flex-1  mt-[-1.5rem] lg:mt-0 w-full lg:w-auto">
         <div className="relative">
           <DashboardInfoCard
             label="To"
@@ -144,7 +144,7 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
         </div>
       </div>
 
-      <div className="flex-1">
+      <div className="flex-1  w-full lg:w-auto">
         <div className="relative">
           <DashboardInfoCard
             label="Departure"
@@ -182,7 +182,7 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
       </div>
 
       {showReturn && (
-        <div className="flex-1">
+        <div className="flex-1  w-full lg:w-auto">
           <div className="relative ">
             <DashboardInfoCard
               label="Return"
@@ -217,12 +217,23 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
               </div>
             )}
           </div>
+          {allowRemove && (
+            <div className="w-full  lg:w-5/12 mt-[1rem]">
+              <button
+                className={`lg:hidden  text-white  font-semibold  justify-center w-full lg:w-auto bg-red-500   rounded-xl px-[2.594rem]  py-[1rem] lg:py-[1.125rem] gap-2 flex items-center`}
+                onClick={onRemove}
+              >
+                <span>{/* <IoMdAdd /> */}</span>
+                Remove
+              </button>
+            </div>
+          )}
         </div>
       )}
       {allowRemove && (
         <button
           onClick={onRemove}
-          className="absolute top-[50%] right-[-2.375rem]"
+          className="hidden  lg:block absolute top-[50%] right-[-2.375rem]"
         >
           <BsXLg className="bg-red-200 text-red-600 rounded-full p-1 text-2xl" />
         </button>

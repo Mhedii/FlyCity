@@ -33,13 +33,13 @@ const Dashboard: React.FC = () => {
     }
   };
   return (
-    <div>
-      <div className="pb-[4.625rem]  bg-white rounded-xl">
-        <div className=" px-[3.25rem] ">
+    <div className="">
+      <div className="pb-[2.5rem] lg:pb-[4.625rem]  bg-white rounded-xl">
+        <div className=" px-[1rem] lg:px-[3.25rem] ">
           <TabMenu activeTab={activeTab} onTabChange={setActiveTab} />
         </div>
         <hr className="pt-[11.5px] pb-[1.813rem] text-gray_light" />
-        <div className=" px-[3.25rem] ">{renderTabContent()}</div>
+        <div className=" px-[1rem] lg:px-[3.25rem] ">{renderTabContent()}</div>
       </div>
       <DynamicList items={dynamicData} />
     </div>

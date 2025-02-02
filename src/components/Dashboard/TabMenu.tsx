@@ -19,20 +19,22 @@ const TabMenu: React.FC<TabMenuProps> = ({ activeTab, onTabChange }) => {
   ];
   return (
     <>
-      <div className="  pt-[0.688rem] pb-2 flex flex-grow justify-between items-start">
+      <div className="  pt-[0.688rem] grid grid-cols-2 md:grid-cols-3  lg:flex-nowrap pb-2 lg:flex lg:flex-grow justify-between items-start">
         {tabs.map((tab) => (
           <button
             key={tab.name}
-            className={`w-fit py-[1.125rem] gap-4 px-[1.75rem] rounded-xl flex items-center  leading-none ${
+            className={`lg:w-fit py-[0.75rem] lg:py-[1.125rem] gap-2 lg:gap-4 px-[1rem] lg:px-[1.75rem] rounded-xl flex items-center  leading-none ${
               activeTab === tab.name
-                ? " bg-primary text-[1.625rem] text-white font-bold"
+                ? " bg-primary xl:text-[1.625rem] text-white font-bold"
                 : ""
             }`}
             onClick={() => onTabChange(tab.name)}
           >
             <span
               className={`text-2xl ${
-                activeTab === tab.name ? "text-yellow text-3xl" : "text-primary"
+                activeTab === tab.name
+                  ? "text-yellow text-xl lg:text-3xl"
+                  : "text-primary"
               } `}
             >
               {tab.icon}

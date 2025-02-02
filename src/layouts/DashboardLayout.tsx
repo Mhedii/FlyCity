@@ -20,7 +20,7 @@ const DashboardLayout: React.FC = () => {
           <Sidebar />
         </div>
         <div className="flex-1 flex flex-col ">
-          <main className="flex-grow overflow-auto  bg-gray_light_3 pl-[2.125rem] pe-8 pt-[7rem]">
+          <main className="flex-grow overflow-auto  bg-gray_light_3 px-[0.5rem] lg:pl-[2.125rem] lg:pe-8 pt-[2rem] lg:pt-[7rem]">
             <Outlet />
           </main>
         </div>

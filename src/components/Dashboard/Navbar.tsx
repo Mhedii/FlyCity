@@ -46,10 +46,13 @@ const Navbar: React.FC = () => {
             alt="Logo"
           />
         </div> */}
+        {isSidebarOpen && (
+          <div className="fixed inset-0 bg-gray  opacity-20 z-40" />
+        )}
         <div>
           {isSidebarOpen && (
             <div
-              className=" fixed lg:hidden overflow-y-scroll top-0 left-0 w-[80%] md:w-[30%] h-full bg-white z-50 flex flex-col p-4"
+              className=" fixed lg:hidden overflow-y-scroll top-0 left-0 w-[80%] md:w-[40%] lg:w-[30%] h-full bg-white z-50 flex flex-col p-4 transition-all duration-300 ease-in-out"
               ref={sidebarRef}
             >
               <button
