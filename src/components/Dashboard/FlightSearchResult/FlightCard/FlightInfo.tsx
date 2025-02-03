@@ -14,8 +14,8 @@ const FlightInfo: React.FC<FlightInfoProps> = ({
 }) => {
   return (
     <div className="px-[1.313rem] xl:pt-[1.938rem] xl:pb-[1.813rem] pt-[1rem] grid grid-cols-12 items-center ">
-      <div className="col-span-12 lg:col-span-8   ">
-        <div className="col-span-12 lg:col-span-8">
+      <div className="col-span-12 xl:col-span-8   ">
+        <div className="col-span-12 xl:col-span-8">
           <FlightDetails
             airline={airline}
             departure={departure}
@@ -36,7 +36,7 @@ const FlightInfo: React.FC<FlightInfoProps> = ({
           </div>
         </div>
       </div>
-      <div className="col-span-12 lg:col-span-4 justify-end flex">
+      <div className="col-span-12 xl:col-span-4 justify-end flex">
         <FlightFareDetails
           grossFare={grossFare}
           netFare={netFare}

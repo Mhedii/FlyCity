@@ -101,7 +101,7 @@ const FlightSearchResult = () => {
           onModify={handleModify}
         />
       </div>
-      <div className="hidden lg:block ">
+      <div className="hidden xl:block ">
         <FilterByAmount
           options={[
             { label: "Cheapest", value: "cheapest", price: 13000 },
@@ -115,12 +115,12 @@ const FlightSearchResult = () => {
         <AirlineSlider airlines={airlines} onToggle={toggleAirline} />
       </div>
       <div className=" flex justify-between items-center  xl:mt-[1.944rem] mb-[1.188rem]">
-        <p className="font-semibold lg:font-bold text-base  lg:text-[2.063rem]">
+        <p className="font-semibold lg:font-bold text-base  xl:text-[2.063rem]">
           160 Available Flights
         </p>
 
         <button
-          className="flex gap-1 items-center  lg:hidden bg-white py-1 px-2 rounded-lg"
+          className="flex gap-1 items-center  xl:hidden bg-white py-1 px-2 rounded-lg"
           onClick={() => setIsFilterOpen(true)}
         >
           <span>
@@ -167,10 +167,12 @@ const FlightSearchResult = () => {
           onChooseFlight={() => console.log("Flight chosen!")}
         />
       ))}
-      <FlightFiltersModal
-        isOpen={isFilterOpen}
-        onClose={() => setIsFilterOpen(false)}
-      />
+      <div className="xl:hidden">
+        <FlightFiltersModal
+          isOpen={isFilterOpen}
+          onClose={() => setIsFilterOpen(false)}
+        />
+      </div>
     </div>
   );
 };

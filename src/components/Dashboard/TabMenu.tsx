@@ -23,7 +23,7 @@ const TabMenu: React.FC<TabMenuProps> = ({ activeTab, onTabChange }) => {
         {tabs.map((tab) => (
           <button
             key={tab.name}
-            className={`w-fit py-[0.75rem] lg:py-[1.125rem] gap-2 lg:gap-4 px-[1rem] lg:px-[1.75rem] rounded-xl flex items-center  leading-none ${
+            className={`w-fit py-[0.75rem] xl:py-[1.125rem] gap-2 xl:gap-4 px-[1rem] xl:px-[1.75rem] rounded-xl flex items-center  leading-none ${
               activeTab === tab.name
                 ? " bg-primary xl:text-[1.625rem] text-white font-bold"
                 : ""
@@ -33,7 +33,7 @@ const TabMenu: React.FC<TabMenuProps> = ({ activeTab, onTabChange }) => {
             <span
               className={`text-2xl ${
                 activeTab === tab.name
-                  ? "text-yellow text-xl lg:text-3xl"
+                  ? "text-yellow text-xl xl:text-3xl"
                   : "text-primary"
               } `}
             >

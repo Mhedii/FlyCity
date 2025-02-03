@@ -81,7 +81,7 @@ const FilterSchedules: React.FC = () => {
 
       {!isCollapsed && (
         <div>
-          <p className="font-medium text-sm xl:text-base mt-2 xl:mt-0 ">
+          <p className="font-medium text-sm xl:text-base mt-2 xl:mt-4 ">
             Departure Dhaka{" "}
           </p>
           <div className="mt-4 grid grid-cols-2 gap-[0.813rem]">

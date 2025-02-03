@@ -12,9 +12,9 @@ const FlightSearchResultSidebar: React.FC = () => {
   };
   return (
     <aside
-      className={`px-[1rem] pb-[1rem] xl:pb-0 rounded-md xl:rounded-none xl:pl-[2.063rem] xl:pe-[0.875rem] w-full md:w-[21.625rem] h-full     flex flex-col bg-gray_light_3`}
+      className={`px-[1rem]  pb-[1rem] xl:pb-0 rounded-md xl:rounded-none xl:pl-[2.063rem] xl:pe-[0.875rem] w-full md:w-[21.625rem] h-full flex flex-col bg-gray_light_3`}
     >
-      <nav className="">
+      <nav className="  justify-center grid">
         <FilterSchedules />
         <PriceRangeSlider
           title="Price Range"
