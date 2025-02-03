@@ -1,6 +1,6 @@
 import React from "react";
 
-interface FlightDetailsProps {
+interface FlightDetailsInfoProps {
   from: string;
   to: string;
   date: string;
@@ -24,7 +24,7 @@ interface FlightDetailsProps {
   logo: string;
 }
 
-const FlightDetails: React.FC<FlightDetailsProps> = ({
+const FlightDetailsInfo: React.FC<FlightDetailsInfoProps> = ({
   from,
   to,
   date,
@@ -103,4 +103,4 @@ const FlightDetails: React.FC<FlightDetailsProps> = ({
   );
 };
 
-export default FlightDetails;
+export default FlightDetailsInfo;

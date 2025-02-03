@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "../../../../Shared/Button";
-import FlightDetails from "./FlightDetails";
+import FlightDetailsInfo from "./FlightDetailsInfo";
 
 interface FlightLinksProps {
   links: string[];
@@ -21,8 +21,8 @@ const FlightLinks: React.FC<FlightLinksProps> = ({ links }) => {
   };
   return (
     <div className="w-full">
-      <div className="flex justify-between px-6 text-lg text-primary pb-4">
-        <div className="flex gap-6">
+      <div className="flex justify-between px-6 text-lg text-primary pb-4 ">
+        <div className="  hidden xl:flex gap-6">
           {links.map((link, index) => (
             <div className="flex items-center">
               <button
@@ -40,7 +40,10 @@ const FlightLinks: React.FC<FlightLinksProps> = ({ links }) => {
             </div>
           ))}
         </div>
-        <Button text="CHOOSE FLIGHT" className="font-semibold" />
+        <Button
+          text="CHOOSE FLIGHT"
+          className="font-semibold text-xs xl:text-lg "
+        />
       </div>
 
       <div
@@ -50,7 +53,7 @@ const FlightLinks: React.FC<FlightLinksProps> = ({ links }) => {
       >
         {open &&
           (selectedLink === "Flight Details" ? (
-            <FlightDetails
+            <FlightDetailsInfo
               from="Dhaka"
               to="Chittagong"
               date="30 Jan 2025"

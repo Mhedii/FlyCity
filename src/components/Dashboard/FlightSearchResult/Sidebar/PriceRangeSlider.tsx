@@ -81,12 +81,14 @@ const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
     },
   };
   return (
-    <div className="bg-white border rounded-xl border-gray_light_2 mt-8 pt-4 pl-[1.5rem] pb-[1.875rem] pe-[1.75rem] w-[19.875rem]">
+    <div className="bg-white border rounded-xl border-gray_light_2 mt-[1rem] xl:mt-8 py-[1rem] xl:pt-4 xl:pb-[1.875rem] pl-[1.5rem]  pe-[1.75rem] w-[19.875rem]">
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={handleToggle}
       >
-        <h3 className="text-[1.375rem] font-semibold">Flight Schedules</h3>
+        <h3 className="text-sm xl:text-[1.375rem] font-semibold">
+          Price Range
+        </h3>
         <button>
           {isCollapsed ? (
             <IoIosArrowDown size={20} />
@@ -134,7 +136,7 @@ const PriceRangeSlider: React.FC<PriceRangeSliderProps> = ({
               />
             </div>
 
-            <div className="flex justify-between mt-2 text-[1.063rem]">
+            <div className="flex justify-between mt-2 text-sm xl:text-[1.063rem]">
               <span>${minValue.toFixed(2)}</span>
               <span>${maxValue.toFixed(2)}</span>
             </div>

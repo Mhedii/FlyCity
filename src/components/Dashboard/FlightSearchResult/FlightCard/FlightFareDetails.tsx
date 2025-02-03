@@ -13,20 +13,26 @@ const FlightFareDetails: React.FC<FlightFareDetailsProps> = ({
   currency,
 }) => {
   return (
-    <div className="flex justify-between items-center text-[1.375rem]">
-      <div>
-        <div className=" pl-[1.359rem]">
-          <span className="font-semibold text-primary ">Gross Fare: </span>
+    <div className="flex xl:justify-between   w-full xl:w-auto items-center  text-base xl:text-[1.375rem]">
+      <div className="flex xl:block gap-2 xl:gap-0 mt-2 xl:mt-0">
+        <div className=" xl:pl-[1.359rem] flex xl:gap-1">
+          <span className="font-semibold text-primary hidden xl:block ">
+            Gross Fare :{" "}
+          </span>
           <span className="line-through decoration-red-500 ">
             {currency} {grossFare.toLocaleString()}
           </span>
         </div>
         <div className="py-[1rem]">
-          <IoIosAirplane className="text-primary text-4xl " />
+          <IoIosAirplane className="text-primary text-4xl hidden xl:block " />
         </div>
-        <div className=" pl-[1.359rem]">
-          <span className="font-semibold text-[#0A8249]">Net Fare: </span>
-          {currency} {netFare.toLocaleString()}
+        <div className=" xl:pl-[1.359rem] flex xl:gap-1">
+          <span className="font-semibold text-[#0A8249] hidden xl:block">
+            Net Fare :{" "}
+          </span>
+          <span className="font-semibold xl:font-normal">
+            {currency} {netFare.toLocaleString()}
+          </span>
         </div>
       </div>
     </div>

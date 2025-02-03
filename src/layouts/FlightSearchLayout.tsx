@@ -7,7 +7,7 @@ const FlightSearchLayout: React.FC = () => {
     <div>
       <Navbar />
       <div className="flex flex-col md:flex-row min-h-screen">
-        <div className="hidden lg:block">
+        <div className="hidden xl:block">
           <FlightSearchResultSidebar />
         </div>
 

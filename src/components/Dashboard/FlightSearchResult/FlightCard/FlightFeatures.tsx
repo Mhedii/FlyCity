@@ -4,7 +4,7 @@ interface FlightFeaturesProps {
 
 const FlightFeatures: React.FC<FlightFeaturesProps> = ({ features }) => {
   return (
-    <div className="flex   px-[1.313rem]">
+    <div className="hidden xl:flex   px-[1.313rem]  ">
       {features.map((feature, index) => (
         <div key={index} className="text-black_1 text-[1.063rem]">
           {feature}

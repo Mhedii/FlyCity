@@ -46,28 +46,30 @@ const FilterSchedules: React.FC = () => {
   const handleSelect = (slot: string) => {
     const updatedSelection = new Set(selectedSchedules);
     if (updatedSelection.has(slot)) {
-      updatedSelection.delete(slot); // Deselect if already selected
+      updatedSelection.delete(slot);
     } else {
-      updatedSelection.add(slot); // Select if not selected
+      updatedSelection.add(slot);
     }
     setSelectedSchedules(updatedSelection);
   };
   const handleLayoverSelect = (slot: string) => {
     const updatedSelection = new Set(selectedLayover);
     if (updatedSelection.has(slot)) {
-      updatedSelection.delete(slot); // Deselect if already selected
+      updatedSelection.delete(slot);
     } else {
-      updatedSelection.add(slot); // Select if not selected
+      updatedSelection.add(slot);
     }
     setSelectedLayover(updatedSelection);
   };
   return (
-    <div className="bg-white border rounded-xl border-gray_light_2 mt-[1.313rem] pt-4 pl-[1.5rem] pb-[1.875rem] pe-[1.75rem] w-[19.875rem]">
+    <div className="bg-white border rounded-xl border-gray_light_2 mt-[1rem] xl:mt-[1.313rem] py-4 xl:pt-4 pl-[1.5rem] xl:pb-[1.875rem] pe-[1.75rem] w-[19.875rem]">
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={handleToggle}
       >
-        <h3 className="text-[1.375rem] font-semibold">Flight Schedules</h3>
+        <h3 className="text-sm xl:text-[1.375rem] font-semibold">
+          Flight Schedules
+        </h3>
         <button>
           {isCollapsed ? (
             <IoIosArrowDown size={20} />
@@ -79,7 +81,9 @@ const FilterSchedules: React.FC = () => {
 
       {!isCollapsed && (
         <div>
-          <p className="font-medium text-base ">Departure Dhaka </p>
+          <p className="font-medium text-sm xl:text-base mt-2 xl:mt-0 ">
+            Departure Dhaka{" "}
+          </p>
           <div className="mt-4 grid grid-cols-2 gap-[0.813rem]">
             {schedules.map((schedule) => (
               <div
@@ -104,7 +108,9 @@ const FilterSchedules: React.FC = () => {
               </div>
             ))}
           </div>
-          <p className="font-medium text-base mt-[0.938rem]">Layover Time</p>
+          <p className="font-medium text-sm xl:text-base mt-[0.938rem]">
+            Layover Time
+          </p>
           <div className="mt-4 grid grid-cols-2 gap-[0.813rem]">
             {schedules.map((schedule) => (
               <div

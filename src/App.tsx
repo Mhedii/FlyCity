@@ -27,7 +27,7 @@ function App() {
 
             {/* Dashboard Layout Routes */}
             <Route element={<DashboardLayout />}>
-              <Route path="/flight-search/*" element={<FlightSearch />} />
+              <Route path="/flight/" element={<FlightSearch />} />
             </Route>
 
             {/* FlightSearch Layout Routes */}

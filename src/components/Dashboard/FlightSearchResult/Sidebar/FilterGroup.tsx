@@ -38,12 +38,12 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
   };
 
   return (
-    <div className="bg-white border rounded-xl mt-[2.063rem] border-gray_light_2  pt-4 pl-[1.563rem] pb-[1.875rem] pe-[1.813rem] w-[19.875rem]">
+    <div className="bg-white border rounded-xl mt-[1rem] xl:mt-[2.063rem] border-gray_light_2   pl-[1.563rem] xl:pt-4 xl:pb-[1.875rem] py-[1rem] pe-[1.813rem] w-[19.875rem]">
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={handleToggle}
       >
-        <h3 className="text-[1.375rem] font-semibold">{title}</h3>
+        <h3 className="text-sm xl:text-[1.375rem] font-semibold">{title}</h3>
         <button>
           {isCollapsed ? (
             <IoIosArrowDown size={20} />
@@ -68,12 +68,14 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
                 className={`form-${type} w-[1.25rem] h-[1.25rem] 
                 ${
                   type === "radio"
-                    ? "radio radio-primary"
+                    ? "radio radio-primary  "
                     : "checkbox checkbox-primary"
                 }
               `}
               />
-              <span className="text-gray text-base">{option.label}</span>
+              <span className="text-gray text-xs xl:text-base">
+                {option.label}
+              </span>
             </label>
           ))}
         </div>

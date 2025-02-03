@@ -3,32 +3,7 @@ import FlightFeatures from "./FlightFeatures";
 import FlightInfo from "./FlightInfo";
 import FlightLinks from "./FlightLink/FlightLinks";
 
-interface FlightCardProps {
-  airline: {
-    name: string;
-    logoUrl: string;
-    flightNumber: string;
-    classType: string;
-  };
-  departure: {
-    time: string;
-    airport: string;
-  };
-  arrival: {
-    time: string;
-    airport: string;
-  };
-  duration: string;
-  isDirect: boolean;
-  features?: string[];
-  grossFare: number;
-  netFare: number;
-  currency: string;
-  links?: string[];
-  onChooseFlight: () => void;
-}
-
-const FlightCard: React.FC<FlightCardProps> = ({
+const FlightCard: React.FC<FlightInfoProps> = ({
   airline,
   departure,
   arrival,
@@ -55,9 +30,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
         onChooseFlight={onChooseFlight}
       />
 
-      <hr className="my-4 text-gray_light_2" />
+      <hr className="my-2 xl:my-4 text-gray_light_2 hidden xl:block" />
       {features.length > 0 && <FlightFeatures features={features} />}
-      <hr className="my-4 text-gray_light_2" />
+      <hr className="my-2 xl:my-4 text-gray_light_2 hidden xl:block" />
 
       {links.length > 0 && (
         <>
