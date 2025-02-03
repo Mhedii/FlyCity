@@ -101,7 +101,7 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
         </div>
       </div>
 
-      <div className="lg:mt-[2%]">
+      <div className="mt-[3%] lg:mt-[2%]">
         <img
           src="/assets/images/SwitchDestination.png"
           className={`w-8 h-8 transition-transform duration-300 cursor-pointer ${
@@ -112,7 +112,7 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
         />
       </div>
 
-      <div className="flex-1  mt-[-1.5rem] lg:mt-0 w-full lg:w-auto">
+      <div className="flex-1  mt-[-0.5rem] lg:mt-0 w-full lg:w-auto">
         <div className="relative">
           <DashboardInfoCard
             label="To"
@@ -218,14 +218,19 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
             )}
           </div>
           {allowRemove && (
-            <div className="w-full  lg:w-5/12 mt-[1rem]">
-              <button
-                className={`lg:hidden  text-white  font-semibold  justify-center w-full lg:w-auto bg-red-500   rounded-xl px-[2.594rem]  py-[1rem] lg:py-[1.125rem] gap-2 flex items-center`}
-                onClick={onRemove}
-              >
-                <span>{/* <IoMdAdd /> */}</span>
-                Remove
-              </button>
+            // <div className="w-full  lg:w-5/12 mt-[1rem]">
+            //   <button
+            //     className={`lg:hidden  text-white  font-semibold  justify-center w-full lg:w-auto bg-red-500   rounded-xl px-[2.594rem]  py-[1rem] lg:py-[1.125rem] gap-2 flex items-center`}
+            //     onClick={onRemove}
+            //   >
+            //     Remove
+            //   </button>
+            // </div>
+            <div
+              className="lg:hidden text-center flex w-full justify-center "
+              onClick={onRemove}
+            >
+              <BsXLg className="bg-red-200 text-red-600 rounded-full p-1 mt-4 text-2xl" />
             </div>
           )}
         </div>

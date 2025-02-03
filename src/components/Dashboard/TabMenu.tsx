@@ -19,11 +19,11 @@ const TabMenu: React.FC<TabMenuProps> = ({ activeTab, onTabChange }) => {
   ];
   return (
     <>
-      <div className="  pt-[0.688rem] grid grid-cols-2 md:grid-cols-3  lg:flex-nowrap pb-2 lg:flex lg:flex-grow justify-between items-start">
+      <div className="  pt-[0.688rem] flex-nowrap pb-2 flex flex-grow justify-between items-start">
         {tabs.map((tab) => (
           <button
             key={tab.name}
-            className={`lg:w-fit py-[0.75rem] lg:py-[1.125rem] gap-2 lg:gap-4 px-[1rem] lg:px-[1.75rem] rounded-xl flex items-center  leading-none ${
+            className={`w-fit py-[0.75rem] lg:py-[1.125rem] gap-2 lg:gap-4 px-[1rem] lg:px-[1.75rem] rounded-xl flex items-center  leading-none ${
               activeTab === tab.name
                 ? " bg-primary xl:text-[1.625rem] text-white font-bold"
                 : ""
@@ -39,7 +39,7 @@ const TabMenu: React.FC<TabMenuProps> = ({ activeTab, onTabChange }) => {
             >
               {tab.icon}
             </span>
-            <span>{tab.name}</span>
+            <span className="hidden lg:block">{tab.name}</span>
           </button>
         ))}
       </div>

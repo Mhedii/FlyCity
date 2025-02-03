@@ -5,7 +5,7 @@ import DynamicList from "../../components/Dashboard/DynamicList";
 import { TabName } from "../../components/Shared/types/TabTypes";
 import Visa from "../../components/Dashboard/Visa/Visa";
 
-const Dashboard: React.FC = () => {
+const FlightSearch: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabName>("Flight");
   const dynamicData = [
     { image: "/assets/images/search_flight_1.png", title: "Holiday is Live" },
@@ -38,7 +38,7 @@ const Dashboard: React.FC = () => {
         <div className=" px-[1rem] lg:px-[3.25rem] ">
           <TabMenu activeTab={activeTab} onTabChange={setActiveTab} />
         </div>
-        <hr className="pt-[11.5px] pb-[1.813rem] text-gray_light" />
+        <hr className="pt-[11.5px] pb-1 lg:pb-[1.813rem] text-gray_light" />
         <div className=" px-[1rem] lg:px-[3.25rem] ">{renderTabContent()}</div>
       </div>
       <DynamicList items={dynamicData} />
@@ -46,4 +46,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default FlightSearch;

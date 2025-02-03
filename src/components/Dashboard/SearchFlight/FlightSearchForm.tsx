@@ -128,11 +128,11 @@ const FlightSearchForm: React.FC = () => {
   return (
     <div>
       <div className=" flex-col  items-end lg:flex-row flex justify-between mb-[1.5rem] lg:mb-[2.438rem]">
-        <div className="flex flex-row items-end  gap-1 w-full lg:gap-4 xl:gap-[3.375rem]  ">
+        <div className="flex flex-row items-end  gap-1 w-full md:gap-4 xl:gap-[3.375rem]  ">
           {trip_types.map((option) => (
             <label
               key={option.value}
-              className="flex   w-full md:w-auto  gap-1 md:gap-[1.063rem]  items-center cursor-pointer   "
+              className="flex   w-full md:w-auto  gap-1 lg:gap-[1.063rem]  items-center cursor-pointer   "
             >
               <input
                 type="radio"
@@ -143,13 +143,13 @@ const FlightSearchForm: React.FC = () => {
                 className="radio radio-primary radio-sm lg:radio-md"
               />
 
-              <span className="text-sm lg:text-[1.188rem] text-gray ">
+              <span className="text-xs lg:text-[1.188rem] text-gray ">
                 {option.label}
               </span>
             </label>
           ))}
         </div>
-        <div className="flex mt-[1rem] lg:mt-0  md:w-full lg:w-auto   items-end justify-between lg:justify-normal flex-wrap md:flex-nowrap gap-[1rem] md:gap-[1.563rem]">
+        <div className="flex mt-[1rem] lg:mt-0  md:w-full lg:w-auto   items-end justify-between lg:justify-normal flex-wrap md:flex-nowrap gap-[0.5rem] md:gap-[1.563rem]">
           <div
             className="relative   lg:mt-0 "
             ref={(el) => (dropdownRefs.current[0] = el)}
@@ -159,7 +159,7 @@ const FlightSearchForm: React.FC = () => {
               className="flex justify-between    items-center border-b border-gray_light_3 cursor-pointer w-[9rem] md:w-[14.188rem] lg:w-[11rem]  2xl:w-[13rem]"
               onClick={() => setOpenDropdown((prev) => (prev === 0 ? null : 0))}
             >
-              <span className="text-black_1 text-sm  lg:text-[1.375rem] pb-2">
+              <span className="text-black_1 text-xs  lg:text-[1.375rem] pb-1 lg:pb-2 ">
                 {`${totalPassengers} Passenger${
                   totalPassengers > 1 ? "s" : ""
                 }`}
@@ -184,21 +184,21 @@ const FlightSearchForm: React.FC = () => {
             >
               <div
                 role="button"
-                className="flex justify-between items-center   border-b border-gray_light_3 cursor-pointer w-[9rem] md:w-[14.188rem] lg:w-[11rem]  2xl:w-[13rem]"
+                className="flex justify-between items-center   border-b border-gray_light_3 cursor-pointer w-[9rem] md:w-[14.188rem] lg:w-[11rem]  2xl:w-[15rem]"
                 onClick={() =>
                   setOpenDropdown((prev) =>
                     prev === index + 1 ? null : index + 1
                   )
                 }
               >
-                <span className="text-black_1 text-sm lg:text-[1.375rem] pb-2  ">
+                <span className="text-black_1 text-xs lg:text-[1.375rem] pb-1  lg:pb-2">
                   {selectedEconomy}
                 </span>
                 <IoIosArrowDown className="text-primary" size={20} />
               </div>
 
               {openDropdown === index + 1 && (
-                <ul className="absolute  left-[-2.5rem] lg:left-0 mt-1 bg-white rounded-lg shadow z-[10] w-[12rem] p-2">
+                <ul className="absolute   left-0 mt-1 bg-white rounded-lg shadow z-[10] w-[10rem] lg:w-[12rem] p-2">
                   {dropdown.options.map((item, idx) => (
                     <li
                       key={idx}
@@ -207,7 +207,7 @@ const FlightSearchForm: React.FC = () => {
                       }`}
                       onClick={() => handleEconomySelect(item)}
                     >
-                      <a className="block px-3 py-2 rounded my-1 hover:bg-skyblue cursor-pointer">
+                      <a className="block px-3 py-2 rounded my-1 hover:bg-skyblue cursor-pointer text-xs lg:text-base">
                         {item}
                       </a>
                     </li>
@@ -225,17 +225,17 @@ const FlightSearchForm: React.FC = () => {
               type="text"
               value={airlineSearch}
               onChange={(e) => setAirlineSearch(e.target.value)}
-              className="border-b    border-gray_light_3   w-full lg:w-[14.188rem]  text-sm lg:text-[1.375rem]  px-2   focus:outline-none    "
+              className="border-b    border-gray_light_3   w-full lg:w-[14.188rem]  text-xs lg:text-[1.375rem]  px-2   focus:outline-none    "
               placeholder="Preferred Airline"
               onClick={() => setOpenDropdown((prev) => (prev === 2 ? null : 2))}
             />
             {airlineSearch && openDropdown === 2 && (
-              <ul className="absolute left-0 mt-1 bg-base-100 rounded-lg shadow z-[10] w-[14.188rem] p-2">
+              <ul className="absolute left-0 mt-1 bg-white rounded-lg shadow z-[10] w-[14.188rem] p-2">
                 {filteredAirlines.length > 0 ? (
                   filteredAirlines.map((airline) => (
                     <li
                       key={airline}
-                      className="block px-3 py-2 rounded cursor-pointer hover:bg-skyblue"
+                      className="block px-3  py-2 rounded cursor-pointer hover:bg-skyblue text-xs lg:text-base"
                       onClick={() => setAirlineSearch(airline)}
                     >
                       {airline}
@@ -271,7 +271,7 @@ const FlightSearchForm: React.FC = () => {
         )}
       </div>
       <div
-        className={`    w-full  flex flex-col lg:flex-row gap-[3.313rem] items-center   mt-[2.563rem]  ${
+        className={`    w-full  flex flex-col lg:flex-row gap-[3.313rem] items-center   mt-[1.25rem] lg:mt-[2.563rem]  ${
           selectedTrip === "multiway"
             ? "justify-center md:justify-between"
             : "justify-center md:justify-end"
@@ -293,7 +293,7 @@ const FlightSearchForm: React.FC = () => {
             </button>
           </div>
         )}
-        <div className="flex gap-[1.5rem] lg:gap-[3.313rem] flex-col lg:flex-row">
+        <div className=" w-full lg:w-auto flex gap-[1.5rem] lg:gap-[3.313rem] flex-col lg:flex-row">
           <div className="flex  gap-[1.563rem]  items-center">
             {fare_type.map((option) => (
               <label
@@ -309,7 +309,7 @@ const FlightSearchForm: React.FC = () => {
                   className="radio radio-primary radio-sm lg:radio-md "
                 />
 
-                <span className="text-sm lg:text-[1.188rem] text-gray ">
+                <span className="text-xs lg:text-[1.188rem] text-gray ">
                   {option.label}
                 </span>
               </label>
@@ -317,7 +317,7 @@ const FlightSearchForm: React.FC = () => {
           </div>
           <Button
             text="Search"
-            className="h-[3rem] lg:h-[4.375rem] px-[4.969rem] py-[0.969rem] text-base lg:text-[1.625rem] leading-none"
+            className="h-[3rem]  lg:h-[4.375rem] px-[4.969rem] py-[0.969rem] text-base lg:text-[1.625rem] leading-none"
             onClick={handleSearch}
           />
         </div>

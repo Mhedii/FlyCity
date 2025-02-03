@@ -2,11 +2,11 @@ import { Suspense, lazy } from "react";
 import "./App.css";
 // import Home from "./pages/Home";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import DashboardLayout from "./layouts/DashboardLayout";
-import MainLayout from "./layouts/MainLayout";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import FlightSearchLayout from "./layouts/FlightSearchLayout";
 import FlightSearchResult from "./components/Dashboard/FlightSearchResult/FlightSearchResult";
+import DashboardLayout from "./layouts/DashboardLayout";
+import FlightSearchLayout from "./layouts/FlightSearchLayout";
+import MainLayout from "./layouts/MainLayout";
+import FlightSearch from "./pages/FlightSearch/FlightSearch";
 // import Registration from "./pages/Registration";
 // import RegisterPage from "./pages/RegisterPage";
 
@@ -27,7 +27,7 @@ function App() {
 
             {/* Dashboard Layout Routes */}
             <Route element={<DashboardLayout />}>
-              <Route path="/dashboard/*" element={<Dashboard />} />
+              <Route path="/flight-search/*" element={<FlightSearch />} />
             </Route>
 
             {/* FlightSearch Layout Routes */}

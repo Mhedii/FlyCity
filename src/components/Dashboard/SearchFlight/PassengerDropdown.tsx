@@ -89,8 +89,10 @@ const PassengerDropdown: React.FC<PassengerDropdownProps> = ({
       ].map(({ label, subLabel, type }) => (
         <div key={type} className="flex justify-between items-center mb-4">
           <div>
-            <p className="font-medium text-black">{label}</p>
-            <p className="text-sm text-gray">{subLabel}</p>
+            <p className="text-sm ;g:text-base font-medium text-black">
+              {label}
+            </p>
+            <p className="text-xs lg:text-sm text-gray">{subLabel}</p>
           </div>
           <div className="flex items-center">
             <button
@@ -104,12 +106,12 @@ const PassengerDropdown: React.FC<PassengerDropdownProps> = ({
             >
               -
             </button>
-            <span className="px-3 w-[2rem] flex justify-center items-center ">
+            <span className="text-xs lg:text-base px-3 w-[2rem] flex justify-center items-center ">
               {counts[type as keyof PassengerCounts]}
             </span>
 
             <button
-              className={`px-3 py-1  rounded-r-md ${
+              className={` px-3 py-1  rounded-r-md ${
                 isIncrementDisabled(type as keyof PassengerCounts)
                   ? "bg-skyblue"
                   : "bg-primary text-white"
@@ -123,7 +125,7 @@ const PassengerDropdown: React.FC<PassengerDropdownProps> = ({
         </div>
       ))}
       <button
-        className="w-full py-2 bg-primary text-white rounded-md mt-4"
+        className="w-full py-2 bg-primary text-white rounded-md mt-4 text-sm lg:text-base"
         onClick={() => setOpenDropdown(1)}
       >
         Done

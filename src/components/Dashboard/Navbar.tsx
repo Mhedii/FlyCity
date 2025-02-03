@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
     setIsSidebarOpen(true);
   };
   return (
-    <header className=" pl-[2.063rem] px-6 py-[1.875rem]">
+    <header className="lg:pl-[2.063rem] px-[0.75rem] lg:px-6 pb-[1rem] lg:pb-[1.875rem]  py-[1.875rem]">
       <div className=" flex  items-center justify-between ">
         {/* <div className=" flex-1 lg:flex-2 xl:flex-1   bg-red-500">
           <img
@@ -71,7 +71,7 @@ const Navbar: React.FC = () => {
           onClick={handleSidebarButtonClick}
         />
         <div className="    flex grow md:grow lg:grow-0 xl:flex-grow items-center ">
-          <div className="  mt-[-1rem]  flex  justify-center lg:justify-start w-full  ">
+          <div className="ml-[15%] md:ml-0  mt-[-1rem]  flex  justify-center lg:justify-start w-full  ">
             <img
               src="/assets/images/logo.svg"
               className="h-[3rem] w-[7.5rem] lg:h-[4.298rem] lg:w-[7.5rem]"
@@ -117,12 +117,12 @@ const Navbar: React.FC = () => {
           />
         </div>
       </div>
-      <div className="mt-[1.5rem] flex-1 flex lg:hidden justify-center ">
+      {/* <div className="mt-[1.5rem] flex-1 flex lg:hidden justify-center ">
         <SearchBox
           searchQuery={searchQuery}
           onSearchChange={handleSearchChange}
         />
-      </div>
+      </div> */}
     </header>
   );
 };
