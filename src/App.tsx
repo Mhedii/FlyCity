@@ -30,6 +30,11 @@ function App() {
               <Route path="/flight/" element={<FlightSearch />} />
             </Route>
 
+            {/* Bookings Layout Routes */}
+            {/* <Route element={<DashboardLayout />}>
+              <Route path="/bookings/" element={<BookingTable />} />
+            </Route> */}
+
             {/* FlightSearch Layout Routes */}
             <Route element={<FlightSearchLayout />}>
               <Route path="/flight-search/*" element={<FlightSearchResult />} />

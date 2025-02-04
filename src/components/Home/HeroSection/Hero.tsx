@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import ForgotPassword from "../../Auth/ForgotPassword";
+import LoginForm from "../../Auth/LoginForm";
+import OTPVerify from "../../Auth/OTPVerify";
 import HeroBg from "/assets/images/Hero_bg.png";
-import Button from "../../Shared/Button";
-import { TbEyeClosed } from "react-icons/tb";
-import { Link } from "react-router";
-import FormInput from "../../Shared/FormInput";
 
 const Hero: React.FC = () => {
+  const [isOTPSuccessful, setIsOTPSuccessful] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   return (
     <div className="mb-[6.375rem]">
       <section className="relative  flex flex-col md:flex-row    mx-[1.313rem] lg:mx-[4rem] xl:mx-[8rem] 2xl:mx-[15.75rem]">
@@ -16,7 +17,7 @@ const Hero: React.FC = () => {
             className="w-full h-auto xl:h-[41.688rem] "
           />
         </div>
-        <div className="relative top-[2.851rem] md:top-0">
+        {/* <div className="relative top-[2.851rem] md:top-0">
           <div className="absolute  -bottom-4 md:-bottom-7 right-[-0.75rem] md:right-[2.25rem] w-full md:w-[20rem] xl:w-[25rem] 2xl:w-[31.563rem] h-[28rem] md:h-[25rem] xl:h-[36.5rem] bg-black opacity-10 rounded-3xl z-0"></div>
           <div className=" bg-white left-0 md:left-auto  px-2 md:px-[1rem] xl:px-[2rem] 2xl:px-[3.313rem] pt-3 xl:pt-[3.563rem]  rounded-3xl w-full md:w-[20rem] xl:w-[25rem] 2xl:w-[31.563rem]  xl:h-[35.938rem]   md:ml-auto relative md:absolute bottom-0 right-[4.563rem] z-10 ">
             <h2 className="text-[24px] md:text-[1.7rem] xl:text-[2.313rem] font-bold leading-[3.25rem]  mb-[11px] md:mb-[1.25rem] xl:mb-[2.625rem]">
@@ -64,7 +65,22 @@ const Hero: React.FC = () => {
               </Link>
             </p>
           </div>
-        </div>
+        </div> */}
+        {isOTPSuccessful ? (
+          // <ForgotPassword />
+          <OTPVerify setIsOTPSuccessful={setIsOTPSuccessful} />
+        ) : isForgotPassword ? (
+          <ForgotPassword
+            setIsForgotPassword={setIsForgotPassword}
+            setIsOTPSuccessful={setIsOTPSuccessful}
+          />
+        ) : (
+          <LoginForm
+            setIsOTPSuccessful={setIsOTPSuccessful}
+            setIsForgotPassword={setIsForgotPassword}
+          />
+        )}
+        {/* <OTPVerify /> */}
       </section>
     </div>
   );

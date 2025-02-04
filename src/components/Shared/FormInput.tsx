@@ -3,7 +3,7 @@ import React from "react";
 interface FormInputProps {
   label: string;
   type?: "text" | "password" | "email" | "tel" | "dropdown" | "file";
-  value?: string | number; //
+  value?: string | number;
   placeholder?: string;
   name?: string;
   options?: string[];
@@ -12,6 +12,7 @@ interface FormInputProps {
   ) => void;
   icon?: React.ReactNode;
   required?: boolean;
+  error?: string;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -24,6 +25,7 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange,
   icon,
   required = false,
+  error,
 }) => {
   return (
     <div className="relative w-full  ">
@@ -32,7 +34,9 @@ const FormInput: React.FC<FormInputProps> = ({
           id={name}
           value={value}
           onChange={onChange}
-          className="block w-full   pl-[1.188rem]  py-[1.375rem] text-base md:text-[1.188rem] text-gray bg-transparent border border-gray_light_2 rounded-[0.75rem] appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
+          className={`block w-full   pl-[1.188rem]  py-[1.375rem] text-base md:text-[1.188rem] text-gray bg-transparent border ${
+            error ? "border-red-500" : "border-gray_light_2"
+          } rounded-[0.75rem] appearance-none focus:outline-none focus:ring-0 focus:border-primary peer`}
           required={required}
         >
           <option value="" disabled>
@@ -75,7 +79,9 @@ const FormInput: React.FC<FormInputProps> = ({
           value={value}
           placeholder=" "
           onChange={onChange}
-          className="block w-full   pl-[1.188rem]  py-[1.375rem] text-base md:text-[1.188rem] text-gray bg-transparent border border-gray_light_2 rounded-[0.75rem] appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
+          className={`block w-full   pl-[1.188rem]  py-[1.375rem] text-base md:text-[1.188rem] text-gray bg-transparent border ${
+            error ? "border-red-500" : "border-gray_light_2"
+          } rounded-[0.75rem] appearance-none focus:outline-none focus:ring-0 focus:border-primary peer`}
           required={required}
         />
       )}
@@ -106,6 +112,7 @@ const FormInput: React.FC<FormInputProps> = ({
           {icon}
         </div>
       )}
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );
 };
