@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import SearchBox from "./SearchBox";
 import Sidebar from "./Sidebar";
 import { IoMenuOutline } from "react-icons/io5";
+import { Link } from "react-router";
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -72,11 +73,13 @@ const Navbar: React.FC = () => {
         />
         <div className="    flex grow md:grow lg:grow-0 xl:flex-grow items-center ">
           <div className="ml-[15%] md:ml-0  mt-[-1rem]  flex  justify-center lg:justify-start w-full  ">
-            <img
-              src="/assets/images/logo.svg"
-              className="h-[3rem] w-[7.5rem] lg:h-[4.298rem] lg:w-[7.5rem]"
-              alt="Logo"
-            />
+            <Link to="/">
+              <img
+                src="/assets/images/logo.svg"
+                className="h-[3rem] w-[7.5rem] lg:h-[4.298rem] lg:w-[7.5rem]"
+                alt="Logo"
+              />
+            </Link>
           </div>
         </div>
 

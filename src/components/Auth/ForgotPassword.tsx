@@ -37,6 +37,9 @@ const ForgotPassword: React.FC<ForgotPassProps> = ({
           onClick={() => setIsOTPSuccessful(true)}
         />
       </form>
+      {/* <p className="text-[#0A8249] text-[1.188rem] py-[0.625rem] justify-center flex bg-[#0A8249]">
+        OTP has been sent to your email
+      </p> */}
     </AuthCard>
   );
 };

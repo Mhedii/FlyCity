@@ -3,13 +3,16 @@ import { TbEyeClosed } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import Button from "../Shared/Button";
 import FormInput from "../Shared/FormInput";
+import { loginUser } from "../../api/authApi";
 interface LoginProps {
   setIsForgotPassword: React.Dispatch<React.SetStateAction<boolean>>;
   setIsOTPSuccessful: React.Dispatch<React.SetStateAction<boolean>>;
+  setUsername: (value: string) => void;
 }
 const LoginForm: React.FC<LoginProps> = ({
   setIsOTPSuccessful,
   setIsForgotPassword,
+  setUsername,
 }) => {
   // Form state
   const [formData, setFormData] = useState({
@@ -65,19 +68,20 @@ const LoginForm: React.FC<LoginProps> = ({
 
     setLoading(true);
     setIsOTPSuccessful(true);
+    setUsername(formData.email);
     setIsForgotPassword(false);
-    // console.log(formData);
-    // try {
-    //   const response = await loginUser(formData.email, formData.password);
-    //   console.log("Login Successful:", response);
+    console.log(formData);
+    try {
+      const response = await loginUser(formData.email, formData.password);
+      console.log("Login Successful:", response);
 
-    //   // Redirect to OTP verification page
-    //   //   navigate("/registra");
-    // } catch (error) {
-    //   setErrors({ email: "Invalid email or password" });
-    // } finally {
-    //   setLoading(false);
-    // }
+      // Redirect to OTP verification page
+      //   navigate("/registra");
+    } catch {
+      setErrors({ email: "Invalid email or password" });
+    } finally {
+      setLoading(false);
+    }
   };
   const handleCard = async (e: React.FormEvent) => {
     e.preventDefault();

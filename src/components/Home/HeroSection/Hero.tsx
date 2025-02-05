@@ -7,6 +7,7 @@ import HeroBg from "/assets/images/Hero_bg.png";
 const Hero: React.FC = () => {
   const [isOTPSuccessful, setIsOTPSuccessful] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [username, setUsername] = useState("");
   return (
     <div className="mb-[6.375rem]">
       <section className="relative  flex flex-col md:flex-row    mx-[1.313rem] lg:mx-[4rem] xl:mx-[8rem] 2xl:mx-[15.75rem]">
@@ -68,7 +69,10 @@ const Hero: React.FC = () => {
         </div> */}
         {isOTPSuccessful ? (
           // <ForgotPassword />
-          <OTPVerify setIsOTPSuccessful={setIsOTPSuccessful} />
+          <OTPVerify
+            setIsOTPSuccessful={setIsOTPSuccessful}
+            username={username}
+          />
         ) : isForgotPassword ? (
           <ForgotPassword
             setIsForgotPassword={setIsForgotPassword}
@@ -76,6 +80,7 @@ const Hero: React.FC = () => {
           />
         ) : (
           <LoginForm
+            setUsername={setUsername}
             setIsOTPSuccessful={setIsOTPSuccessful}
             setIsForgotPassword={setIsForgotPassword}
           />

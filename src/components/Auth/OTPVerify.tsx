@@ -1,23 +1,39 @@
-import React, { useState, useEffect } from "react";
-import AuthCard from "./AuthCard"; // Import the AuthCard component
+import React, { useEffect, useState } from "react";
 import Button from "../Shared/Button";
-import { useNavigate } from "react-router";
+import AuthCard from "./AuthCard";
 
 interface OTPVerifyProps {
   setIsOTPSuccessful: React.Dispatch<React.SetStateAction<boolean>>;
+  username: string;
 }
-// const OTPVerify: React.FC<> = ({ setIsOTPSuccessful }) => {
-const OTPVerify: React.FC<OTPVerifyProps> = ({ setIsOTPSuccessful }) => {
-  const [otp, setOtp] = useState(["", "", "", ""]);
+const OTPVerify: React.FC<OTPVerifyProps> = ({
+  setIsOTPSuccessful,
+  username,
+}) => {
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [resendTimer, setResendTimer] = useState(60);
-  const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const timer =
+  //     resendTimer > 0 &&
+  //     setInterval(() => setResendTimer(resendTimer - 1), 1000);
+  //   return () => clearInterval(timer );
+  // }, [resendTimer]);
   useEffect(() => {
-    const timer =
-      resendTimer > 0 &&
-      setInterval(() => setResendTimer(resendTimer - 1), 1000);
-    return () => clearInterval(timer as NodeJS.Timeout);
+    let timer: number | undefined;
+    if (resendTimer > 0) {
+      timer = setInterval(
+        () => setResendTimer((prev) => prev - 1),
+        1000
+      ) as unknown as number;
+    }
+    return () => {
+      if (timer) {
+        clearInterval(timer);
+      }
+    };
   }, [resendTimer]);
+
   const handleChange = (index: number, value: string) => {
     if (/^\d?$/.test(value)) {
       const newOtp = [...otp];
@@ -40,13 +56,33 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({ setIsOTPSuccessful }) => {
   };
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     const paste = e.clipboardData.getData("Text");
-    if (/^\d{4}$/.test(paste)) {
+    if (/^\d{6}$/.test(paste)) {
       const newOtp = paste.split("").map((digit) => digit);
       setOtp(newOtp);
     }
   };
-  const handleVerify = async () => {
-    navigate("/flight");
+
+  const handleVerify = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const otpString = otp.join("");
+    console.log(otpString, username);
+    // if (!validateForm()) return;
+
+    // setLoading(true);
+    // setIsOTPSuccessful(true);
+    // setIsForgotPassword(false);
+    // console.log(formData);
+    // try {
+    //   const response = await loginUser(formData.email, formData.password);
+    //   console.log("Login Successful:", response);
+
+    //   // Redirect to OTP verification page
+    //   //   navigate("/registra");
+    // } catch (error) {
+    //   setErrors({ email: "Invalid email or password" });
+    // } finally {
+    //   setLoading(false);
+    // }
   };
   return (
     <AuthCard title="Verify Now">
@@ -60,7 +96,7 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({ setIsOTPSuccessful }) => {
             value={digit}
             onChange={(e) => handleChange(index, e.target.value)}
             onPaste={(e) => handlePaste(e)}
-            className="w-[3.5rem] h-[3.5rem] xl:w-[5.125rem] xl:h-[4.625rem]  bg-gray_light_3 text-center text-xl rounded-lg focus:ring-2 focus:ring-primary focus:outline-gray"
+            className="w-[2rem] h-[2rem] xl:w-[3.625rem] xl:h-[3.625rem]  bg-gray_light_3 text-center text-xl rounded-lg focus:ring-2 focus:ring-primary focus:outline-gray"
           />
         ))}
       </div>
@@ -69,7 +105,7 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({ setIsOTPSuccessful }) => {
         <span className="text-primary font-semibold">{resendTimer} sec.</span>
       </p>
       <Button
-        onClick={handleVerify}
+        onClick={() => handleVerify}
         text="Verify"
         className="text-base xl:text-[1.625rem] w-full mt-[1rem]  h-[48px] lg:[54px] xl:h-[66px]"
       />
