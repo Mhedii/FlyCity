@@ -3,6 +3,7 @@ import { IoIosArrowDown, IoMdAdd } from "react-icons/io";
 import Button from "../../Shared/Button";
 import FlightDestinationSet from "./FlightDestinationSet";
 import PassengerDropdown from "./PassengerDropdown";
+import { useNavigate } from "react-router";
 
 interface DropdownOption {
   label: string;
@@ -36,6 +37,7 @@ const FlightSearchForm: React.FC = () => {
   const [selectedEconomy, setSelectedEconomy] = useState<string>("Economy");
   const [airlineSearch, setAirlineSearch] = useState<string>("");
   const [filteredAirlines, setFilteredAirlines] = useState<string[]>([]);
+  const navigate = useNavigate();
   const locationOptions = [
     { label: "JFK", value: "JFK", subText: "New York, USA" },
     { label: "DHK", value: "DHK", subText: "Dhaka, Bangladesh" },
@@ -58,7 +60,7 @@ const FlightSearchForm: React.FC = () => {
   const fare_type = [
     { label: "Regular Fare", value: "rugularfare" },
     { label: "Umrah Fare", value: "umrahfare" },
-    { label: "NOC", value: "noc" },
+    { label: "NDC", value: "ndc" },
   ];
   const dropdownData: DropdownOption[] = [
     {
@@ -110,6 +112,7 @@ const FlightSearchForm: React.FC = () => {
     };
 
     console.log("Search Data:", searchData);
+    navigate("/flight-search");
   };
   useEffect(() => {
     setFilteredAirlines(

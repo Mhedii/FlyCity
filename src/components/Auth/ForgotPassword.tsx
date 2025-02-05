@@ -15,12 +15,12 @@ const ForgotPassword: React.FC<ForgotPassProps> = ({
       title="Forgot Password"
       className=""
       footer={
-        <p className="text-[14px] xl:text-base 2xl:text-[1.188rem] flex justify-center md:justify-normal md:ml-3 leading-none">
+        <p className="text-[14px] xl:text-base 2xl:text-[1.188rem]  text-center flex  justify-center  md:ml-3 leading-none">
           Go Back To{" "}
           <Link
             to=""
             onClick={() => setIsForgotPassword(false)}
-            className="text-primary font-semibold underline"
+            className="text-primary font-semibold underline ml-1"
           >
             Login
           </Link>
@@ -33,7 +33,7 @@ const ForgotPassword: React.FC<ForgotPassProps> = ({
         </div>
         <Button
           text="Send Code"
-          className="text-base xl:text-[1.625rem] w-full mt-[2.125rem] md:mt-[1rem] xl:mt-[2.125rem] h-[48px] lg:[54px] xl:h-[66px]"
+          className="text-base xl:text-[1.625rem] w-full  h-[48px] lg:[54px] xl:h-[66px]"
           onClick={() => setIsOTPSuccessful(true)}
         />
       </form>
