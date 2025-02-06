@@ -3,7 +3,7 @@ import { TbEyeClosed } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import Button from "../Shared/Button";
 import FormInput from "../Shared/FormInput";
-import { loginUser } from "../../api/authApi";
+import { loginUser } from "../../api/authService";
 interface LoginProps {
   setIsForgotPassword: React.Dispatch<React.SetStateAction<boolean>>;
   setIsOTPSuccessful: React.Dispatch<React.SetStateAction<boolean>>;
@@ -60,7 +60,6 @@ const LoginForm: React.FC<LoginProps> = ({
     return valid;
   };
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -90,49 +89,6 @@ const LoginForm: React.FC<LoginProps> = ({
     setIsForgotPassword(true);
   };
   return (
-    // <AuthCard
-    //   title="Welcome Back!"
-    //   footer={
-    //     <p className="text-[14px] xl:text-base 2xl:text-[1.188rem] flex justify-center md:justify-normal md:ml-3 leading-none">
-    //       Don’t have an account ?{" "}
-    //       <Link
-    //         to="/registration"
-    //         className="text-primary font-semibold underline ml-1"
-    //       >
-    //         Register
-    //       </Link>
-    //     </p>
-    //   }
-    // >
-    //   <form onSubmit={handleSubmit} className="flex flex-col">
-    //     <div className="mb-[33px] md:mb-[1rem] xl:mb-[2.563rem]">
-    //       <FormInput
-    //         label="Enter Email"
-    //         type="email"
-    //         name="email"
-    //         value={formData.email}
-    //         onChange={handleChange}
-    //         error={errors.email}
-    //       />
-    //     </div>
-
-    //     <FormInput
-    //       label="Enter Password"
-    //       type="password"
-    //       name="password"
-    //       value={formData.password}
-    //       onChange={handleChange}
-    //       icon={<TbEyeClosed />}
-    //       error={errors.password}
-    //     />
-
-    //     <Button
-    //       text={loading ? "Logging in..." : "Login"}
-    //       className="text-base xl:text-[1.625rem] w-full mt-[2.125rem] md:mt-[1rem] xl:mt-[2.125rem] h-[48px] lg:[54px] xl:h-[66px]"
-    //       disabled={loading && true}
-    //     />
-    //   </form>
-    // </AuthCard>
     <div className="relative top-[2.851rem] md:top-0">
       <div className="absolute  -bottom-4 md:-bottom-7 right-[-0.75rem] md:right-[2.25rem] w-full md:w-[20rem] xl:w-[25rem] 2xl:w-[31.563rem] h-[28rem] md:h-[25rem] xl:h-[36.5rem] bg-black opacity-10 rounded-3xl z-0"></div>
       <div className=" bg-white left-0 md:left-auto  px-2 md:px-[1rem] xl:px-[2rem] 2xl:px-[3.313rem] pt-3 xl:pt-[3.563rem]  rounded-3xl w-full md:w-[20rem] xl:w-[25rem] 2xl:w-[31.563rem]  xl:h-[35.938rem]   md:ml-auto relative md:absolute bottom-0 right-[4.563rem] z-10 ">
@@ -141,15 +97,6 @@ const LoginForm: React.FC<LoginProps> = ({
         </h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col">
-          {/* <div className="mb-[33px] md:mb-[1rem] xl:mb-[2.563rem]">
-            <FormInput label="Enter Email" type="email" name="email" />
-          </div>
-          <FormInput
-            label="Enter Password"
-            type="password"
-            name="password"
-            icon={<TbEyeClosed />}
-          /> */}
           <div className="mb-[33px] md:mb-[1rem] xl:mb-[2.563rem]">
             <FormInput
               label="Enter Email"
@@ -186,11 +133,6 @@ const LoginForm: React.FC<LoginProps> = ({
               Forgot Password
             </Link>
           </div>
-
-          {/* <Button
-            text="Login"
-            className="  text-base xl:text-[1.625rem] w-full  mt-[2.125rem]  md:mt-[1rem] xl:mt-[2.125rem] h-[48px] lg-[54px] xl:h-[66px] "
-          /> */}
           <Button
             text={loading ? "Logging in..." : "Login"}
             className="text-base xl:text-[1.625rem] w-full mt-[2.125rem] md:mt-[1rem] xl:mt-[2.125rem] h-[48px] lg:[54px] xl:h-[66px]"

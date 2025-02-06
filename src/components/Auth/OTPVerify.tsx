@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Button from "../Shared/Button";
 import AuthCard from "./AuthCard";
+import { resendOTP, sendOTP } from "../../api/authService";
+import { useNavigate } from "react-router";
+import { jwtDecode } from "jwt-decode";
 
 interface OTPVerifyProps {
   setIsOTPSuccessful: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,13 +15,7 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({
 }) => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [resendTimer, setResendTimer] = useState(60);
-
-  // useEffect(() => {
-  //   const timer =
-  //     resendTimer > 0 &&
-  //     setInterval(() => setResendTimer(resendTimer - 1), 1000);
-  //   return () => clearInterval(timer );
-  // }, [resendTimer]);
+  const navigate = useNavigate();
   useEffect(() => {
     let timer: number | undefined;
     if (resendTimer > 0) {
@@ -65,24 +62,48 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
     const otpString = otp.join("");
-    console.log(otpString, username);
     // if (!validateForm()) return;
-
-    // setLoading(true);
-    // setIsOTPSuccessful(true);
-    // setIsForgotPassword(false);
-    // console.log(formData);
-    // try {
-    //   const response = await loginUser(formData.email, formData.password);
-    //   console.log("Login Successful:", response);
-
-    //   // Redirect to OTP verification page
-    //   //   navigate("/registra");
-    // } catch (error) {
-    //   setErrors({ email: "Invalid email or password" });
-    // } finally {
-    //   setLoading(false);
-    // }
+    if (!otpString || !username) {
+      console.error("OTP or username is missing.");
+      return;
+    }
+    try {
+      const response = await sendOTP(username, otpString);
+      console.log(response);
+      if (response?.isSuccess && response?.token) {
+        localStorage.setItem("token", response.token);
+        const decodedCode: CustomJwtPayload = jwtDecode(response.token);
+        console.log(decodedCode);
+        if (decodedCode?.AppId) {
+          localStorage.setItem("app-id", decodedCode.AppId);
+        }
+        console.log("Login Successful:", response);
+        navigate("/flight");
+        // navigate(response.url || "/flight");
+      } else {
+        console.error(
+          "OTP verification failed:",
+          response?.messages || "Unknown error"
+        );
+      }
+    } catch (error) {
+      console.error("Error during OTP verification:", error);
+    }
+  };
+  const handleResendOTP = async () => {
+    try {
+      const response = await resendOTP(username);
+      if (response?.isSuccess) {
+        setResendTimer(60);
+      } else {
+        console.error(
+          "Resend OTP Failed",
+          response?.messages || "Unknown error"
+        );
+      }
+    } catch (error) {
+      console.error("Error during Resend OTP :", error);
+    }
   };
   return (
     <AuthCard title="Verify Now">
@@ -100,12 +121,27 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({
           />
         ))}
       </div>
-      <p className="text-center text-gray-600 mb-3">
-        Resend code in{" "}
-        <span className="text-primary font-semibold">{resendTimer} sec.</span>
-      </p>
+      {resendTimer === 0 ? (
+        <div className="flex justify-center">
+          <p
+            className="font-semibold text-lg text-primary"
+            onClick={handleResendOTP}
+          >
+            Resend
+          </p>
+        </div>
+      ) : (
+        // <button className="text-center text-primary font-bold flex justify-center w-full">
+        //   Resend
+        // </button>
+        <p className="text-center text-gray-600 mb-3">
+          Resend code in{" "}
+          <span className="text-primary font-semibold">{resendTimer} sec.</span>
+        </p>
+      )}
+
       <Button
-        onClick={() => handleVerify}
+        onClick={handleVerify}
         text="Verify"
         className="text-base xl:text-[1.625rem] w-full mt-[1rem]  h-[48px] lg:[54px] xl:h-[66px]"
       />

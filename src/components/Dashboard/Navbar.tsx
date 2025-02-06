@@ -3,11 +3,14 @@ import SearchBox from "./SearchBox";
 import Sidebar from "./Sidebar";
 import { IoMenuOutline } from "react-icons/io5";
 import { Link } from "react-router";
+import ProfileDropdown from "../Home/Header/ProfileDropdown";
 
 const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
     console.log("Searching for:", query);
@@ -37,6 +40,18 @@ const Navbar: React.FC = () => {
     e.stopPropagation();
     setIsSidebarOpen(true);
   };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
   return (
     <header className="lg:pl-[2.063rem] px-[0.75rem] lg:px-6 pb-[1rem] lg:pb-[1.875rem]  py-[1.875rem]">
       <div className=" flex  items-center justify-between ">
@@ -113,11 +128,31 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Profile Image */}
-          <img
-            src="/assets/images/profileImage.png"
-            alt="Profile"
-            className="lg:w-[3.5rem] xl:w-[4.375rem] lg:h-[3.5rem] xl:h-[4.375rem] w-12 h-12 rounded-full lg:block hidden"
-          />
+          {/* <div>
+            <img
+              src="/assets/images/profileImage.png"
+              alt="Profile"
+              className="lg:w-[3.5rem] xl:w-[4.375rem] lg:h-[3.5rem] xl:h-[4.375rem] w-12 h-12 rounded-full lg:block hidden"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            />
+            {isDropdownOpen && (
+              <>
+                <ProfileDropdown />
+              </>
+            )}
+          </div> */}
+          <div className="relative" ref={dropdownRef}>
+            {/* Profile Image */}
+            <img
+              src="/assets/images/profileImage.png"
+              alt="Profile"
+              className="lg:w-[3.5rem] xl:w-[4.375rem] lg:h-[3.5rem] xl:h-[4.375rem] w-12 h-12 rounded-full cursor-pointer"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            />
+
+            {/* Profile Dropdown */}
+            {isDropdownOpen && <ProfileDropdown />}
+          </div>
         </div>
       </div>
       {/* <div className="mt-[1.5rem] flex-1 flex lg:hidden justify-center ">

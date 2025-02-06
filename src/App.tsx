@@ -7,6 +7,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import FlightSearchLayout from "./layouts/FlightSearchLayout";
 import MainLayout from "./layouts/MainLayout";
 import FlightSearch from "./pages/FlightSearch/FlightSearch";
+import AuthGuard from "./components/Auth/AuthGuard";
 // import Registration from "./pages/Registration";
 // import RegisterPage from "./pages/RegisterPage";
 
@@ -26,7 +27,14 @@ function App() {
             </Route>
 
             {/* Dashboard Layout Routes */}
-            <Route element={<DashboardLayout />}>
+
+            <Route
+              element={
+                <AuthGuard>
+                  <DashboardLayout />
+                </AuthGuard>
+              }
+            >
               <Route path="/flight/" element={<FlightSearch />} />
             </Route>
 
@@ -36,7 +44,13 @@ function App() {
             </Route> */}
 
             {/* FlightSearch Layout Routes */}
-            <Route element={<FlightSearchLayout />}>
+            <Route
+              element={
+                <AuthGuard>
+                  <FlightSearchLayout />
+                </AuthGuard>
+              }
+            >
               <Route path="/flight-search/*" element={<FlightSearchResult />} />
             </Route>
           </Routes>
