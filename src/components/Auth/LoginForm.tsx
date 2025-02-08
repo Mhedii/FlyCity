@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { TbEyeClosed } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { loginUser } from "../../api/authService";
 import Button from "../Shared/Button";
 import FormInput from "../Shared/FormInput";
-import { loginUser } from "../../api/authService";
 interface LoginProps {
   setIsForgotPassword: React.Dispatch<React.SetStateAction<boolean>>;
   setIsOTPSuccessful: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,19 +13,17 @@ const LoginForm: React.FC<LoginProps> = ({
   setIsForgotPassword,
   setUsername,
 }) => {
-  // Form state
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
-  // Error state
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
-    {}
-  );
+  const [errors, setErrors] = useState<{
+    email?: string;
+    password?: string;
+    message?: string;
+  }>({});
   const [loading, setLoading] = useState(false);
 
-  // Handle input change
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -62,22 +59,23 @@ const LoginForm: React.FC<LoginProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validateForm()) return;
-
     setLoading(true);
-    setIsOTPSuccessful(true);
-    setUsername(formData.email);
-    setIsForgotPassword(false);
-    console.log(formData);
+
     try {
       const response = await loginUser(formData.email, formData.password);
-      console.log("Login Successful:", response);
+      console.log("Login Response:", response);
 
-      // Redirect to OTP verification page
-      //   navigate("/registra");
+      if (response.isSuccess) {
+        // Proceed to OTP verification or dashboard
+        setIsOTPSuccessful(true);
+        setUsername(formData.email);
+        setIsForgotPassword(false);
+      } else {
+        setErrors({ message: response.messages?.[0] || "Login failed" });
+      }
     } catch {
-      setErrors({ email: "Invalid email or password" });
+      setErrors({ message: "Something went wrong. Please try again later." });
     } finally {
       setLoading(false);
     }
@@ -113,10 +111,15 @@ const LoginForm: React.FC<LoginProps> = ({
             name="password"
             value={formData.password}
             onChange={handleChange}
-            icon={<TbEyeClosed />}
+            // icon={<TbEyeClosed />}
             error={errors.password}
           />
 
+          {errors.message && (
+            <p className="text-red-600   px-[1rem] rounded-xl mt-[1.25rem] text-[1.188rem] py-[0.625rem] justify-center text-center flex bg-red-600 bg-opacity-20">
+              {errors.message}
+            </p>
+          )}
           <div className="flex justify-between items-center text-[14px] xl:text-base 2xl:text-[1.188rem]  mt-5">
             <label className="flex items-center gap-2">
               <input

@@ -73,7 +73,7 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({
       if (response?.isSuccess && response?.token) {
         localStorage.setItem("token", response.token);
         const decodedCode: CustomJwtPayload = jwtDecode(response.token);
-        console.log(decodedCode);
+
         if (decodedCode?.AppId) {
           localStorage.setItem("app-id", decodedCode.AppId);
         }
