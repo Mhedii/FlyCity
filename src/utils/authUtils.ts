@@ -22,4 +22,5 @@ export const getAuthToken = (): string | null => {
 
 export const removeAuthToken = () => {
   localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem("app-data");
 };

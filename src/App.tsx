@@ -35,7 +35,7 @@ function App() {
                 </AuthGuard>
               }
             >
-              <Route path="/flight/" element={<FlightSearch />} />
+              <Route path="/search" element={<FlightSearch />} />
             </Route>
 
             {/* Bookings Layout Routes */}

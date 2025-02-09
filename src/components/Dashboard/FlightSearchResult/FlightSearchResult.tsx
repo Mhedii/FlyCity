@@ -5,6 +5,7 @@ import FlightCard from "./FlightCard/FlightCard";
 import { CiFilter } from "react-icons/ci";
 import FilterByAmountMiniDevice from "./Filters/FilterByAmountMiniDevice";
 import FlightFiltersModal from "./Filters/FlightFiltersModal";
+import LineLoading from "../../Shared/LineLoading";
 const airlinesData = [
   {
     id: "biman",
@@ -102,6 +103,7 @@ const FlightSearchResult = () => {
         />
       </div>
       <div className="hidden xl:block ">
+        <LineLoading />
         <FilterByAmount
           options={[
             { label: "Cheapest", value: "cheapest", price: 13000 },

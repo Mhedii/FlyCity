@@ -56,6 +56,7 @@ export const resendOTP = async (email: string) => {
     };
   }
 };
+
 export const resetPassword = async (email: string) => {
   try {
     const response = await apiClient.post(`/auth/agent/forgotpassword`, {
@@ -67,5 +68,26 @@ export const resetPassword = async (email: string) => {
       "Reset Password Error:",
       error?.response?.data || error.message
     );
+  }
+};
+
+export const getAppData = async (token: string) => {
+  try {
+    const response = await apiClient.get("/auth/agent/appdata", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error(
+      "Fetch To error appdata:",
+      error?.response?.data || error.message
+    );
+    return {
+      success: false,
+      message: error?.response?.data?.message || "Fetch To error appdata",
+      data: null,
+    };
   }
 };

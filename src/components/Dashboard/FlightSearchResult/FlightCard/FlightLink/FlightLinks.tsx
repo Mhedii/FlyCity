@@ -3,6 +3,7 @@ import Button from "../../../../Shared/Button";
 import Baggage from "../Baggage";
 import FareSummary from "../FareSummary";
 import FlightDetailsInfo from "./FlightDetailsInfo";
+import Cancellation from "../Cancellation";
 
 interface FlightLinksProps {
   links: string[];
@@ -72,6 +73,8 @@ const FlightLinks: React.FC<FlightLinksProps> = ({ links }) => {
             checkin={7}
           />
         );
+      case "Cancellation":
+        return <Cancellation />;
       // Add other cases as needed
       default:
         return (

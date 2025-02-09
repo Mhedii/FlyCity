@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "../Shared/Button";
 import AuthCard from "./AuthCard";
-import { resendOTP, sendOTP } from "../../api/authService";
+import { getAppData, resendOTP, sendOTP } from "../../api/authService";
 import { useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 
@@ -77,9 +77,17 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({
         if (decodedCode?.AppId) {
           localStorage.setItem("app-id", decodedCode.AppId);
         }
-        console.log("Login Successful:", response);
-        navigate("/flight");
-        // navigate(response.url || "/flight");
+        const appData = await getAppData(response?.token);
+        try {
+          if (appData.isSuccess) {
+            localStorage.setItem("app-data", JSON.stringify(appData));
+          }
+          console.log("Login Successful:", response);
+          navigate("/flight");
+          // navigate(response.url || "/flight");
+        } catch (error) {
+          console.error("Error fetching app data:", error);
+        }
       } else {
         console.error(
           "OTP verification failed:",

@@ -21,6 +21,25 @@ export default {
         gray_light_4: "#F1F2F6",
         skyblue: "#E3EAFF",
       },
+      animation: {
+        expand: 'expand 2.5s infinite ',
+      },
+      keyframes: {
+        expand: {
+          '0%': {
+            left: '50%',
+            width: '0%',
+          },
+          '50%': {
+            left: '0%',
+            width: '100%',
+          },
+          '100%': {
+            left: '50%',
+            width: '0%',
+          },
+        },
+      },
     },
   },
   plugins: [
