@@ -4,7 +4,14 @@ import { FiMail, FiPhone } from "react-icons/fi";
 import { IoMdLogOut } from "react-icons/io";
 import { useNavigate } from "react-router";
 import { removeAuthToken } from "../../../utils/authUtils";
-const ProfileDropdown: React.FC = () => {
+interface userDataTypes {
+  id: string;
+  name: string;
+  role: string;
+}
+const ProfileDropdown: React.FC<{ userData: userDataTypes }> = ({
+  userData,
+}) => {
   const navigate = useNavigate();
   const handleLogout = async () => {
     removeAuthToken();
@@ -31,7 +38,7 @@ const ProfileDropdown: React.FC = () => {
       <div className="mt-[1.313rem] text-base space-y-[1.688rem]">
         <div className="flex items-center gap-[0.684rem]">
           <FaUser className="text-primary text-xl" />
-          John Liam
+          {userData.name}
         </div>
         <div className="flex items-center gap-[0.684rem]">
           <FiPhone className="text-primary text-xl fill-primary" />
@@ -39,7 +46,7 @@ const ProfileDropdown: React.FC = () => {
         </div>
         <div className="flex items-center gap-[0.684rem]">
           <FiMail className="text-white text-xl fill-primary" />
-          abc123@gmail.com
+          {userData.id}
         </div>
       </div>
       <button

@@ -39,6 +39,7 @@ interface AuthProps {
   children: ReactNode;
   footer?: ReactNode;
   className?: string;
+  errors?: string;
 }
 
 const AuthCard: React.FC<AuthProps> = ({
@@ -46,6 +47,7 @@ const AuthCard: React.FC<AuthProps> = ({
   children,
   footer,
   className,
+  errors,
 }) => {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const [cardHeight, setCardHeight] = useState(0);
@@ -73,12 +75,19 @@ const AuthCard: React.FC<AuthProps> = ({
                    px-4 xl:px-6 2xl:px-10 
                    pt-3 xl:pt-[3.563rem]"
         >
-          <h2
-            className="text-[24px] md:text-[1.7rem] xl:text-[2.313rem] font-bold leading-[3.25rem] 
-                       mb-[11px] md:mb-[1.25rem] xl:mb-[2.625rem]"
-          >
-            {title}
-          </h2>
+          <div className="relative">
+            <h2
+              className="text-[24px] md:text-[1.7rem] xl:text-[2.313rem] font-bold leading-[3.25rem] 
+                       mb-[11px] md:mb-[1.25rem] xl:mb-[3rem]"
+            >
+              {title}
+            </h2>
+            {errors && (
+              <p className="text-red-600 absolute top-[2.8rem]     rounded-xl   text-base py-[0.25rem]     flex  bg-opacity-20">
+                {errors}
+              </p>
+            )}
+          </div>
           {children}
           {footer && (
             <div className="mt-[31px] md:mt-[0.75rem] xl:mt-[2.313rem] pb-[1.813rem]">

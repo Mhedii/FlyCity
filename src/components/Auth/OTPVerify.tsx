@@ -15,6 +15,7 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({
 }) => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [resendTimer, setResendTimer] = useState(60);
+  const [errors, setErrors] = useState<{ message?: string }>({});
   const navigate = useNavigate();
   useEffect(() => {
     let timer: number | undefined;
@@ -62,7 +63,6 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
     const otpString = otp.join("");
-    // if (!validateForm()) return;
     if (!otpString || !username) {
       console.error("OTP or username is missing.");
       return;
@@ -83,19 +83,20 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({
             localStorage.setItem("app-data", JSON.stringify(appData));
           }
           console.log("Login Successful:", response);
-          navigate("/flight");
+          navigate("/search");
           // navigate(response.url || "/flight");
         } catch (error) {
           console.error("Error fetching app data:", error);
         }
       } else {
-        console.error(
-          "OTP verification failed:",
-          response?.messages || "Unknown error"
-        );
+        setErrors({
+          message:
+            "OTP verification failed: " +
+            (response?.messages || "Unknown error"),
+        });
       }
     } catch (error) {
-      console.error("Error during OTP verification:", error);
+      setErrors({ message: "Error during OTP verification: " + error });
     }
   };
   const handleResendOTP = async () => {
@@ -104,17 +105,17 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({
       if (response?.isSuccess) {
         setResendTimer(60);
       } else {
-        console.error(
-          "Resend OTP Failed",
-          response?.messages || "Unknown error"
-        );
+        setErrors({
+          message:
+            "Resend OTP Failed: " + (response?.messages || "Unknown error"),
+        });
       }
     } catch (error) {
-      console.error("Error during Resend OTP :", error);
+      setErrors({ message: "Error during Resend OTP: " + error });
     }
   };
   return (
-    <AuthCard title="Verify Now">
+    <AuthCard title="Verify Now" errors={errors?.message}>
       <div className="flex  justify-between xl:justify-center gap-3 mb-3">
         {otp.map((digit, index) => (
           <input

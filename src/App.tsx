@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import "./App.css";
 // import Home from "./pages/Home";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
@@ -8,6 +8,7 @@ import FlightSearchLayout from "./layouts/FlightSearchLayout";
 import MainLayout from "./layouts/MainLayout";
 import FlightSearch from "./pages/FlightSearch/FlightSearch";
 import AuthGuard from "./components/Auth/AuthGuard";
+import { initializeAppData } from "./utils/init";
 // import Registration from "./pages/Registration";
 // import RegisterPage from "./pages/RegisterPage";
 
@@ -15,6 +16,10 @@ const Registration = lazy(() => import("./pages/Registration"));
 const Home = lazy(() => import("./pages/Home"));
 
 function App() {
+  useEffect(() => {
+    initializeAppData();
+  }, []);
+
   return (
     <>
       <Router>
@@ -51,7 +56,7 @@ function App() {
                 </AuthGuard>
               }
             >
-              <Route path="/flight-search/*" element={<FlightSearchResult />} />
+              <Route path="/search/flight" element={<FlightSearchResult />} />
             </Route>
           </Routes>
         </Suspense>

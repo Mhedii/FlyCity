@@ -26,8 +26,8 @@ const FlightPath: React.FC<FlightPathProps> = ({
         <div className="text-start">
           <p className="text-lg font-bold">{departureTime}</p>
           <div>
-            <p className="text-sm">{departureDate}</p>
-            <p className="text-sm">Terminal: {departureAirport}</p>
+            <p className="">{departureDate}</p>
+            <p className="">Terminal: {departureAirport}</p>
           </div>
         </div>
       </div>
@@ -57,8 +57,8 @@ const FlightPath: React.FC<FlightPathProps> = ({
       <div className="col-span-5 text-end">
         <p className="text-lg font-bold">{arrivalTime}</p>
         <div>
-          <p className="text-sm">{arrivalDate}</p>
-          <p className="text-sm">Terminal: {arrivalAirport}</p>
+          <p>{arrivalDate}</p>
+          <p>Terminal: {arrivalAirport}</p>
         </div>
       </div>
     </div>

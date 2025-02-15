@@ -11,6 +11,19 @@ const Navbar: React.FC = () => {
   const sidebarRef = useRef<HTMLDivElement | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  // const [isLoading, setIsLoading] = useState(true);
+  const [userData, setUserData] = useState<appData | null>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      const storedData = localStorage.getItem("app-data");
+      if (storedData) {
+        setUserData(JSON.parse(storedData));
+      }
+      // setIsLoading(false);
+    }, 1000);
+  });
+
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
     console.log("Searching for:", query);
@@ -52,16 +65,18 @@ const Navbar: React.FC = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <p className="text-lg font-semibold">
+  //         <span className="loading loading-ring loading-lg"></span>
+  //       </p>
+  //     </div>
+  //   );
+  // }
   return (
     <header className="lg:pl-[2.063rem] px-[0.75rem] lg:px-6 pb-[1rem] lg:pb-[1.875rem]  py-[1.875rem]">
       <div className=" flex  items-center justify-between ">
-        {/* <div className=" flex-1 lg:flex-2 xl:flex-1   bg-red-500">
-          <img
-            src="/assets/images/logo.svg"
-            className={`h-[4.298rem] w-[7.5rem] `}
-            alt="Logo"
-          />
-        </div> */}
         {isSidebarOpen && (
           <div className="fixed inset-0 bg-gray  opacity-20 z-40" />
         )}
@@ -78,7 +93,9 @@ const Navbar: React.FC = () => {
                 <IoMenuOutline className={`text-primary text-4xl mt-[1rem] `} />
               </button>
 
-              <Sidebar />
+              {userData && userData.menuItems && (
+                <Sidebar menuItems={userData.menuItems} />
+              )}
             </div>
           )}
         </div>
@@ -127,22 +144,7 @@ const Navbar: React.FC = () => {
             <span className="ml-2 text-primary font-medium">SAR 500.00</span>
           </div>
 
-          {/* Profile Image */}
-          {/* <div>
-            <img
-              src="/assets/images/profileImage.png"
-              alt="Profile"
-              className="lg:w-[3.5rem] xl:w-[4.375rem] lg:h-[3.5rem] xl:h-[4.375rem] w-12 h-12 rounded-full lg:block hidden"
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            />
-            {isDropdownOpen && (
-              <>
-                <ProfileDropdown />
-              </>
-            )}
-          </div> */}
           <div className="relative" ref={dropdownRef}>
-            {/* Profile Image */}
             <img
               src="/assets/images/profileImage.png"
               alt="Profile"
@@ -150,8 +152,9 @@ const Navbar: React.FC = () => {
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             />
 
-            {/* Profile Dropdown */}
-            {isDropdownOpen && <ProfileDropdown />}
+            {isDropdownOpen && userData?.user && (
+              <ProfileDropdown userData={userData?.user} />
+            )}
           </div>
         </div>
       </div>

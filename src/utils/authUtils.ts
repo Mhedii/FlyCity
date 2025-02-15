@@ -19,6 +19,22 @@ export const getAuthToken = (): string | null => {
   }
   return token;
 };
+export const getAppDataFromLocalStorage = (): object | null => {
+  const appData = localStorage.getItem("app-data");
+  if (!appData) {
+    return null;
+  }
+  const data = JSON.parse(appData);
+  return { data };
+};
+
+export const getAppId = (): number | null => {
+  const appId = Number(localStorage.getItem("app-id"));
+  if (!appId) {
+    return null;
+  }
+  return appId;
+};
 
 export const removeAuthToken = () => {
   localStorage.removeItem(TOKEN_KEY);

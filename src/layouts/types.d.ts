@@ -15,7 +15,12 @@ interface MenuItem {
 interface appData {
   agentInfo: string;
   setting: string | null;
-  user: object;
+  user: {
+    id: string;
+    name: string;
+    role: string;
+    appId: number;
+  };
   menuItems: MenuItem[];
   messages: [];
 }

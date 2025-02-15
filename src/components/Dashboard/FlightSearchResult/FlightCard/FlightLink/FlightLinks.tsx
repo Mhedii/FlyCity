@@ -9,10 +9,16 @@ interface FlightLinksProps {
   links: string[];
 }
 
-const FlightLinks: React.FC<FlightLinksProps> = ({ links }) => {
+const FlightLinks: React.FC<FlightLinksProps> = ({ flights }) => {
   const [open, setOpen] = useState(false);
   const [selectedLink, setSelectedLink] = useState<string | null>(null);
-
+  const links = [
+    "Flight Details",
+    "Fare Summary",
+    "Baggage",
+    "Cancellation",
+    "Fare terms & policy",
+  ];
   const toggleSection = (link: string) => {
     if (selectedLink === link && open) {
       setOpen(false);
@@ -27,27 +33,28 @@ const FlightLinks: React.FC<FlightLinksProps> = ({ links }) => {
       case "Flight Details":
         return (
           <FlightDetailsInfo
-            from="Dhaka"
-            to="Chittagong"
-            date="30 Jan 2025"
-            airline="Biman Bangladesh Airlines"
-            logo="/assets/images/FlightSchedules/garuda_airlines.png"
-            flightNumber="147"
-            aircraft="Boeing 777-300"
-            operatedBy="BG"
-            classType="Y"
-            availableSeats={5}
-            departureTime="18:45"
-            departureDate="Thu, 30 Jan 2025"
-            departureAirport="Hazrat Shahjalal Int."
-            departureTerminal="Terminal -"
-            arrivalTime="19:45"
-            arrivalDate="Thu, 30 Jan 2025"
-            arrivalAirport="Patenga"
-            arrivalTerminal="Terminal -"
-            baggage="Adult"
-            checkIn="20 Kg(s)"
-            cabin="7 Kg(s)"
+            // from="Dhaka"
+            // to="Chittagong"
+            // date="30 Jan 2025"
+            // airline="Biman Bangladesh Airlines"
+            // logo="/assets/images/FlightSchedules/garuda_airlines.png"
+            // flightNumber="147"
+            // aircraft="Boeing 777-300"
+            // operatedBy="BG"
+            // classType="Y"
+            // availableSeats={5}
+            // departureTime="18:45"
+            // departureDate="Thu, 30 Jan 2025"
+            // departureAirport="Hazrat Shahjalal Int."
+            // departureTerminal="Terminal -"
+            // arrivalTime="19:45"
+            // arrivalDate="Thu, 30 Jan 2025"
+            // arrivalAirport="Patenga"
+            // arrivalTerminal="Terminal -"
+            // baggage="Adult"
+            // checkIn="20 Kg(s)"
+            // cabin="7 Kg(s)"
+            flights={flights}
           />
         );
       case "Flight Fare":
@@ -55,13 +62,15 @@ const FlightLinks: React.FC<FlightLinksProps> = ({ links }) => {
       case "Fare Summary":
         return (
           <FareSummary
-            baseFare={423}
-            taxes={6}
-            other={0}
-            price={429}
-            qty={1}
-            discount={42}
-            currency="MYR"
+            // baseFare={423}
+            // taxes={6}
+            // other={0}
+            // price={429}
+            // qty={1}
+            // discount={42}
+            // currency="MYR"
+            flightsTotalFare={flights.totalFare}
+            flightsFare={flights.fares}
           />
         );
       case "Baggage":

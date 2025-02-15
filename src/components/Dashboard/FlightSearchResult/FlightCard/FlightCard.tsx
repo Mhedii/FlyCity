@@ -1,44 +1,28 @@
-import React from "react";
-import FlightFeatures from "./FlightFeatures";
 import FlightInfo from "./FlightInfo";
 import FlightLinks from "./FlightLink/FlightLinks";
-
-const FlightCard: React.FC<FlightInfoProps> = ({
-  airline,
-  departure,
-  arrival,
-  duration,
-  isDirect,
-  features = [],
-  grossFare,
-  netFare,
-  currency,
-  links = [],
+interface FlightCardProps {
+  onChooseFlight: () => void;
+  flightInfo: FlightInfoType;
+}
+const FlightCard: React.FC<FlightCardProps> = ({
   onChooseFlight,
+  flightInfo,
 }) => {
   return (
     <div className=" rounded-xl  mb-[2.063rem] bg-white">
       <FlightInfo
-        airline={airline}
-        departure={departure}
-        arrival={arrival}
-        duration={duration}
-        isDirect={isDirect}
-        grossFare={grossFare}
-        netFare={netFare}
-        currency={currency}
+        flightInfo={flightInfo}
+        grossFare={flightInfo.totalFare.subTotalFare}
+        netFare={flightInfo.totalFare.totalFare}
+        currency={flightInfo.totalFare.currency}
         onChooseFlight={onChooseFlight}
       />
 
       <hr className="my-2 xl:my-4 text-gray_light_2 hidden xl:block" />
-      {features.length > 0 && <FlightFeatures features={features} />}
+      {/* {features.length > 0 && <FlightFeatures features={features} />}
       <hr className="my-2 xl:my-4 text-gray_light_2 hidden xl:block" />
-
-      {links.length > 0 && (
-        <>
-          <FlightLinks links={links} />
-        </>
-      )}
+*/}
+      <FlightLinks flights={flightInfo} />
     </div>
   );
 };

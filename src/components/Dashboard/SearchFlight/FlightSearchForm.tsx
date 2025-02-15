@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 
 interface DropdownOption {
   label: string;
-  options: string[];
+  options: { id: number; label: string }[];
 }
 interface PassengerCounts {
   adults: number;
@@ -18,9 +18,8 @@ interface PassengerCounts {
 const MAX_FLIGHT_SETS = 5;
 
 const FlightSearchForm: React.FC = () => {
-  const [selectedTrip, setSelectedTrip] = useState<string>("oneway");
-  const [selectedFareOption, setSelectedFareOption] =
-    useState<string>("rugularfare");
+  const [selectedTrip, setSelectedTrip] = useState<number>(1);
+  const [selectedFareOption, setSelectedFareOption] = useState<number>(1);
   const [flights, setFlights] = useState<number[]>([1]);
   const [flightData, setFlightData] = useState<{ from: string; to: string }[]>([
     { from: "JFK", to: "DHK" },
@@ -35,14 +34,21 @@ const FlightSearchForm: React.FC = () => {
   });
   const [totalPassengers, setTotalPassengers] = useState<number>(1);
   const [selectedEconomy, setSelectedEconomy] = useState<string>("Economy");
+  const [selectedEconomyIndex, setSelectedEconomyIndex] = useState<number>(1);
   const [airlineSearch, setAirlineSearch] = useState<string>("");
+  // const [airportInfo, setAirportInfo] = useState<string[]>([]);
   const [filteredAirlines, setFilteredAirlines] = useState<string[]>([]);
+  const [departureDate, setDepartureDate] = useState<Date>(new Date());
+  const [returnDate, setReturnDate] = useState<Date>(new Date());
   const navigate = useNavigate();
   const locationOptions = [
     { label: "JFK", value: "JFK", subText: "New York, USA" },
+    { label: "DAC", value: "DAC", subText: "Dhaka, Bangladesh" },
     { label: "DHK", value: "DHK", subText: "Dhaka, Bangladesh" },
     { label: "LHR", value: "LHR", subText: "London, UK" },
     { label: "DXB", value: "DXB", subText: "Dubai, UAE" },
+    { label: "MEL", value: "MEL", subText: "MELBOURNE, Australia" },
+    { label: "CCU", value: "CCU", subText: "Netaji Subash Chandra" },
   ];
   const airlines = [
     "Emirates",
@@ -53,19 +59,25 @@ const FlightSearchForm: React.FC = () => {
     "British Airways",
   ];
   const trip_types = [
-    { label: "One way", value: "oneway" },
-    { label: "Round way", value: "roundway" },
-    { label: "Multi way", value: "multiway" },
+    { label: "One way", value: 1 },
+    { label: "Round way", value: 2 },
+    { label: "Multi way", value: 3 },
   ];
   const fare_type = [
-    { label: "Regular Fare", value: "rugularfare" },
-    { label: "Umrah Fare", value: "umrahfare" },
-    { label: "NDC", value: "ndc" },
+    { label: "Regular Fare", value: 1 },
+    { label: "Umrah Fare", value: 2 },
+    { label: "NDC", value: 3 },
   ];
   const dropdownData: DropdownOption[] = [
     {
       label: "Economy",
-      options: ["Economy", "Premium Economy", "Business", "First Class"],
+      // options: ["Economy", "Premium Economy", "Business", "First Class"],
+      options: [
+        { id: 1, label: "Economy" },
+        { id: 2, label: "Premium Economy" },
+        { id: 3, label: "Business" },
+        { id: 4, label: "First Class" },
+      ],
     },
   ];
 
@@ -95,7 +107,7 @@ const FlightSearchForm: React.FC = () => {
   const handleAddFlight = () => {
     if (flights.length < MAX_FLIGHT_SETS) {
       setFlights((prev) => [...prev, prev.length + 1]);
-      setFlightData((prev) => [...prev, { from: "JFK", to: "DHK" }]);
+      setFlightData((prev) => [...prev, { from: "DAC", to: "DXB" }]);
     }
   };
 
@@ -104,15 +116,25 @@ const FlightSearchForm: React.FC = () => {
     setFlightData((prev) => prev.filter((_, i) => i !== index));
   };
   const handleSearch = () => {
-    const searchData = {
-      tripType: selectedTrip,
-      fareOption: selectedFareOption,
-      passengerCounts,
-      flightData: selectedTrip === "multiway" ? flightData : [flightData[0]],
-    };
-
-    console.log("Search Data:", searchData);
-    navigate("/flight-search");
+    const formattedDepartureDate = departureDate.toISOString().split("T")[0];
+    const formattedReturnDate = returnDate.toISOString().split("T")[0];
+    // const query = `origin=${flightData[0].from}&dest=${flightData[0].to}&flyDate=${formattedDepartureDate}&returnDate=${formattedReturnDate}&tripType=${selectedTrip}&fareType=${selectedFareOption}&tripClass=${selectedEconomyIndex}&adult=${passengerCounts.adults}&child=${passengerCounts.children}&infant=${passengerCounts.infants}&airlines=${airlineSearch}`;
+    const query = [
+      `origin=${flightData[0].from}`,
+      `dest=${flightData[0].to}`,
+      `flyDate=${formattedDepartureDate}`,
+      `returnDate=${formattedReturnDate}`,
+      selectedTrip ? `tripType=${selectedTrip}` : null,
+      selectedFareOption ? `fareType=${selectedFareOption}` : null,
+      selectedEconomyIndex ? `tripClass=${selectedEconomyIndex}` : null,
+      passengerCounts.adults ? `adult=${passengerCounts.adults}` : null,
+      passengerCounts.children ? `child=${passengerCounts.children}` : null,
+      passengerCounts.infants ? `infant=${passengerCounts.infants}` : null,
+      airlineSearch ? `airlines=${airlineSearch}` : null,
+    ]
+      .filter(Boolean) // Remove any null or undefined values
+      .join("&");
+    navigate(`/search/flight?${query}`);
   };
   useEffect(() => {
     setFilteredAirlines(
@@ -122,9 +144,14 @@ const FlightSearchForm: React.FC = () => {
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [airlineSearch]);
+  // useEffect(() => {
+  //   const airlines = localStorage.getItem("app-airport-list");
+  //   setAirportInfo(airlines ? JSON.parse(airlines) : []);
+  // }, []);
 
-  const handleEconomySelect = (option: string) => {
-    setSelectedEconomy(option);
+  const handleEconomySelect = (id: number, label: string) => {
+    setSelectedEconomyIndex(id - 1);
+    setSelectedEconomy(label);
     setOpenDropdown(null);
   };
 
@@ -196,6 +223,7 @@ const FlightSearchForm: React.FC = () => {
               >
                 <span className="text-black_1 text-xs xl:text-[1.375rem] pb-1  xl:pb-2">
                   {selectedEconomy}
+                  {/* {selectedEconomyIndex !== null ? selectedEconomyIndex + 1 : "Select"} */}
                 </span>
                 <IoIosArrowDown className="text-primary" size={20} />
               </div>
@@ -206,12 +234,14 @@ const FlightSearchForm: React.FC = () => {
                     <li
                       key={idx}
                       className={` cursor-pointer ${
-                        selectedEconomy === item ? "rounded bg-skyblue" : ""
+                        selectedEconomyIndex === item.id - 1
+                          ? "rounded bg-skyblue"
+                          : ""
                       }`}
-                      onClick={() => handleEconomySelect(item)}
+                      onClick={() => handleEconomySelect(item.id, item.label)}
                     >
                       <a className="block px-3 py-2 rounded my-1 hover:bg-skyblue cursor-pointer text-xs xl:text-base">
-                        {item}
+                        {item.label}
                       </a>
                     </li>
                   ))}
@@ -256,16 +286,20 @@ const FlightSearchForm: React.FC = () => {
       </div>
 
       <div className="space-y-6">
-        {(selectedTrip === "multiway" ? flights : flights.slice(0, 1)).map(
+        {(selectedTrip === 3 ? flights : flights.slice(0, 1)).map(
           (_, index) => (
             <FlightDestinationSet
               key={index}
-              showReturn={selectedTrip !== "oneway"}
+              showReturn={selectedTrip !== 1}
               onRemove={() => handleRemoveFlight(index)}
-              allowRemove={selectedTrip === "multiway" && flights.length > 1}
+              allowRemove={selectedTrip === 3 && flights.length > 1}
               selectedFrom={flightData[index].from}
               selectedTo={flightData[index].to}
               locationOptions={locationOptions}
+              departureDate={departureDate}
+              returnDate={returnDate}
+              setDepartureDate={setDepartureDate}
+              setReturnDate={setReturnDate}
               onLocationChange={(type, value) =>
                 handleLocationChange(index, type, value)
               }
@@ -275,12 +309,12 @@ const FlightSearchForm: React.FC = () => {
       </div>
       <div
         className={`    w-full  flex flex-col lg:flex-row gap-[3.313rem] items-center   mt-[1.25rem] lg:mt-[2.563rem]  ${
-          selectedTrip === "multiway"
+          selectedTrip === 3
             ? "justify-center md:justify-between"
             : "justify-center md:justify-end"
         }`}
       >
-        {selectedTrip === "multiway" && (
+        {selectedTrip === 3 && (
           <div className="w-full  lg:w-5/12 ">
             <button
               className={`text-primary    justify-center w-full lg:w-auto bg-gray_light_4  rounded-xl px-[2.594rem]  py-[1rem] lg:py-[1.125rem] gap-2 flex items-center ${

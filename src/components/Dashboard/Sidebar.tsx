@@ -22,7 +22,7 @@ const Sidebar = ({ menuItems }: { menuItems: MenuItem[] }) => {
   }, [menuItems]);
   const location = useLocation();
   const { pathname } = location;
-  console.log(pathname);
+
   return (
     <aside
       className={`lg:pl-[2.063rem] pe-[0.875rem]  ${

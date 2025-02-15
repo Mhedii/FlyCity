@@ -35,7 +35,7 @@ const DashboardLayout: React.FC = () => {
           )}
         </div>
         <div className="flex-1 flex flex-col ">
-          <main className="flex-grow overflow-auto  bg-gray_light_3 px-[0.75rem] lg:pl-[2.125rem] lg:pe-8 pt-[1rem] lg:pt-[7rem]">
+          <main className="flex-grow overflow-auto  bg-gray_light_3 px-[0.75rem] lg:pl-[2.125rem] lg:pe-8 pt-[1rem] lg:pt-[2rem]">
             <Outlet />
           </main>
         </div>

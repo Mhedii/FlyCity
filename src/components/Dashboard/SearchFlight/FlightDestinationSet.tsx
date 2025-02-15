@@ -11,6 +11,10 @@ interface FlightCardProps {
   selectedTo: string;
   locationOptions: { label: string; value: string; subText: string }[];
   onLocationChange: (type: "from" | "to", value: string) => void;
+  departureDate: Date;
+  returnDate?: Date;
+  setDepartureDate: (date: Date) => void;
+  setReturnDate?: (date: Date) => void;
 }
 
 const FlightDestinationSet: React.FC<FlightCardProps> = ({
@@ -21,6 +25,10 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
   selectedTo,
   locationOptions,
   onLocationChange,
+  departureDate,
+  setDepartureDate,
+  returnDate,
+  setReturnDate,
 }) => {
   const [showLocationDropdown, setShowLocationDropdown] = useState<
     string | null
@@ -28,8 +36,6 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
   const [rotateImage, setRotateImage] = useState(false);
   const dropdownRef = useRef<HTMLUListElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [departureDate, setDepartureDate] = useState<Date>(new Date()); // Default to today's date
-  const [returnDate, setReturnDate] = useState<Date>(new Date());
 
   const handleSelectLocation = (type: "from" | "to", value: string) => {
     onLocationChange(type, value);
@@ -45,7 +51,7 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
     if (type === "departure") {
       setDepartureDate(date);
     } else {
-      setReturnDate(date);
+      setReturnDate?.(date);
     }
   };
   useEffect(() => {
@@ -191,10 +197,13 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
                   ? `0${departureDate.getDate()}`
                   : departureDate.getDate()
               )}
-              subText={returnDate.toLocaleDateString("en-US", {
-                month: "long",
-              })}
-              description={returnDate.toLocaleDateString("en-US", {
+              subText={
+                returnDate?.toLocaleDateString("en-US", { month: "long" }) || ""
+              }
+              // subText={returnDate?.toLocaleDateString("en-US", {
+              //   month: "long",
+              // })}
+              description={returnDate?.toLocaleDateString("en-US", {
                 weekday: "long",
                 year: "numeric",
               })}
@@ -218,14 +227,6 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
             )}
           </div>
           {allowRemove && (
-            // <div className="w-full  lg:w-5/12 mt-[1rem]">
-            //   <button
-            //     className={`lg:hidden  text-white  font-semibold  justify-center w-full lg:w-auto bg-red-500   rounded-xl px-[2.594rem]  py-[1rem] lg:py-[1.125rem] gap-2 flex items-center`}
-            //     onClick={onRemove}
-            //   >
-            //     Remove
-            //   </button>
-            // </div>
             <div
               className="lg:hidden text-center flex w-full justify-center "
               onClick={onRemove}

@@ -83,8 +83,8 @@ const PassengerDropdown: React.FC<PassengerDropdownProps> = ({
     <div className="absolute bg-white rounded-md shadow-lg w-80 p-4 z-50">
       {[
         { label: "Adults", subLabel: "12 years & above", type: "adults" },
-        { label: "Children", subLabel: "5 to under 12", type: "children" },
-        { label: "Kids", subLabel: "2 to under 5", type: "kids" },
+        { label: "Children", subLabel: "2 to under 12", type: "children" },
+        // { label: "Kids", subLabel: "2 to under 5", type: "kids" },
         { label: "Infants", subLabel: "Under 2 years", type: "infants" },
       ].map(({ label, subLabel, type }) => (
         <div key={type} className="flex justify-between items-center mb-4">
