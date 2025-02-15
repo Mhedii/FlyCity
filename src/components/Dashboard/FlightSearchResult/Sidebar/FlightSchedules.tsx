@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import {
+  setLayover,
+  setSchedule,
+} from "../../../../redux/features/Filters/FilterSlice";
 
 interface Schedule {
   slot: string;
@@ -16,6 +21,7 @@ const FilterSchedules: React.FC = () => {
   const [selectedLayover, setSelectedLayover] = useState<Set<string>>(
     new Set()
   );
+  const dispatch = useDispatch();
   const handleToggle = () => setIsCollapsed(!isCollapsed);
   const schedules: Schedule[] = [
     {
@@ -51,6 +57,7 @@ const FilterSchedules: React.FC = () => {
       updatedSelection.add(slot);
     }
     setSelectedSchedules(updatedSelection);
+    dispatch(setSchedule(Array.from(updatedSelection)));
   };
   const handleLayoverSelect = (slot: string) => {
     const updatedSelection = new Set(selectedLayover);
@@ -60,6 +67,7 @@ const FilterSchedules: React.FC = () => {
       updatedSelection.add(slot);
     }
     setSelectedLayover(updatedSelection);
+    dispatch(setLayover(Array.from(updatedSelection)));
   };
   return (
     <div className="bg-white border rounded-xl border-gray_light_2 mt-[1rem] xl:mt-[1.313rem] py-4 xl:pt-4 pl-[1.5rem] xl:pb-[1.875rem] pe-[1.75rem] w-[19.875rem]">
@@ -90,11 +98,11 @@ const FilterSchedules: React.FC = () => {
                 key={schedule.slot}
                 className={`px-[1.063rem] pt-[0.729rem] pb-2 rounded-md flex flex-col items-center cursor-pointer 
                     ${
-                      selectedSchedules.has(schedule.slot)
+                      selectedSchedules.has(schedule.timeRange)
                         ? "bg-skyblue"
                         : "bg-gray_light_3"
                     }`}
-                onClick={() => handleSelect(schedule.slot)}
+                onClick={() => handleSelect(schedule.timeRange)}
               >
                 <img
                   src={schedule.icon}

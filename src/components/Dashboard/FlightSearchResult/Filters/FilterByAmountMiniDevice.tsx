@@ -3,7 +3,8 @@ import React from "react";
 interface FilterOption {
   label: string;
   value: string;
-  price: number;
+  price?: number;
+  time?: string;
 }
 
 interface FilterByAmountMiniDeviceProps {
@@ -32,7 +33,11 @@ const FilterByAmountMiniDevice: React.FC<FilterByAmountMiniDeviceProps> = ({
             }`}
           >
             {option.label} <br />
-            {option.price.toLocaleString()}
+            {/* {option.price.toLocaleString()}
+             */}
+            {option.value === "cheapest"
+              ? `${option.price?.toLocaleString()}`
+              : option.time}
           </button>
         ))}
       </div>

@@ -9,12 +9,13 @@ import MainLayout from "./layouts/MainLayout";
 import FlightSearch from "./pages/FlightSearch/FlightSearch";
 import AuthGuard from "./components/Auth/AuthGuard";
 import { initializeAppData } from "./utils/init";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 // import Registration from "./pages/Registration";
 // import RegisterPage from "./pages/RegisterPage";
 
 const Registration = lazy(() => import("./pages/Registration"));
 const Home = lazy(() => import("./pages/Home"));
-
 function App() {
   useEffect(() => {
     initializeAppData();
@@ -23,43 +24,45 @@ function App() {
   return (
     <>
       <Router>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
-            {/* Main Layout Routes */}
-            <Route element={<MainLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/registration" element={<Registration />} />
-            </Route>
+        <Provider store={store}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              {/* Main Layout Routes */}
+              <Route element={<MainLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/registration" element={<Registration />} />
+              </Route>
 
-            {/* Dashboard Layout Routes */}
+              {/* Dashboard Layout Routes */}
 
-            <Route
-              element={
-                <AuthGuard>
-                  <DashboardLayout />
-                </AuthGuard>
-              }
-            >
-              <Route path="/search" element={<FlightSearch />} />
-            </Route>
+              <Route
+                element={
+                  <AuthGuard>
+                    <DashboardLayout />
+                  </AuthGuard>
+                }
+              >
+                <Route path="/search" element={<FlightSearch />} />
+              </Route>
 
-            {/* Bookings Layout Routes */}
-            {/* <Route element={<DashboardLayout />}>
+              {/* Bookings Layout Routes */}
+              {/* <Route element={<DashboardLayout />}>
               <Route path="/bookings/" element={<BookingTable />} />
             </Route> */}
 
-            {/* FlightSearch Layout Routes */}
-            <Route
-              element={
-                <AuthGuard>
-                  <FlightSearchLayout />
-                </AuthGuard>
-              }
-            >
-              <Route path="/search/flight" element={<FlightSearchResult />} />
-            </Route>
-          </Routes>
-        </Suspense>
+              {/* FlightSearch Layout Routes */}
+              <Route
+                element={
+                  <AuthGuard>
+                    <FlightSearchLayout />
+                  </AuthGuard>
+                }
+              >
+                <Route path="/search/flight" element={<FlightSearchResult />} />
+              </Route>
+            </Routes>
+          </Suspense>
+        </Provider>
       </Router>
     </>
   );

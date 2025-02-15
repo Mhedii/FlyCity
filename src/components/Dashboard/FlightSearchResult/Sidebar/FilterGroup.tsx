@@ -3,7 +3,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 interface FilterOption {
   label: string;
-  value: string;
+  value: string | number | boolean;
 }
 
 interface FilterGroupProps {

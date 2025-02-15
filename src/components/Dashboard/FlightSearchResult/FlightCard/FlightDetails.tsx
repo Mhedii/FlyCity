@@ -12,7 +12,7 @@ const FlightDetails: React.FC<
               flights.flightSegments[0].airline.code
             }.png`}
             alt={`${airline} logo`}
-            className="w-[2.5rem] h-[1.5rem] xl:w-[3.625rem] xl:h-[2.063rem]"
+            className="w-[2.5rem] h-[1.5rem] xl:w-[3rem] xl:h-[3rem]"
           />
           <div className="font-bold text-sm xl:text-[1.5rem]">{airline}</div>
         </div>
