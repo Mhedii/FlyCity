@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
@@ -7,18 +5,20 @@ import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 interface Airline {
   id: string;
   name: string;
-  logo: string;
   checked: boolean;
+  code: string;
 }
 
 interface AirlineSliderProps {
   airlines: Airline[];
   onToggle: (id: string) => void;
+  selectedAirlines: Set<string>;
 }
 
 const AirlineSlider: React.FC<AirlineSliderProps> = ({
   airlines,
   onToggle,
+  selectedAirlines,
 }) => {
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
@@ -43,7 +43,6 @@ const AirlineSlider: React.FC<AirlineSliderProps> = ({
       setStartIndex(startIndex + 1);
     }
   };
-
   const handlePrev = () => {
     if (startIndex > 0) {
       setStartIndex(startIndex - 1);
@@ -79,20 +78,22 @@ const AirlineSlider: React.FC<AirlineSliderProps> = ({
                 .slice(startIndex, startIndex + visibleCount)
                 .map((airline) => (
                   <label
-                    key={airline.id}
+                    key={airline.code}
                     className="flex bg-gray_light_3 items-center gap-4 pl-[0.938rem] py-[0.688rem]  rounded-lg w-full cursor-pointer text-sm lg:text-[1.625rem] lg:leading-[3rem]"
                   >
                     <input
                       type="checkbox"
-                      checked={airline.checked}
-                      onChange={() => onToggle(airline.id)}
+                      checked={selectedAirlines.has(airline.code)}
+                      onChange={() => onToggle(airline.code)}
                       className="cursor-pointer checkbox-sm"
                     />
                     <div className="flex items-center gap-2">
                       <img
-                        src={airline.logo}
+                        src={`${import.meta.env.VITE_AIRLINE_LOGO_URL}/${
+                          airline.code
+                        }.png`}
                         alt={airline.name}
-                        className="w-8 h-8"
+                        className="w-10 h-10"
                       />
                       <span className="text-gray-800">{airline.name}</span>
                     </div>

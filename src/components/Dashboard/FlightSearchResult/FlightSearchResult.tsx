@@ -25,38 +25,9 @@ import {
   selectSchedule,
   selectStops,
 } from "../../../redux/features/Filters/FilterSelectors";
-const airlinesData = [
-  {
-    id: "biman",
-    name: "Biman Bangladesh",
-    logo: "/assets/images/FlightSchedules/biman_bangladesh.png",
-    checked: false,
-  },
-  {
-    id: "srilankan",
-    name: "Srilankan Airlines",
-    logo: "/assets/images/FlightSchedules/srilankan_airlines.png",
-    checked: false,
-  },
-  {
-    id: "qatar",
-    name: "Qatar Airways",
-    logo: "/assets/images/FlightSchedules/biman_bangladesh.png",
-    checked: false,
-  },
-  {
-    id: "emirates",
-    name: "Emirates",
-    logo: "/assets/images/FlightSchedules/srilankan_airlines.png",
-    checked: false,
-  },
-];
+
 const FlightSearchResult = () => {
   const { search } = useLocation();
-  // const [airlines, setAirlines] = useState(airlinesData);
-  const [airlines, setAirlines] = useState(
-    airlinesData.map((a) => ({ ...a, checked: false }))
-  );
   const [selectedFilter, setSelectedFilter] = useState("cheapest");
   const [flightData, setFlightData] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
@@ -68,7 +39,8 @@ const FlightSearchResult = () => {
   const [fastestTime, setFastestTime] = useState(0);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [initialPosition, setInitialPosition] = useState(0);
-
+  const [uniqueCarriers, setUniqueCarriers] = useState<string[]>([]);
+  const [selectedAirlines, setSelectedAirlines] = useState(new Set());
   const fareType = useSelector(selectFareType);
   const refundability = useSelector(selectRefundability);
   const flightType = useSelector(selectFlightType);
@@ -78,12 +50,16 @@ const FlightSearchResult = () => {
   const selectedLayover = useSelector(selectLayover);
   const priceRange = useSelector(selectPriceRange);
 
-  const toggleAirline = (id: string) => {
-    setAirlines((prev) =>
-      prev.map((airline) =>
-        airline.id === id ? { ...airline, checked: !airline.checked } : airline
-      )
-    );
+  const toggleAirline = (airlineId) => {
+    setSelectedAirlines((prev) => {
+      const newSelection = new Set(prev);
+      if (newSelection.has(airlineId)) {
+        newSelection.delete(airlineId);
+      } else {
+        newSelection.add(airlineId);
+      }
+      return newSelection;
+    });
   };
   const handleFilterChange = (value: string) => {
     setSelectedFilter(value);
@@ -91,19 +67,6 @@ const FlightSearchResult = () => {
 
   const handleModify = () => {
     console.log("Modify clicked");
-  };
-
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY > lastScrollY) {
-      setIsVisible(false);
-    } else {
-      if (currentScrollY <= initialPosition + 50) {
-        setIsVisible(true);
-      }
-    }
-    setLastScrollY(currentScrollY);
   };
 
   useEffect(() => {
@@ -130,7 +93,29 @@ const FlightSearchResult = () => {
           })
         );
 
-        setFlightData(allFlights.flat());
+        const flights = allFlights.flat();
+        setFlightData(flights);
+        const carriers = [
+          ...Array.from(
+            flights
+              .reduce((map, flight) => {
+                const carrier = {
+                  code: flight.validatingCarrierCode,
+                  name: flight.validatingCarrier,
+                };
+
+                const key = `${carrier.code}-${carrier.name}`;
+                if (!map.has(key)) {
+                  map.set(key, carrier);
+                }
+
+                return map;
+              }, new Map())
+              .values()
+          ),
+        ];
+
+        setUniqueCarriers(carriers);
       } catch (err) {
         setError("Error fetching flights.");
         console.error(err);
@@ -140,6 +125,7 @@ const FlightSearchResult = () => {
 
     fetchFlights();
   }, [search]);
+
   const convertToMinutes = (timeString) => {
     let totalMinutes = 0;
     const dayMatch = timeString.match(/(\d+)d/);
@@ -158,20 +144,16 @@ const FlightSearchResult = () => {
     let n = parseInt(tm);
     return n;
   };
-
+  console.log(selectedAirlines);
   const filteredFlights = flightData
     .filter((flight, index) => {
       //1.  Airline Filter (if airlines are selected)
-      const selectedAirlines = airlines.filter((airline) => airline.checked);
       if (
-        selectedAirlines.length > 0 &&
-        !selectedAirlines.some(
-          (airline) => airline.id === flight.validatingCarrierCode
-        )
+        selectedAirlines.size > 0 &&
+        !selectedAirlines.has(flight.validatingCarrierCode)
       ) {
         return false;
       }
-
       // 2. Fare Type Filter
       if (
         fareType.length > 0 &&
@@ -333,17 +315,28 @@ const FlightSearchResult = () => {
     setFastestTime(minDuration);
   }, [filteredFlights]); // Runs whenever filteredFlights changes
 
+  // Filter for Min Display
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY) {
+      setIsVisible(false);
+    } else {
+      if (currentScrollY <= initialPosition + 50) {
+        setIsVisible(true);
+      }
+    }
+    setLastScrollY(currentScrollY);
+  };
+
   useEffect(() => {
     const filterElement = document.querySelector(".filter-component");
-
     if (filterElement) {
       setInitialPosition(
         filterElement.getBoundingClientRect().top + window.scrollY
       );
     }
-
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -393,7 +386,11 @@ const FlightSearchResult = () => {
               onSelect={handleFilterChange}
               onModify={handleModify}
             />
-            <AirlineSlider airlines={airlines} onToggle={toggleAirline} />
+            <AirlineSlider
+              airlines={uniqueCarriers}
+              selectedAirlines={selectedAirlines}
+              onToggle={toggleAirline}
+            />
             <div className=" flex justify-between items-center  xl:mt-[1.944rem] mb-[1.188rem]">
               {filteredFlights && filteredFlights.length > 0 && (
                 // {filteredFlights && filteredFlights.results.length > 0 && (
