@@ -152,9 +152,15 @@ const FlightSearchResult = () => {
 
     return totalMinutes;
   };
+  const getTimeWeight = (tm: string): number => {
+    tm = tm.replace(":", "");
+
+    let n = parseInt(tm);
+    return n;
+  };
 
   const filteredFlights = flightData
-    .filter((flight) => {
+    .filter((flight, index) => {
       //1.  Airline Filter (if airlines are selected)
       const selectedAirlines = airlines.filter((airline) => airline.checked);
       if (
@@ -179,10 +185,10 @@ const FlightSearchResult = () => {
         return false;
       }
 
-      // 4. Flight Type Filter
-      if (flightType && flight.flightType !== flightType) {
-        return false;
-      }
+      // // 4. Flight Type Filter
+      // if (flightType && flight.flightType !== flightType) {
+      //   return false;
+      // }
 
       // 5. Stops Filter
 
@@ -195,7 +201,6 @@ const FlightSearchResult = () => {
       }
 
       //6. Baggage Policy Filter
-
       const baggageWeights =
         flight.fares[0]?.passengerFares[0]?.baggages.map((bag) => bag.weight) ||
         [];
@@ -212,8 +217,47 @@ const FlightSearchResult = () => {
       ) {
         return false;
       }
+      // 8.Flight Departure
+      if (selectedSchedule.length > 0) {
+        let w = getTimeWeight(
+          flight.flights[0].flightSegments[0].departure.depTime
+        );
+        const isMatched = selectedSchedule.some((schedule) => {
+          const { valueMin, valueMax } = schedule;
+          if (w >= valueMin && w <= valueMax) {
+            console.log(w, valueMax, valueMax);
+            return true;
+          }
+          return false;
+        });
+        if (!isMatched) {
+          console.log("No matching schedules for this flight.");
+          return false; // Return false if no match
+        } else {
+          console.log("Matching schedule found:", selectedSchedule);
+        }
+      }
+      // 9.Flight Layover
+      if (selectedLayover.length > 0) {
+        let w = flight.flights[0].flightSegments[0].layoverTimeInMinutes;
 
-      return true; // If all filters pass, include the flight
+        const isMatched = selectedLayover.some((schedule) => {
+          const { valueLayOverMin, valueLayOverMax } = schedule;
+          if (w >= valueLayOverMin && w <= valueLayOverMax) {
+            console.log(w, valueLayOverMin, valueLayOverMax);
+            return true;
+          }
+          return false;
+        });
+        if (!isMatched) {
+          console.log("No matching schedules for this flight.");
+          return false; // Return false if no match
+        } else {
+          console.log("Matching schedule found:", selectedLayover);
+        }
+      }
+
+      return true;
     })
     .sort((a, b) => {
       if (selectedFilter === "cheapest")

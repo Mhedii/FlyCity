@@ -5,10 +5,6 @@ import FareSummary from "../FareSummary";
 import FlightDetailsInfo from "./FlightDetailsInfo";
 import Cancellation from "../Cancellation";
 
-interface FlightLinksProps {
-  links: string[];
-}
-
 const FlightLinks: React.FC<FlightLinksProps> = ({ flights }) => {
   const [open, setOpen] = useState(false);
   const [selectedLink, setSelectedLink] = useState<string | null>(null);

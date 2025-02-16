@@ -4,11 +4,8 @@ import Button from "../../Shared/Button";
 import FlightDestinationSet from "./FlightDestinationSet";
 import PassengerDropdown from "./PassengerDropdown";
 import { useNavigate } from "react-router";
+import { environment } from "../../Shared/environment";
 
-interface DropdownOption {
-  label: string;
-  options: { id: number; label: string }[];
-}
 interface PassengerCounts {
   adults: number;
   children: number;
@@ -41,45 +38,7 @@ const FlightSearchForm: React.FC = () => {
   const [departureDate, setDepartureDate] = useState<Date>(new Date());
   const [returnDate, setReturnDate] = useState<Date>(new Date());
   const navigate = useNavigate();
-  const locationOptions = [
-    { label: "JFK", value: "JFK", subText: "New York, USA" },
-    { label: "DAC", value: "DAC", subText: "Dhaka, Bangladesh" },
-    { label: "DHK", value: "DHK", subText: "Dhaka, Bangladesh" },
-    { label: "LHR", value: "LHR", subText: "London, UK" },
-    { label: "DXB", value: "DXB", subText: "Dubai, UAE" },
-    { label: "MEL", value: "MEL", subText: "MELBOURNE, Australia" },
-    { label: "CCU", value: "CCU", subText: "Netaji Subash Chandra" },
-  ];
-  const airlines = [
-    "Emirates",
-    "American Airlines",
-    "Delta Airlines",
-    "United Airlines",
-    "Qatar Airways",
-    "British Airways",
-  ];
-  const trip_types = [
-    { label: "One way", value: 1 },
-    { label: "Round way", value: 2 },
-    { label: "Multi way", value: 3 },
-  ];
-  const fare_type = [
-    { label: "Regular Fare", value: 1 },
-    { label: "Umrah Fare", value: 2 },
-    { label: "NDC", value: 3 },
-  ];
-  const dropdownData: DropdownOption[] = [
-    {
-      label: "Economy",
-      // options: ["Economy", "Premium Economy", "Business", "First Class"],
-      options: [
-        { id: 1, label: "Economy" },
-        { id: 2, label: "Premium Economy" },
-        { id: 3, label: "Business" },
-        { id: 4, label: "First Class" },
-      ],
-    },
-  ];
+  const envData = environment.SearchOptions.flight;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -119,11 +78,43 @@ const FlightSearchForm: React.FC = () => {
     const formattedDepartureDate = departureDate.toISOString().split("T")[0];
     const formattedReturnDate = returnDate.toISOString().split("T")[0];
     // const query = `origin=${flightData[0].from}&dest=${flightData[0].to}&flyDate=${formattedDepartureDate}&returnDate=${formattedReturnDate}&tripType=${selectedTrip}&fareType=${selectedFareOption}&tripClass=${selectedEconomyIndex}&adult=${passengerCounts.adults}&child=${passengerCounts.children}&infant=${passengerCounts.infants}&airlines=${airlineSearch}`;
-    const query = [
-      `origin=${flightData[0].from}`,
-      `dest=${flightData[0].to}`,
-      `flyDate=${formattedDepartureDate}`,
-      `returnDate=${formattedReturnDate}`,
+    // const query = [
+    //   `origin=${flightData[0].from}`,
+    //   `dest=${flightData[0].to}`,
+    //   `flyDate=${formattedDepartureDate}`,
+    //   `returnDate=${formattedReturnDate}`,
+    //   selectedTrip ? `tripType=${selectedTrip}` : null,
+    //   selectedFareOption ? `fareType=${selectedFareOption}` : null,
+    //   selectedEconomyIndex ? `tripClass=${selectedEconomyIndex}` : null,
+    //   passengerCounts.adults ? `adult=${passengerCounts.adults}` : null,
+    //   passengerCounts.children ? `child=${passengerCounts.children}` : null,
+    //   passengerCounts.infants ? `infant=${passengerCounts.infants}` : null,
+    //   airlineSearch ? `airlines=${airlineSearch}` : null,
+    // ]
+    //   .filter(Boolean) // Remove any null or undefined values
+    //   .join("&");
+    // navigate(`/search/flight?${query}`);
+    const queryParams: string[] = [];
+    if (selectedTrip === 3) {
+      flightData.forEach((flight, index) => {
+        queryParams.push(`origin=${flight.from}`);
+        queryParams.push(`dest=${flight.to}`);
+        queryParams.push(`flyDate=${formattedDepartureDate[index]}`);
+      });
+    } else {
+      // One-way & Round-trip
+      queryParams.push(`origin=${flightData[0].from}`);
+      queryParams.push(`dest=${flightData[0].to}`);
+      queryParams.push(`flyDate=${formattedDepartureDate[0]}`);
+
+      if (selectedTrip === 2) {
+        // Round-trip: Add return date
+        queryParams.push(`returnDate=${formattedReturnDate}`);
+      }
+    }
+
+    // Common query params
+    const commonParams = [
       selectedTrip ? `tripType=${selectedTrip}` : null,
       selectedFareOption ? `fareType=${selectedFareOption}` : null,
       selectedEconomyIndex ? `tripClass=${selectedEconomyIndex}` : null,
@@ -131,14 +122,14 @@ const FlightSearchForm: React.FC = () => {
       passengerCounts.children ? `child=${passengerCounts.children}` : null,
       passengerCounts.infants ? `infant=${passengerCounts.infants}` : null,
       airlineSearch ? `airlines=${airlineSearch}` : null,
-    ]
-      .filter(Boolean) // Remove any null or undefined values
-      .join("&");
-    navigate(`/search/flight?${query}`);
+    ].filter(Boolean);
+
+    const queryString = [...queryParams, ...commonParams].join("&");
+    navigate(`/search/flight?${queryString}`);
   };
   useEffect(() => {
     setFilteredAirlines(
-      airlines.filter((airline) =>
+      envData.airlines.filter((airline) =>
         airline.toLowerCase().includes(airlineSearch.toLowerCase())
       )
     );
@@ -159,7 +150,7 @@ const FlightSearchForm: React.FC = () => {
     <div>
       <div className=" flex-col  items-end xl:flex-row flex justify-between mb-[1.5rem] xl:mb-[2.438rem]">
         <div className="flex flex-row items-end  gap-1 w-full md:gap-4 xl:gap-[3.375rem]  ">
-          {trip_types.map((option) => (
+          {envData.trip_types.map((option) => (
             <label
               key={option.value}
               className="flex   w-full md:w-auto  gap-1 xl:gap-[1.063rem]  items-center cursor-pointer   "
@@ -206,7 +197,7 @@ const FlightSearchForm: React.FC = () => {
             )}
           </div>
 
-          {dropdownData.map((dropdown, index) => (
+          {envData.dropdownData.map((dropdown, index) => (
             <div
               key={index + 1}
               className="relative "
@@ -290,12 +281,12 @@ const FlightSearchForm: React.FC = () => {
           (_, index) => (
             <FlightDestinationSet
               key={index}
-              showReturn={selectedTrip !== 1}
+              showReturn={selectedTrip === 2}
               onRemove={() => handleRemoveFlight(index)}
               allowRemove={selectedTrip === 3 && flights.length > 1}
               selectedFrom={flightData[index].from}
               selectedTo={flightData[index].to}
-              locationOptions={locationOptions}
+              locationOptions={envData.locationOptions}
               departureDate={departureDate}
               returnDate={returnDate}
               setDepartureDate={setDepartureDate}
@@ -332,7 +323,7 @@ const FlightSearchForm: React.FC = () => {
         )}
         <div className=" w-full lg:w-auto flex gap-[1.5rem] lg:gap-[3.313rem] flex-col lg:flex-row">
           <div className="flex  gap-[1.563rem]  items-center">
-            {fare_type.map((option) => (
+            {envData.fare_type.map((option) => (
               <label
                 key={option.value}
                 className="flex gap-1 lg:gap-[1.063rem] items-center cursor-pointer"

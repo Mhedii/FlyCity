@@ -26,53 +26,6 @@ import LayoverInfo from "./LayoverInfo";
 //   cabin: string;
 //   logo: string;
 // }
-interface Airport {
-  airportCode: string;
-  airportName: string;
-  terminal?: string;
-  cityName: string;
-}
-
-interface Airline {
-  code: string;
-  name: string;
-  flightNo: string;
-}
-
-interface FlightSegment {
-  airline: Airline;
-  departure: {
-    depTime: string;
-    depDate: string;
-    airport: Airport;
-  };
-  arrival: {
-    arrTime: string;
-    arrDate: string;
-    airport: Airport;
-  };
-  cabinType: string;
-  numberOfSeats: number;
-  layoverTime: string;
-  elapsedTime: string;
-}
-
-interface Flight {
-  flightSegments: FlightSegment[];
-  flyDate: string;
-}
-
-interface FlightsInfo {
-  flights: Flight[];
-  stops: number;
-  validatingCarrier: string;
-  flyDate: string;
-}
-
-// Define the props for the FlightDetailsInfo component
-interface FlightDetailsInfoProps {
-  flights: FlightsInfo;
-}
 
 const FlightDetailsInfo: React.FC<FlightDetailsInfoProps> = ({
   // from,
