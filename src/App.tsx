@@ -11,6 +11,7 @@ import AuthGuard from "./components/Auth/AuthGuard";
 import { initializeAppData } from "./utils/init";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
+import Booking from "./components/Dashboard/Booking/Booking";
 // import Registration from "./pages/Registration";
 // import RegisterPage from "./pages/RegisterPage";
 
@@ -54,11 +55,18 @@ function App() {
               <Route
                 element={
                   <AuthGuard>
-                    <FlightSearchLayout />
+                    {/* <FlightSearchLayout /> */}
+                    <DashboardLayout />
                   </AuthGuard>
                 }
               >
-                <Route path="/search/flight" element={<FlightSearchResult />} />
+                <Route element={<FlightSearchLayout />}>
+                  <Route
+                    path="/search/flight"
+                    element={<FlightSearchResult />}
+                  />
+                </Route>
+                <Route path="/search/flight/booking" element={<Booking />} />
               </Route>
             </Routes>
           </Suspense>

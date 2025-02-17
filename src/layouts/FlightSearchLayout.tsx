@@ -5,7 +5,7 @@ import Navbar from "../components/Dashboard/Navbar";
 const FlightSearchLayout: React.FC = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="flex flex-col md:flex-row min-h-screen">
         <div className="hidden xl:block">
           <FlightSearchResultSidebar />

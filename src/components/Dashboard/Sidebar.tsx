@@ -5,7 +5,7 @@ import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { IoMenuOutline } from "react-icons/io5";
 import { Link, useLocation } from "react-router";
 const Sidebar = ({ menuItems }: { menuItems: MenuItem[] }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [openDropdowns, setOpenDropdowns] = useState<{
     [key: string]: boolean;
   }>({});

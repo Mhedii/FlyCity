@@ -27,44 +27,12 @@ const FlightLinks: React.FC<FlightLinksProps> = ({ flights }) => {
   const renderSectionContent = () => {
     switch (selectedLink) {
       case "Flight Details":
-        return (
-          <FlightDetailsInfo
-            // from="Dhaka"
-            // to="Chittagong"
-            // date="30 Jan 2025"
-            // airline="Biman Bangladesh Airlines"
-            // logo="/assets/images/FlightSchedules/garuda_airlines.png"
-            // flightNumber="147"
-            // aircraft="Boeing 777-300"
-            // operatedBy="BG"
-            // classType="Y"
-            // availableSeats={5}
-            // departureTime="18:45"
-            // departureDate="Thu, 30 Jan 2025"
-            // departureAirport="Hazrat Shahjalal Int."
-            // departureTerminal="Terminal -"
-            // arrivalTime="19:45"
-            // arrivalDate="Thu, 30 Jan 2025"
-            // arrivalAirport="Patenga"
-            // arrivalTerminal="Terminal -"
-            // baggage="Adult"
-            // checkIn="20 Kg(s)"
-            // cabin="7 Kg(s)"
-            flights={flights}
-          />
-        );
+        return <FlightDetailsInfo flights={flights} />;
       case "Flight Fare":
         return <p className="text-gray-600">Details about Flight Fare...</p>;
       case "Fare Summary":
         return (
           <FareSummary
-            // baseFare={423}
-            // taxes={6}
-            // other={0}
-            // price={429}
-            // qty={1}
-            // discount={42}
-            // currency="MYR"
             flightsTotalFare={flights.totalFare}
             flightsFare={flights.fares}
           />
@@ -76,11 +44,11 @@ const FlightLinks: React.FC<FlightLinksProps> = ({ flights }) => {
             traveller={"Adult"}
             cabin={0}
             checkin={7}
+            flightsBaggage={flights.fares}
           />
         );
       case "Cancellation":
         return <Cancellation />;
-      // Add other cases as needed
       default:
         return (
           <p className="text-gray-600">Select a section to view details.</p>
@@ -120,34 +88,6 @@ const FlightLinks: React.FC<FlightLinksProps> = ({ flights }) => {
           open ? " max-h-auto p-4  shadow-sm rounded-lg bg-white" : "max-h-0"
         }`}
       >
-        {/* {open &&
-          (selectedLink === "Flight Details" ? (
-            <FlightDetailsInfo
-              from="Dhaka"
-              to="Chittagong"
-              date="30 Jan 2025"
-              airline="Biman Bangladesh Airlines"
-              logo="/assets/images/FlightSchedules/garuda_airlines.png"
-              flightNumber="147"
-              aircraft="Boeing 777-300"
-              operatedBy="BG"
-              classType="Y"
-              availableSeats={5}
-              departureTime="18:45"
-              departureDate="Thu, 30 Jan 2025"
-              departureAirport="Hazrat Shahjalal Int."
-              departureTerminal="Terminal -"
-              arrivalTime="19:45"
-              arrivalDate="Thu, 30 Jan 2025"
-              arrivalAirport="Patenga"
-              arrivalTerminal="Terminal -"
-              baggage="Adult"
-              checkIn="20 Kg(s)"
-              cabin="7 Kg(s)"
-            />
-          ) : (
-            <p className="text-gray-600">Details about {selectedLink}...</p>
-          ))} */}
         {open && renderSectionContent()}
       </div>
     </div>

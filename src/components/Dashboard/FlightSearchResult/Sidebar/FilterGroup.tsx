@@ -19,7 +19,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
   type,
   onChange,
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   const handleToggle = () => setIsCollapsed(!isCollapsed);

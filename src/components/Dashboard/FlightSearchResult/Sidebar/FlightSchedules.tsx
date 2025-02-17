@@ -11,10 +11,14 @@ interface Schedule {
   timeRange: string;
   layover: string;
   icon: string;
+  valueMin: number;
+  valueMax: number;
+  valueLayOverMin: number;
+  valueLayOverMax: number;
 }
 
 const FilterSchedules: React.FC = () => {
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [selectedSchedules, setSelectedSchedules] = useState<Set<string>>(
     new Set()
   );
@@ -69,16 +73,7 @@ const FilterSchedules: React.FC = () => {
       icon: "/assets/images/FlightSchedules/night_icon.svg",
     },
   ];
-  // const handleSelect = (slot: string) => {
-  //   const updatedSelection = new Set(selectedSchedules);
-  //   if (updatedSelection.has(slot)) {
-  //     updatedSelection.delete(slot);
-  //   } else {
-  //     updatedSelection.add(slot);
-  //   }
-  //   setSelectedSchedules(updatedSelection);
-  //   dispatch(setSchedule(Array.from(updatedSelection)));
-  // };
+
   const handleSelect = (schedule: Schedule) => {
     const updatedSelection = new Map(selectedSchedules);
     if (updatedSelection.has(schedule.timeRange)) {
@@ -89,16 +84,6 @@ const FilterSchedules: React.FC = () => {
     setSelectedSchedules(updatedSelection);
     dispatch(setSchedule(Array.from(updatedSelection.values())));
   };
-  // const handleLayoverSelect = (slot: string) => {
-  //   const updatedSelection = new Set(selectedLayover);
-  //   if (updatedSelection.has(slot)) {
-  //     updatedSelection.delete(slot);
-  //   } else {
-  //     updatedSelection.add(slot);
-  //   }
-  //   setSelectedLayover(updatedSelection);
-  //   dispatch(setLayover(Array.from(updatedSelection)));
-  // };
 
   const handleLayoverSelect = (layover: string) => {
     const selectedSchedule = schedules.find(

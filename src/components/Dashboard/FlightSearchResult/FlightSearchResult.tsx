@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 import {
   selectBaggagePolicy,
   selectFareType,
-  selectFlightType,
+  // selectFlightType,
   selectLayover,
   selectPriceRange,
   selectRefundability,
@@ -43,14 +43,14 @@ const FlightSearchResult = () => {
   const [selectedAirlines, setSelectedAirlines] = useState(new Set());
   const fareType = useSelector(selectFareType);
   const refundability = useSelector(selectRefundability);
-  const flightType = useSelector(selectFlightType);
+  // const flightType = useSelector(selectFlightType);
   const stops = useSelector(selectStops);
   const baggagePolicy = useSelector(selectBaggagePolicy);
   const selectedSchedule = useSelector(selectSchedule);
   const selectedLayover = useSelector(selectLayover);
   const priceRange = useSelector(selectPriceRange);
 
-  const toggleAirline = (airlineId) => {
+  const toggleAirline = (airlineId: string) => {
     setSelectedAirlines((prev) => {
       const newSelection = new Set(prev);
       if (newSelection.has(airlineId)) {
@@ -86,7 +86,7 @@ const FlightSearchResult = () => {
 
       try {
         const allFlights = await Promise.all(
-          flightApis.map(async (apiId) => {
+          flightApis.map(async (apiId: number) => {
             const queryParams = await parseQueryToObject(search, apiId);
             const response = await flightSearch(queryParams, token);
             return response?.results || [];
