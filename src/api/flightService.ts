@@ -26,3 +26,32 @@ export const flightSearch = async (
     };
   }
 };
+export const revalidateFlightFare = async (
+  token: string,
+  result: Record<string, any>,
+  searchId: string
+) => {
+  try {
+    const response = await apiClient.post(
+      "/flights/revalidatefare",
+      {
+        searchId: searchId,
+        result: result,
+        apiId: result.apiId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error?.response?.data?.message || "Revalidarte Fare failed",
+      data: null,
+    };
+  }
+};

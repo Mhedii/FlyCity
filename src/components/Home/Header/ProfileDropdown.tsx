@@ -15,6 +15,7 @@ const ProfileDropdown: React.FC<{ userData: userDataTypes }> = ({
   const navigate = useNavigate();
   const handleLogout = async () => {
     removeAuthToken();
+    sessionStorage.clear();
     navigate("/");
   };
   return (

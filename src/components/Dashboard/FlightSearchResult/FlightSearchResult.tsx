@@ -29,7 +29,7 @@ import {
 const FlightSearchResult = () => {
   const { search } = useLocation();
   const [selectedFilter, setSelectedFilter] = useState("cheapest");
-  const [flightData, setFlightData] = useState<string[]>([]);
+  const [flightData, setFlightData] = useState<FlightSearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -39,8 +39,11 @@ const FlightSearchResult = () => {
   const [fastestTime, setFastestTime] = useState(0);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [initialPosition, setInitialPosition] = useState(0);
-  const [uniqueCarriers, setUniqueCarriers] = useState<string[]>([]);
-  const [selectedAirlines, setSelectedAirlines] = useState(new Set());
+  const [uniqueCarriers, setUniqueCarriers] = useState([]);
+  const [searchId, setSearchId] = useState<string>("");
+  const [selectedAirlines, setSelectedAirlines] = useState<Set<string>>(
+    new Set()
+  );
   const fareType = useSelector(selectFareType);
   const refundability = useSelector(selectRefundability);
   // const flightType = useSelector(selectFlightType);
@@ -89,17 +92,19 @@ const FlightSearchResult = () => {
           flightApis.map(async (apiId: number) => {
             const queryParams = await parseQueryToObject(search, apiId);
             const response = await flightSearch(queryParams, token);
+            await setSearchId(response?.searchId);
             return response?.results || [];
           })
         );
 
         const flights = allFlights.flat();
+
         setFlightData(flights);
         const carriers = [
           ...Array.from(
             flights
-              .reduce((map, flight) => {
-                const carrier = {
+              .reduce((map, flight: FlightSearchResult) => {
+                const carrier: Airline = {
                   code: flight.validatingCarrierCode,
                   name: flight.validatingCarrier,
                 };
@@ -110,7 +115,7 @@ const FlightSearchResult = () => {
                 }
 
                 return map;
-              }, new Map())
+              }, new Map<string, Airline>())
               .values()
           ),
         ];
@@ -125,8 +130,8 @@ const FlightSearchResult = () => {
 
     fetchFlights();
   }, [search]);
-
-  const convertToMinutes = (timeString) => {
+  console.log(searchId);
+  const convertToMinutes = (timeString: string) => {
     let totalMinutes = 0;
     const dayMatch = timeString.match(/(\d+)d/);
     const hourMatch = timeString.match(/(\d+)h/);
@@ -141,12 +146,11 @@ const FlightSearchResult = () => {
   const getTimeWeight = (tm: string): number => {
     tm = tm.replace(":", "");
 
-    let n = parseInt(tm);
+    const n = parseInt(tm);
     return n;
   };
-  console.log(selectedAirlines);
   const filteredFlights = flightData
-    .filter((flight, index) => {
+    .filter((flight) => {
       //1.  Airline Filter (if airlines are selected)
       if (
         selectedAirlines.size > 0 &&
@@ -163,7 +167,10 @@ const FlightSearchResult = () => {
       }
 
       //3.  Refundability Filter
-      if (refundability && flight.totalFare.refundable !== refundability) {
+      if (
+        refundability &&
+        flight.totalFare.refundable !== Boolean(refundability)
+      ) {
         return false;
       }
 
@@ -181,6 +188,13 @@ const FlightSearchResult = () => {
       ) {
         return false;
       }
+      // if (
+      //   Array.isArray(stops) && stops.length > 0
+      //     ? !stops.includes(flight.stops)
+      //     : flight.stops < stops
+      // ) {
+      //   return false;
+      // }
 
       //6. Baggage Policy Filter
       const baggageWeights =
@@ -201,7 +215,7 @@ const FlightSearchResult = () => {
       }
       // 8.Flight Departure
       if (selectedSchedule.length > 0) {
-        let w = getTimeWeight(
+        const w = getTimeWeight(
           flight.flights[0].flightSegments[0].departure.depTime
         );
         const isMatched = selectedSchedule.some((schedule) => {
@@ -221,12 +235,11 @@ const FlightSearchResult = () => {
       }
       // 9.Flight Layover
       if (selectedLayover.length > 0) {
-        let w = flight.flights[0].flightSegments[0].layoverTimeInMinutes;
+        const w = flight.flights[0].flightSegments[0].layoverTimeInMinutes;
 
         const isMatched = selectedLayover.some((schedule) => {
           const { valueLayOverMin, valueLayOverMax } = schedule;
           if (w >= valueLayOverMin && w <= valueLayOverMax) {
-            console.log(w, valueLayOverMin, valueLayOverMax);
             return true;
           }
           return false;
@@ -262,8 +275,7 @@ const FlightSearchResult = () => {
       return 0;
     });
 
-  const formatDuration = (minutes: number) => {
-    console.log("Minutes", minutes);
+  const formatDuration = (minutes: number): string => {
     if (minutes <= 0 || isNaN(minutes)) return "--:--";
 
     const days = Math.floor(minutes / (24 * 60));
@@ -309,7 +321,6 @@ const FlightSearchResult = () => {
       })
     );
 
-    console.log("Min", minDuration);
     setCheapestPrice(minPrice);
     setEarliestTime(earliestDepTime);
     setFastestTime(minDuration);
@@ -317,7 +328,7 @@ const FlightSearchResult = () => {
 
   // Filter for Min Display
 
-  const handleScroll = () => {
+  const handleScroll = (): void => {
     const currentScrollY = window.scrollY;
     if (currentScrollY > lastScrollY) {
       setIsVisible(false);
@@ -412,15 +423,18 @@ const FlightSearchResult = () => {
             <div>
               {error && <p className="text-red-500">{error}</p>}
               {filteredFlights && filteredFlights.length > 0
-                ? filteredFlights.map((flight: any, index: number) => (
-                    // {flightData && flightData.results.length > 0
-                    //   ? flightData.results.map((flight: any, index: number) => (
-                    <FlightCard
-                      key={index}
-                      flightInfo={flight}
-                      onChooseFlight={() => console.log("Flight chosen!")}
-                    />
-                  ))
+                ? filteredFlights.map(
+                    (flight: FlightSearchResult, index: number) => (
+                      // {flightData && flightData.results.length > 0
+                      //   ? flightData.results.map((flight: any, index: number) => (
+                      <FlightCard
+                        key={index}
+                        flightInfo={flight}
+                        searchId={searchId}
+                        onChooseFlight={() => console.log("Flight chosen!")}
+                      />
+                    )
+                  )
                 : !loading && <p>No flights found.</p>}
             </div>
 

@@ -33,24 +33,6 @@ const Baggage: React.FC<FareBreakdownProps> = ({ flightsBaggage }) => {
             </tr>
           </thead>
           <tbody>
-            {/* <tr className=" border-b border-gray_light_3">
-              <td className="py-2 pl-4">
-                <p className="font-medium flex items-center gap-2">
-                  DAC <IoIosAirplane className="text-2xl" /> YEG
-                </p>
-              </td>
-              <td className="py-2 text-sm ">ADT: 2P </td>
-              <td className="py-2 text-sm ">ADT: -</td>
-            </tr>
-            <tr className=" border-b border-gray_light_3">
-              <td className="py-2 pl-4">
-                <p className="font-medium flex items-center gap-2">
-                  DAC <IoIosAirplane className="text-2xl" /> YEG
-                </p>
-              </td>
-              <td className="py-2 text-sm ">ADT: 2P </td>
-              <td className="py-2 text-sm ">ADT: -</td>
-            </tr> */}
             {Object.keys(groupedBaggage).map((segmentId) => {
               const segmentBaggage = groupedBaggage[segmentId];
               return (

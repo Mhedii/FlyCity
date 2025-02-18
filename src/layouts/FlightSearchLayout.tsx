@@ -1,7 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import FlightSearchResultSidebar from "../components/Dashboard/FlightSearchResult/Sidebar/FlightSearchResultSidebar";
-import Navbar from "../components/Dashboard/Navbar";
 const FlightSearchLayout: React.FC = () => {
   return (
     <div>

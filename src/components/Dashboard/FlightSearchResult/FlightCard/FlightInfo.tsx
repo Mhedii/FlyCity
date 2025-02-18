@@ -1,10 +1,10 @@
 import FlightDetails from "./FlightDetails";
 import FlightFareDetails from "./FlightFareDetails";
-
+interface FlightFareProps {
+  flightInfo: FlightSearchResult;
+  onChooseFlight: () => void;
+}
 const FlightInfo: React.FC<FlightFareProps> = ({
-  grossFare,
-  netFare,
-  currency,
   flightInfo,
   onChooseFlight,
 }) => {
@@ -12,7 +12,7 @@ const FlightInfo: React.FC<FlightFareProps> = ({
     <div className="px-[1.313rem] xl:pt-[1.938rem] xl:pb-[1.813rem] pt-[1rem] grid grid-cols-12 items-center ">
       <div className="col-span-12 xl:col-span-8   ">
         <div className="col-span-12 xl:col-span-8">
-          {flightInfo?.flights.map((flight, flightIndex) => (
+          {flightInfo?.flights.map((flight: Flight, flightIndex: number) => (
             <div key={flightIndex}>
               <FlightDetails
                 airline={flightInfo.validatingCarrier}
@@ -50,10 +50,13 @@ const FlightInfo: React.FC<FlightFareProps> = ({
       </div>
       <div className="col-span-12 xl:col-span-4 justify-end flex">
         <FlightFareDetails
-          grossFare={grossFare}
-          netFare={netFare}
-          currency={currency}
+          // grossFare={grossFare}
+          // netFare={netFare}
+          // currency={currency}
           onChooseFlight={onChooseFlight}
+          grossFare={flightInfo.totalFare.subTotalFare}
+          netFare={flightInfo.totalFare.totalFare}
+          currency={flightInfo.totalFare.currency}
         />
       </div>
     </div>

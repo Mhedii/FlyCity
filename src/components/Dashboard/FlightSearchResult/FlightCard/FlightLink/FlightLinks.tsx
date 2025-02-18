@@ -4,10 +4,18 @@ import Baggage from "../Baggage";
 import FareSummary from "../FareSummary";
 import FlightDetailsInfo from "./FlightDetailsInfo";
 import Cancellation from "../Cancellation";
+import {
+  getAuthToken,
+  setSelectedItemInSession,
+} from "../../../../../utils/authUtils";
+import { revalidateFlightFare } from "../../../../../api/flightService";
+import { useNavigate } from "react-router";
 
-const FlightLinks: React.FC<FlightLinksProps> = ({ flights }) => {
+const FlightLinks: React.FC<FlightSearchResult> = ({ flights, searchId }) => {
   const [open, setOpen] = useState(false);
   const [selectedLink, setSelectedLink] = useState<string | null>(null);
+  const [isLoadingButton, setIsLoadingButton] = useState(false);
+  const navigate = useNavigate();
   const links = [
     "Flight Details",
     "Fare Summary",
@@ -55,7 +63,29 @@ const FlightLinks: React.FC<FlightLinksProps> = ({ flights }) => {
         );
     }
   };
+  const handleRevalidateFare = async () => {
+    const token = getAuthToken();
+    if (token !== null) {
+      try {
+        setIsLoadingButton(true);
+        const response = await revalidateFlightFare(token, flights, searchId);
 
+        if (response.results.length !== 0 && response.results[0].revalidated) {
+          setSelectedItemInSession(
+            response.results[0].resultID,
+            response.results[0]
+          );
+          navigate(`/search/flight/booking?id=${response.results[0].resultID}`);
+        } else {
+          setIsLoadingButton(false);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoadingButton(false);
+      }
+    }
+  };
   return (
     <div className="w-full">
       <div className="flex justify-between px-6 text-lg text-primary pb-4 ">
@@ -78,8 +108,12 @@ const FlightLinks: React.FC<FlightLinksProps> = ({ flights }) => {
           ))}
         </div>
         <Button
-          text="CHOOSE FLIGHT"
-          className="font-semibold text-xs xl:text-lg "
+          // text="CHOOSE FLIGHT"
+          text={`${isLoadingButton ? "Loading..." : "CHOOSE FLIGHT"}`}
+          className={`font-semibold text-xs xl:text-lg ${
+            isLoadingButton && "opacity-70"
+          }`}
+          onClick={handleRevalidateFare}
         />
       </div>
 

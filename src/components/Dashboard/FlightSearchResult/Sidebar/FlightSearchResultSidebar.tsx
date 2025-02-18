@@ -1,16 +1,5 @@
 import React from "react";
-import FilterGroup from "./FilterGroup";
-import FilterSchedules from "./FlightSchedules";
-import PriceRangeSlider from "./PriceRangeSlider";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectBaggagePolicy,
-  selectFareType,
-  selectFlightType,
-  selectPriceRange,
-  selectRefundability,
-  selectStops,
-} from "../../../../redux/features/Filters/FilterSelectors";
+import { useDispatch } from "react-redux";
 import {
   setBaggagePolicy,
   setFareType,
@@ -19,22 +8,25 @@ import {
   setRefundability,
   setStops,
 } from "../../../../redux/features/Filters/FilterSlice";
+import FilterGroup from "./FilterGroup";
+import FilterSchedules from "./FlightSchedules";
+import PriceRangeSlider from "./PriceRangeSlider";
 
 const FlightSearchResultSidebar: React.FC = () => {
-  const handleFilterChange = (selectedValues: string[]) => {
-    console.log("Selected values:", selectedValues);
-  };
-  const handlePriceChange = (values: { min: number; max: number }) => {
-    console.log("Selected Price Range:", values);
-  };
+  // const handleFilterChange = (selectedValues: string[]) => {
+  //   console.log("Selected values:", selectedValues);
+  // };
+  // const handlePriceChange = (values: { min: number; max: number }) => {
+  //   console.log("Selected Price Range:", values);
+  // };
   const dispatch = useDispatch();
 
-  const fareType = useSelector(selectFareType);
-  const refundability = useSelector(selectRefundability);
-  const flightType = useSelector(selectFlightType);
-  const stops = useSelector(selectStops);
-  const baggagePolicy = useSelector(selectBaggagePolicy);
-  const priceRange = useSelector(selectPriceRange);
+  // const fareType = useSelector(selectFareType);
+  // const refundability = useSelector(selectRefundability);
+  // const flightType = useSelector(selectFlightType);
+  // const stops = useSelector(selectStops);
+  // const baggagePolicy = useSelector(selectBaggagePolicy);
+  // const priceRange = useSelector(selectPriceRange);
   return (
     <aside
       className={`px-[1rem]  pb-[1rem] xl:pb-0 rounded-md xl:rounded-none xl:pl-[2.063rem] xl:pe-[0.875rem] w-full md:w-[21.625rem] h-full flex flex-col bg-gray_light_3`}

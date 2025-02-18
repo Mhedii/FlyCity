@@ -40,3 +40,11 @@ export const removeAuthToken = () => {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem("app-data");
 };
+
+export const setSelectedItemInSession = (resultID: string, data: object) => {
+  sessionStorage.setItem(`selected-item-${resultID}`, JSON.stringify(data));
+};
+export const getSelectedItemFromSession = (resultID: string) => {
+  const data = sessionStorage.getItem(`selected-item-${resultID}`);
+  return data ? JSON.parse(data) : null;
+};

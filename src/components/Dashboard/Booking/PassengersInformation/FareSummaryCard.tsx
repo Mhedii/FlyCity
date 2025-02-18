@@ -50,7 +50,7 @@ const FareSummaryCard: React.FC<FareSummaryProps> = ({
 
       {/* Fare Details (Dropdown) */}
       {isOpen && (
-        <div className="border-t pt-3 text-gray-700">
+        <div className="border-t pt-3 ">
           <h4 className="font-medium mb-2">Fare Summary</h4>
           {fareDetails.map((item, index) => (
             <div key={index} className="mb-2">
@@ -90,7 +90,7 @@ const FareSummaryCard: React.FC<FareSummaryProps> = ({
       <div className="mt-3">
         <div className="flex justify-between font-semibold text-lg">
           <span>You Pay</span>
-          <span className="text-blue-600">
+          <span className="text-primary">
             BDT {totalPayable.toLocaleString()}
           </span>
         </div>

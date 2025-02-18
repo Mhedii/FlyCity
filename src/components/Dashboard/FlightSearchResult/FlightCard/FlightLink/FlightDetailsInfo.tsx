@@ -3,54 +3,7 @@ import { IoIosAirplane } from "react-icons/io";
 import FlightPath from "./FlightPath";
 import LayoverInfo from "./LayoverInfo";
 
-// interface FlightDetailsInfoProps {
-//   from: string;
-//   to: string;
-//   date: string;
-//   airline: string;
-//   flightNumber: string;
-//   aircraft: string;
-//   operatedBy: string;
-//   classType: string;
-//   availableSeats: number;
-//   departureTime: string;
-//   departureDate: string;
-//   departureAirport: string;
-//   departureTerminal: string;
-//   arrivalTime: string;
-//   arrivalDate: string;
-//   arrivalAirport: string;
-//   arrivalTerminal: string;
-//   baggage: string;
-//   checkIn: string;
-//   cabin: string;
-//   logo: string;
-// }
-
-const FlightDetailsInfo: React.FC<FlightDetailsInfoProps> = ({
-  // from,
-  // to,
-  // date,
-  // airline,
-  // flightNumber,
-  // aircraft,
-  // operatedBy,
-  // classType,
-  // availableSeats,
-  // departureTime,
-  // departureDate,
-  // departureAirport,
-  // departureTerminal,
-  // arrivalTime,
-  // arrivalDate,
-  // arrivalAirport,
-  // arrivalTerminal,
-  // baggage,
-  // checkIn,
-  // cabin,
-  // logo,
-  flights,
-}) => {
+const FlightDetailsInfo: React.FC<FlightSearchResult> = ({ flights }) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
