@@ -1,18 +1,21 @@
+import React from "react";
+
 interface StatusBadgeProps {
   status: string;
 }
 
-const StatusBadge = ({ status }: StatusBadgeProps) => {
-  const statusColors: Record<string, string> = {
-    Confirmed: "bg-green-100 text-green-700",
-    "On Process": "bg-yellow-100 text-yellow-700",
-    Cancelled: "bg-red-100 text-red-700",
-  };
+const statusColors: { [key: string]: string } = {
+  Confirmed: "bg-green-200 text-green-600 ",
+  "On Process": "bg-yellow bg-opacity-30 text-yellow",
+  Cancelled: "bg-red-200 text-red-600",
+};
 
+const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
+  console.log(status);
   return (
     <span
-      className={`px-2 py-1 rounded-md text-xs font-semibold ${
-        statusColors[status] || "bg-gray-200 text-gray-700"
+      className={`px-3 py-1 rounded-[6px] text-sm  ${
+        statusColors[status] || "bg-red-500 text-white "
       }`}
     >
       {status}

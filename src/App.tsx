@@ -1,17 +1,18 @@
 import { Suspense, lazy, useEffect } from "react";
 import "./App.css";
 // import Home from "./pages/Home";
+import { Provider } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import AuthGuard from "./components/Auth/AuthGuard";
+import Booking from "./components/Dashboard/Booking/Booking";
 import FlightSearchResult from "./components/Dashboard/FlightSearchResult/FlightSearchResult";
 import DashboardLayout from "./layouts/DashboardLayout";
 import FlightSearchLayout from "./layouts/FlightSearchLayout";
 import MainLayout from "./layouts/MainLayout";
+import BookingsPage from "./pages/Bookings/BookingsPage";
 import FlightSearch from "./pages/FlightSearch/FlightSearch";
-import AuthGuard from "./components/Auth/AuthGuard";
-import { initializeAppData } from "./utils/init";
 import { store } from "./redux/store";
-import { Provider } from "react-redux";
-import Booking from "./components/Dashboard/Booking/Booking";
+import { initializeAppData } from "./utils/init";
 // import Registration from "./pages/Registration";
 // import RegisterPage from "./pages/RegisterPage";
 
@@ -47,9 +48,9 @@ function App() {
               </Route>
 
               {/* Bookings Layout Routes */}
-              {/* <Route element={<DashboardLayout />}>
-              <Route path="/bookings/" element={<BookingTable />} />
-            </Route> */}
+              <Route element={<DashboardLayout />}>
+                <Route path="/booking/flight" element={<BookingsPage />} />
+              </Route>
 
               {/* FlightSearch Layout Routes */}
               <Route

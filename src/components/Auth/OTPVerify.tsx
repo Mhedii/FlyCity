@@ -126,7 +126,7 @@ const OTPVerify: React.FC<OTPVerifyProps> = ({
             value={digit}
             onChange={(e) => handleChange(index, e.target.value)}
             onPaste={(e) => handlePaste(e)}
-            className="w-[2rem] h-[2rem] xl:w-[3.625rem] xl:h-[3.625rem]  bg-gray_light_3 text-center text-xl rounded-lg focus:ring-2 focus:ring-primary focus:outline-gray"
+            className="w-[2rem] h-[2rem] xl:w-[3.625rem] xl:h-[3.625rem]  bg-gray_light_3 text-center text-xl rounded-lg focus:outline-gray"
           />
         ))}
       </div>
