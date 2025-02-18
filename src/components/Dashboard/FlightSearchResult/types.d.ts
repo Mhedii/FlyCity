@@ -130,6 +130,8 @@ interface FlightSegment {
   seatsAvailable: number;
   bookingClass: string;
   stops: number;
+  elapsedTime: string;
+  numberOfSeats: number;
 }
 
 interface Flight {
@@ -184,6 +186,7 @@ interface FareDetails {
 
 interface FlightSearchResult {
   resultID: string;
+  searchId: string;
   flights: Flight[];
   fares: FareDetails[];
   stops: number;

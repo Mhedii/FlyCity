@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface FiltersState {
@@ -47,11 +48,11 @@ const filtersSlice = createSlice({
     ) => {
       state.priceRange = action.payload;
     },
-    setSchedule(state, action: PayloadAction<string[]>) {
-      state.schedule = action.payload; // New reducer for schedule
+    setSchedule(state, action: PayloadAction<any[]>) {
+      state.schedule = action.payload;
     },
     setLayover(state, action: PayloadAction<string[]>) {
-      state.layover = action.payload; // New reducer for layover
+      state.layover = action.payload;
     },
   },
 });

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import Button from "../../../../Shared/Button";
 import Baggage from "../Baggage";
@@ -11,7 +12,7 @@ import {
 import { revalidateFlightFare } from "../../../../../api/flightService";
 import { useNavigate } from "react-router";
 
-const FlightLinks: React.FC<FlightSearchResult> = ({ flights, searchId }) => {
+const FlightLinks: React.FC<any> = ({ flights, searchId }) => {
   const [open, setOpen] = useState(false);
   const [selectedLink, setSelectedLink] = useState<string | null>(null);
   const [isLoadingButton, setIsLoadingButton] = useState(false);

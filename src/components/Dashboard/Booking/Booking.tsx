@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import PassengerDetailsForm from "./PassengersInformation/PassengerDetailsForm";
+import React from "react";
 import FareSummaryCard from "./PassengersInformation/FareSummaryCard";
+import PassengerDetailsForm from "./PassengersInformation/PassengerDetailsForm";
 // import { useSearchParams } from "react-router-dom";
 
 // import { getSelectedItemFromSession } from "../../../utils/authUtils";

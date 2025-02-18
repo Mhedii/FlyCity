@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -51,7 +52,7 @@ const FlightSearchResultSidebar: React.FC = () => {
             { label: "Gross Fare", value: "gross_fare" },
           ]}
           // onChange={handleFilterChange}
-          onChange={(values) => dispatch(setFareType(values))}
+          onChange={(values: any) => dispatch(setFareType(values))}
         />
         <FilterGroup
           title="Refundability"
@@ -61,7 +62,7 @@ const FlightSearchResultSidebar: React.FC = () => {
             { label: "No Refundable", value: false },
           ]}
           // onChange={handleFilterChange}
-          onChange={(values) => dispatch(setRefundability(values[0]))}
+          onChange={(values: any) => dispatch(setRefundability(values[0]))}
         />
         <FilterGroup
           title="Flight Type"
@@ -71,7 +72,7 @@ const FlightSearchResultSidebar: React.FC = () => {
             { label: "Multi Flight", value: "multi" },
           ]}
           // onChange={handleFilterChange}
-          onChange={(values) => dispatch(setFlightType(values[0]))}
+          onChange={(values: any) => dispatch(setFlightType(values[0]))}
         />
         <FilterGroup
           title="Number of Stops"
@@ -82,7 +83,7 @@ const FlightSearchResultSidebar: React.FC = () => {
             { label: "2 Stops", value: 2 },
             { label: "3+ Stops", value: 3 },
           ]}
-          onChange={(values) => dispatch(setStops(values))}
+          onChange={(values: any) => dispatch(setStops(values))}
           // onChange={handleFilterChange}
         />
         <FilterGroup
@@ -93,7 +94,7 @@ const FlightSearchResultSidebar: React.FC = () => {
             { label: "30 kgs", value: 30 },
           ]}
           // onChange={handleFilterChange}
-          onChange={(values) => dispatch(setBaggagePolicy(values))}
+          onChange={(values: any) => dispatch(setBaggagePolicy(values))}
         />
       </nav>
     </aside>

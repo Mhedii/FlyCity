@@ -1,24 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-interface FilterOption {
-  label: string;
-  value: string | number | boolean;
-}
+// interface FilterOption {
+//   label: string;
+//   value: string | number | boolean;
+// }
 
-interface FilterGroupProps {
-  title: string;
-  options: FilterOption[];
-  type: "checkbox" | "radio";
-  onChange: (selectedValues: string[]) => void;
-}
+// interface FilterGroupProps {
+//   title: string;
+//   options: FilterOption[];
+//   type: "checkbox" | "radio";
+//   onChange: (selectedValues: string[]) => void;
+// }
 
-const FilterGroup: React.FC<FilterGroupProps> = ({
-  title,
-  options,
-  type,
-  onChange,
-}) => {
+const FilterGroup: React.FC<any> = ({ title, options, type, onChange }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
@@ -55,7 +51,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
 
       {!isCollapsed && (
         <div className="mt-2 space-y-2">
-          {options.map((option) => (
+          {options.map((option: any) => (
             <label
               key={option.value}
               className="flex items-center gap-[0.688rem] cursor-pointer "

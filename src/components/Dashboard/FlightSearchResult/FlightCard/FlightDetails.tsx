@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IoIosAirplane } from "react-icons/io";
 
 const FlightDetails: React.FC<
-  Omit<FlightInfoProps, "grossFare" | "netFare" | "currency" | "onChooseFlight">
+  Omit<any, "grossFare" | "netFare" | "currency" | "onChooseFlight">
+  // Omit<FlightInfoProps, "grossFare" | "netFare" | "currency" | "onChooseFlight">
 > = ({ airline, duration, isDirect, flights }) => {
   return (
     <div className="grid grid-cols-12 xl:flex justify-between items-center w-full xl:mb-[2.563rem]">

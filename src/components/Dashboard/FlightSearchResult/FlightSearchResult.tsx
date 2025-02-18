@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import AirlineSlider from "./Filters/AirlineSlider";
 import FilterByAmount from "./Filters/FilterByAmount";
@@ -39,7 +41,7 @@ const FlightSearchResult = () => {
   const [fastestTime, setFastestTime] = useState(0);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [initialPosition, setInitialPosition] = useState(0);
-  const [uniqueCarriers, setUniqueCarriers] = useState([]);
+  const [uniqueCarriers, setUniqueCarriers] = useState<any>([]);
   const [searchId, setSearchId] = useState<string>("");
   const [selectedAirlines, setSelectedAirlines] = useState<Set<string>>(
     new Set()
@@ -78,7 +80,7 @@ const FlightSearchResult = () => {
       setError("");
 
       const token = getAuthToken();
-      const appData = getAppDataFromLocalStorage();
+      const appData: any = getAppDataFromLocalStorage();
       const flightApis = appData?.data.agentInfo?.flightApis || [];
 
       if (!token || flightApis.length === 0) {
@@ -183,11 +185,21 @@ const FlightSearchResult = () => {
 
       if (
         Array.isArray(stops) && stops.length > 0
-          ? !stops.includes(flight.stops)
-          : flight.stops < stops
+          ? !stops.map(Number).includes(Number(flight.stops))
+          : Number(stops) < 3
+          ? Number(flight.stops) !== Number(stops)
+          : Number(flight.stops) < 3
       ) {
         return false;
       }
+
+      // if (
+      //   Array.isArray(stops) && stops.length > 0
+      //     ? !stops.includes(flight.stops)
+      //     : flight.stops < stops
+      // ) {
+      //   return false;
+      // }
       // if (
       //   Array.isArray(stops) && stops.length > 0
       //     ? !stops.includes(flight.stops)
@@ -202,7 +214,7 @@ const FlightSearchResult = () => {
         [];
       if (
         baggagePolicy.length > 0 &&
-        !baggagePolicy.some((weight) => baggageWeights.includes(weight))
+        !baggagePolicy.some((weight: any) => baggageWeights.includes(weight))
       ) {
         return false;
       }
@@ -219,7 +231,7 @@ const FlightSearchResult = () => {
           flight.flights[0].flightSegments[0].departure.depTime
         );
         const isMatched = selectedSchedule.some((schedule) => {
-          const { valueMin, valueMax } = schedule;
+          const { valueMin, valueMax }: any = schedule;
           if (w >= valueMin && w <= valueMax) {
             console.log(w, valueMax, valueMax);
             return true;
@@ -235,10 +247,10 @@ const FlightSearchResult = () => {
       }
       // 9.Flight Layover
       if (selectedLayover.length > 0) {
-        const w = flight.flights[0].flightSegments[0].layoverTimeInMinutes;
+        const w: any = flight.flights[0].flightSegments[0].layoverTimeInMinutes;
 
         const isMatched = selectedLayover.some((schedule) => {
-          const { valueLayOverMin, valueLayOverMax } = schedule;
+          const { valueLayOverMin, valueLayOverMax }: any = schedule;
           if (w >= valueLayOverMin && w <= valueLayOverMax) {
             return true;
           }

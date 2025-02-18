@@ -1,5 +1,3 @@
-import React from "react";
-
 const ShimmerCard = () => {
   return (
     <div className="bg-white rounded-lg mb-[2rem]">

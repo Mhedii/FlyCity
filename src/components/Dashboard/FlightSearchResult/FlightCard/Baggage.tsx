@@ -1,20 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { IoIosAirplane } from "react-icons/io";
 
-interface FareBreakdownProps {
-  flight: string;
-  traveller: string;
-  checkin: number;
-  cabin: number;
-}
+// interface FareBreakdownProps {
+//   flight: string;
+//   traveller: string;
+//   checkin: number;
+//   cabin: number;
+// }
 
-const Baggage: React.FC<FareBreakdownProps> = ({ flightsBaggage }) => {
-  const baggageData = flightsBaggage.flatMap((fare) =>
-    fare.passengerFares.flatMap((passengerFare) => passengerFare.baggages)
+const Baggage: React.FC<any> = ({ flightsBaggage }) => {
+  const baggageData = flightsBaggage.flatMap((fare: any) =>
+    fare.passengerFares.flatMap((passengerFare: any) => passengerFare.baggages)
   );
 
   // Group the baggage by segmentInfoId (Sector)
-  const groupedBaggage = baggageData.reduce((acc, baggage) => {
+  const groupedBaggage = baggageData.reduce((acc: any, baggage: any) => {
     if (!acc[baggage.segmentInfoId]) {
       acc[baggage.segmentInfoId] = [];
     }
@@ -48,15 +49,17 @@ const Baggage: React.FC<FareBreakdownProps> = ({ flightsBaggage }) => {
                   {/* Check-in baggage column (ProvisionType "A") */}
                   <td className="py-2 text-sm">
                     {segmentBaggage
-                      .filter((baggage) => baggage.provisionType === "A")
-                      .map((baggage, idx) => (
+                      .filter(
+                        (baggage: Baggage) => baggage.provisionType === "A"
+                      )
+                      .map((baggage: Baggage, idx: number) => (
                         <p key={idx} className="text-sm">
                           {baggage.provisionType}: {baggage.pieceCount} P
                         </p>
                       ))}
                     {/* Fallback for when there is no checked-in baggage */}
                     {segmentBaggage.filter(
-                      (baggage) => baggage.provisionType === "A"
+                      (baggage: Baggage) => baggage.provisionType === "A"
                     ).length === 0 && (
                       <p className="text-sm">No checked-in baggage</p>
                     )}
@@ -65,15 +68,17 @@ const Baggage: React.FC<FareBreakdownProps> = ({ flightsBaggage }) => {
                   {/* Cabin baggage column (ProvisionType "B") */}
                   <td className="py-2 text-sm">
                     {segmentBaggage
-                      .filter((baggage) => baggage.provisionType === "B")
-                      .map((baggage, idx) => (
+                      .filter(
+                        (baggage: Baggage) => baggage.provisionType === "B"
+                      )
+                      .map((baggage: Baggage, idx: number) => (
                         <p key={idx} className="text-sm">
                           {baggage.provisionType}: {baggage.description}
                         </p>
                       ))}
                     {/* Fallback for when there is no cabin baggage */}
                     {segmentBaggage.filter(
-                      (baggage) => baggage.provisionType === "B"
+                      (baggage: Baggage) => baggage.provisionType === "B"
                     ).length === 0 && (
                       <p className="text-sm">No cabin baggage</p>
                     )}

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { IoIosAirplane } from "react-icons/io";
 import FlightPath from "./FlightPath";
 import LayoverInfo from "./LayoverInfo";
 
-const FlightDetailsInfo: React.FC<FlightSearchResult> = ({ flights }) => {
+const FlightDetailsInfo: React.FC<any> = ({ flights }) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
@@ -38,57 +39,58 @@ const FlightDetailsInfo: React.FC<FlightSearchResult> = ({ flights }) => {
         </p>
       </div>
       <div className="border border-gray_light_3 p-4 pt-0  rounded-b-lg  w-full">
-        {flights.flights.map((flight, flightIndex) => (
+        {flights.flights.map((flight: any, flightIndex: number) => (
           <div key={flightIndex}>
-            {flight.flightSegments.map((flightSegment, index) => (
-              <div key={index}>
-                <div className="flex  items-center gap-[0.375rem] text-lg  mt-4">
-                  <img
-                    src={`${import.meta.env.VITE_AIRLINE_LOGO_URL}/${
-                      flightSegment.airline.code
-                    }.png`}
-                    alt={`${import.meta.env.VITE_AIRLINE_LOGO_URL}/${
-                      flightSegment.airline.name
-                    } logo`}
-                    className="w-[2.5rem] h-[1.5rem] xl:w-[3.625rem] xl:h-[2.063rem]"
-                  />
-                  <div className="  flex  items-center   gap-2 divide-gray">
-                    <span className="font-semibold px-1 ">
-                      {flights.validatingCarrier}
-                    </span>
-                    <span className="text-gray">|</span>
-                    <p className="px-1">
-                      {flightSegment.airline.code}{" "}
-                      {flightSegment.airline.flightNo}
-                    </p>{" "}
-                    <span className="text-gray">|</span>{" "}
-                    <p className="px-1">251</p>
-                    <span className="text-gray">|</span>
-                    <p className="px-1">{flightSegment.cabinType} </p>
-                    <span className="text-gray">|</span>
-                    <p className="text-red-500 px-1 font-medium">
-                      {flightSegment.numberOfSeats} Seates Left
-                    </p>
+            {flight.flightSegments.map(
+              (flightSegment: FlightSegment, index: number) => (
+                <div key={index}>
+                  <div className="flex  items-center gap-[0.375rem] text-lg  mt-4">
+                    <img
+                      src={`${import.meta.env.VITE_AIRLINE_LOGO_URL}/${
+                        flightSegment.airline.code
+                      }.png`}
+                      alt={`${import.meta.env.VITE_AIRLINE_LOGO_URL}/${
+                        flightSegment.airline.name
+                      } logo`}
+                      className="w-[2.5rem] h-[1.5rem] xl:w-[3.625rem] xl:h-[2.063rem]"
+                    />
+                    <div className="  flex  items-center   gap-2 divide-gray">
+                      <span className="font-semibold px-1 ">
+                        {flights.validatingCarrier}
+                      </span>
+                      <span className="text-gray">|</span>
+                      <p className="px-1">
+                        {flightSegment.airline.code}{" "}
+                        {flightSegment.airline.flightNo}
+                      </p>{" "}
+                      <span className="text-gray">|</span>{" "}
+                      <p className="px-1">251</p>
+                      <span className="text-gray">|</span>
+                      <p className="px-1">{flightSegment.cabinType} </p>
+                      <span className="text-gray">|</span>
+                      <p className="text-red-500 px-1 font-medium">
+                        {flightSegment.numberOfSeats} Seates Left
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <FlightPath
-                  departureTime={flightSegment.departure.depTime}
-                  departureDate={flightSegment.departure.depDate}
-                  departureAirport={` ${
-                    flightSegment.departure.airport.terminal
-                      ? ` ${flightSegment.departure.airport.terminal} ,`
-                      : ""
-                  } ${flightSegment.departure.airport.airportName}`}
-                  arrivalTime={flightSegment.arrival.arrTime}
-                  arrivalDate={flightSegment.arrival.arrDate}
-                  arrivalAirport={` ${
-                    flightSegment.arrival.airport.terminal
-                      ? ` ${flightSegment.arrival.airport.terminal} ,`
-                      : ""
-                  } ${flightSegment.arrival.airport.airportName}`}
-                  duration={flightSegment.elapsedTime}
-                />
-                {/* {flightSegment?.layoverTime !== null  ? (
+                  <FlightPath
+                    departureTime={flightSegment.departure.depTime}
+                    departureDate={flightSegment.departure.depDate}
+                    departureAirport={` ${
+                      flightSegment.departure.airport.terminal
+                        ? ` ${flightSegment.departure.airport.terminal} ,`
+                        : ""
+                    } ${flightSegment.departure.airport.airportName}`}
+                    arrivalTime={flightSegment.arrival.arrTime}
+                    arrivalDate={flightSegment.arrival.arrDate}
+                    arrivalAirport={` ${
+                      flightSegment.arrival.airport.terminal
+                        ? ` ${flightSegment.arrival.airport.terminal} ,`
+                        : ""
+                    } ${flightSegment.arrival.airport.airportName}`}
+                    duration={flightSegment.elapsedTime}
+                  />
+                  {/* {flightSegment?.layoverTime !== null  ? (
                   <LayoverInfo
                     layoverTime={flightSegment?.layoverTime}
                     location={flightSegment.arrival.airport.cityName}
@@ -97,15 +99,16 @@ const FlightDetailsInfo: React.FC<FlightSearchResult> = ({ flights }) => {
                 ) : (
                   ""
                 )} */}
-                {flightSegment.layoverTime !== "" ? (
-                  <LayoverInfo
-                    layoverTime={flightSegment.layoverTime}
-                    location={flightSegment.arrival.airport.cityName}
-                    showTerminalChange={true}
-                  />
-                ) : null}
-              </div>
-            ))}
+                  {flightSegment.layoverTime ? (
+                    <LayoverInfo
+                      layoverTime={flightSegment.layoverTime}
+                      location={flightSegment.arrival.airport.cityName}
+                      showTerminalChange={true}
+                    />
+                  ) : null}
+                </div>
+              )
+            )}
           </div>
         ))}
       </div>

@@ -3,7 +3,7 @@ import { TbEye, TbEyeClosed } from "react-icons/tb";
 
 interface FormInputProps {
   label: string;
-  type?: "text" | "password" | "email" | "tel" | "dropdown" | "file";
+  type?: "text" | "password" | "email" | "tel" | "dropdown" | "file" | "date";
   value?: string | number;
   placeholder?: string;
   name?: string;

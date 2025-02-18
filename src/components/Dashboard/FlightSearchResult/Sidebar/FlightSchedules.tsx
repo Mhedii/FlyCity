@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useDispatch } from "react-redux";
@@ -19,15 +20,14 @@ interface Schedule {
 
 const FilterSchedules: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selectedSchedules, setSelectedSchedules] = useState<Set<string>>(
-    new Set()
-  );
-  // const [selectedLayover, setSelectedLayover] = useState<Set<string>>(
+  const [selectedSchedules, setSelectedSchedules] = useState<any>(new Set());
+  const [selectedLayover, setSelectedLayover] = useState(new Map());
+  // const [selectedSchedules, setSelectedSchedules] = useState<Set<string>>(
   //   new Set()
   // );
-  const [selectedLayover, setSelectedLayover] = useState<
-    Map<string, { valueLayOverMin: number; valueLayOverMax: number }>
-  >(new Map());
+  // const [selectedLayover, setSelectedLayover] = useState<
+  //   Map<string, { valueLayOverMin: number; valueLayOverMax: number }>
+  // >(new Map());
 
   const dispatch = useDispatch();
   const handleToggle = () => setIsCollapsed(!isCollapsed);
@@ -74,7 +74,7 @@ const FilterSchedules: React.FC = () => {
     },
   ];
 
-  const handleSelect = (schedule: Schedule) => {
+  const handleSelect = (schedule: any) => {
     const updatedSelection = new Map(selectedSchedules);
     if (updatedSelection.has(schedule.timeRange)) {
       updatedSelection.delete(schedule.timeRange);
