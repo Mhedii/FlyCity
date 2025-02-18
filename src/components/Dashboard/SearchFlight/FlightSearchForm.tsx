@@ -19,7 +19,7 @@ const FlightSearchForm: React.FC = () => {
   const [selectedFareOption, setSelectedFareOption] = useState<number>(1);
   const [flights, setFlights] = useState<number[]>([1]);
   const [flightData, setFlightData] = useState<{ from: string; to: string }[]>([
-    { from: "JFK", to: "DHK" },
+    { from: "KUL", to: "SIN" },
   ]);
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const dropdownRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -66,7 +66,7 @@ const FlightSearchForm: React.FC = () => {
   const handleAddFlight = () => {
     if (flights.length < MAX_FLIGHT_SETS) {
       setFlights((prev) => [...prev, prev.length + 1]);
-      setFlightData((prev) => [...prev, { from: "DAC", to: "DXB" }]);
+      setFlightData((prev) => [...prev, { from: "KUL", to: "SIN" }]);
     }
   };
 
@@ -75,8 +75,9 @@ const FlightSearchForm: React.FC = () => {
     setFlightData((prev) => prev.filter((_, i) => i !== index));
   };
   const handleSearch = () => {
-    const formattedDepartureDate = departureDate.toISOString().split("T")[0];
-    const formattedReturnDate = returnDate.toISOString().split("T")[0];
+    const formattedDepartureDate = departureDate.toISOString().split("T");
+    const formattedReturnDate = returnDate.toISOString().split("T");
+    console.log(formattedDepartureDate, formattedReturnDate);
     // const query = `origin=${flightData[0].from}&dest=${flightData[0].to}&flyDate=${formattedDepartureDate}&returnDate=${formattedReturnDate}&tripType=${selectedTrip}&fareType=${selectedFareOption}&tripClass=${selectedEconomyIndex}&adult=${passengerCounts.adults}&child=${passengerCounts.children}&infant=${passengerCounts.infants}&airlines=${airlineSearch}`;
     // const query = [
     //   `origin=${flightData[0].from}`,
@@ -106,10 +107,9 @@ const FlightSearchForm: React.FC = () => {
       queryParams.push(`origin=${flightData[0].from}`);
       queryParams.push(`dest=${flightData[0].to}`);
       queryParams.push(`flyDate=${formattedDepartureDate[0]}`);
-
+      console.log(formattedDepartureDate, formattedDepartureDate[0]);
       if (selectedTrip === 2) {
-        // Round-trip: Add return date
-        queryParams.push(`returnDate=${formattedReturnDate}`);
+        queryParams.push(`returnDate=${formattedReturnDate[0]}`);
       }
     }
 

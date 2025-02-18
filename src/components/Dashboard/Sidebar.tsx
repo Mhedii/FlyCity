@@ -4,8 +4,17 @@ import { FaArrowRight } from "react-icons/fa";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { IoMenuOutline } from "react-icons/io5";
 import { Link, useLocation } from "react-router";
-const Sidebar = ({ menuItems }: { menuItems: MenuItem[] }) => {
-  const [isCollapsed, setIsCollapsed] = useState(true);
+interface MenuList {
+  menuItems: MenuItem[];
+  isCollapsed?: boolean;
+  setIsCollapsed: (value: boolean) => void;
+}
+const Sidebar: React.FC<MenuList> = ({
+  menuItems,
+  isCollapsed,
+  setIsCollapsed,
+}) => {
+  // const [isCollapsed, setIsCollapsed] = useState(true);
   const [openDropdowns, setOpenDropdowns] = useState<{
     [key: string]: boolean;
   }>({});
@@ -105,7 +114,7 @@ const Sidebar = ({ menuItems }: { menuItems: MenuItem[] }) => {
                   className={`py-[1.313rem] flex items-center gap-[0.684rem] rounded-xl hover:font-medium hover:text-primary text-base ${
                     isCollapsed ? "justify-center" : "pl-8 hover:bg-skyblue"
                   }  ${
-                    pathname === item.path
+                    pathname === item.path && !isCollapsed
                       ? "bg-skyblue font-medium text-primary"
                       : ""
                   }`}

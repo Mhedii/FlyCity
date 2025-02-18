@@ -4,8 +4,11 @@ import Sidebar from "./Sidebar";
 import { IoMenuOutline } from "react-icons/io5";
 import { Link } from "react-router";
 import ProfileDropdown from "../Home/Header/ProfileDropdown";
-
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  isCollapsed: boolean;
+  setIsCollapsed: (value: boolean) => void;
+}
+const Navbar: React.FC<NavbarProps> = ({ isCollapsed, setIsCollapsed }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement | null>(null);
@@ -51,6 +54,7 @@ const Navbar: React.FC = () => {
 
   const handleSidebarButtonClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    setIsCollapsed(!isCollapsed);
     setIsSidebarOpen(true);
   };
   useEffect(() => {
@@ -94,7 +98,10 @@ const Navbar: React.FC = () => {
               </button>
 
               {userData && userData.menuItems && (
-                <Sidebar menuItems={userData.menuItems} />
+                <Sidebar
+                  setIsCollapsed={setIsCollapsed}
+                  menuItems={userData.menuItems}
+                />
               )}
             </div>
           )}

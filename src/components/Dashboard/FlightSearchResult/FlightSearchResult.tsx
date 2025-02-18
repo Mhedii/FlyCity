@@ -367,27 +367,31 @@ const FlightSearchResult = () => {
 
   return (
     <div>
-      <div
-        className={` filter-component block lg:hidden fixed z-50 bottom-2 transition-opacity duration-300   w-full ${
-          isVisible ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <FilterByAmountMiniDevice
-          options={[
-            { label: "Cheapest", value: "cheapest", price: cheapestPrice },
-            { label: "Earliest", value: "earliest", time: earliestTime },
-            {
-              label: "Fastest",
-              value: "fastest",
-              time: formatDuration(fastestTime),
-            },
-          ]}
-          selected={selectedFilter}
-          onSelect={handleFilterChange}
-          onModify={handleModify}
-        />
-      </div>
-      <div className="hidden xl:block ">
+      {!loading && (
+        <div
+          className={` filter-component block lg:hidden fixed z-50 bottom-2 transition-opacity duration-300  text  w-full ${
+            isVisible ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <FilterByAmountMiniDevice
+            options={[
+              { label: "Cheapest", value: "cheapest", price: cheapestPrice },
+              { label: "Earliest", value: "earliest", time: earliestTime },
+              {
+                label: "Fastest",
+                value: "fastest",
+                time: formatDuration(fastestTime),
+              },
+            ]}
+            selected={selectedFilter}
+            onSelect={handleFilterChange}
+            onModify={handleModify}
+          />
+        </div>
+      )}
+
+      <div className="">
+        {/* <div className="hidden xl:block "> */}
         {loading && <LineLoading />}
         {loading ? (
           Array(3)

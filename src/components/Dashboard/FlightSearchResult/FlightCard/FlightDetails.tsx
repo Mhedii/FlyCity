@@ -6,7 +6,7 @@ const FlightDetails: React.FC<
   // Omit<FlightInfoProps, "grossFare" | "netFare" | "currency" | "onChooseFlight">
 > = ({ airline, duration, isDirect, flights }) => {
   return (
-    <div className="grid grid-cols-12 xl:flex justify-between items-center w-full xl:mb-[2.563rem]">
+    <div className=" grid grid-cols-12 xl:flex justify-between items-center w-full xl:mb-[2.563rem]">
       <div className="col-span-12">
         <div className="flex items-center gap-[0.375rem]">
           <img
@@ -18,7 +18,7 @@ const FlightDetails: React.FC<
           />
           <div className="font-bold text-sm xl:text-[1.5rem]">{airline}</div>
         </div>
-        <div className="flex items-center gap-[1.063rem] pt-2">
+        <div className="flex items-center gap-[1.063rem] pt-2 ">
           <div className="text-xs xl:text-[1.188rem] text-gray">
             {/* {airline.flightNumber} */}
             {flights.flightSegments[0].airline.code}{" "}
@@ -30,8 +30,8 @@ const FlightDetails: React.FC<
           </span>
         </div>
       </div>
-      <div className="mt-2 xl:mt-0  justify-between xl:justify-normal col-span-12 flex gap-[1.5rem] items-center">
-        <div>
+      <div className="mt-2  xl:mt-0    justify-between xl:justify-normal col-span-12 flex gap-[1.5rem] items-center">
+        <div className="  w-[7rem]">
           <div className="font-bold leading-none text-sm xl:text-[2.313rem]">
             {/* {departure.time} */}
             {flights?.flightSegments[0].departure.depTime}
@@ -54,7 +54,7 @@ const FlightDetails: React.FC<
             <span>{isDirect ? "Direct" : "Connecting"}</span>
           </div>
         </div>
-        <div>
+        <div className="  w-[7rem]">
           <div className="font-bold leading-none text-sm xl:text-[2.313rem]">
             {
               flights?.flightSegments[

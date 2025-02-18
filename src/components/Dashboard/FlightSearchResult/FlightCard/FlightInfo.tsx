@@ -9,7 +9,7 @@ const FlightInfo: React.FC<FlightFareProps> = ({
   onChooseFlight,
 }) => {
   return (
-    <div className="px-[1.313rem] xl:pt-[1.938rem] xl:pb-[1.813rem] pt-[1rem] grid grid-cols-12 items-center ">
+    <div className=" px-[1.313rem] xl:pt-[1.938rem] xl:pb-[1.813rem] pt-[1rem] grid grid-cols-12 items-center ">
       <div className="col-span-12 xl:col-span-8   ">
         <div className="col-span-12 xl:col-span-8">
           {flightInfo?.flights.map((flight: Flight, flightIndex: number) => (

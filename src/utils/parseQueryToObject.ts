@@ -1,3 +1,4 @@
+import { environment } from "./../components/Shared/environment";
 type Passenger = {
   PassengerType: "ADT" | "CHD" | "INF";
   Quantity: number;
@@ -29,6 +30,7 @@ export const parseQueryToObject = (
   const flyDate = params.get("flyDate");
   const returnDate = params.get("returnDate");
   const tripType = params.get("tripType");
+  const fareType = params.get("fareType");
   const tripClass = params.get("tripClass");
   // const airline = params.get("airlines");
   if (!origin || !destination || !flyDate) {
@@ -77,12 +79,19 @@ export const parseQueryToObject = (
       FlyDate: returnDate,
     });
   }
+  const fareTypeId = fareType ? parseInt(fareType, 10) : 1; // Default to 1
 
+  // Find the matched fare from the list, comparing numbers correctly
+  const matchedFare = environment.SearchOptions.flight.fare_type.find(
+    (fare) => fare.value === fareTypeId
+  );
+  const FareTypeCode = matchedFare ? matchedFare.code : "ADT";
   return {
     OriginDestinationOptions,
     Passengers: passengers,
     ApiId: apiId,
-    FareType: "ADT",
+    FareType: FareTypeCode,
+    // FareType: "ADT",
     CabinClass: cabinClasses[tripClass || "1"],
     // PreferredAirline: airline,
   };

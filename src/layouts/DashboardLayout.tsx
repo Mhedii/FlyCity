@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 const DashboardLayout: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState<appData | null>(null);
-
+  const [isCollapsed, setIsCollapsed] = useState(true);
   useEffect(() => {
     setTimeout(() => {
       const storedData = localStorage.getItem("app-data");
@@ -27,11 +27,15 @@ const DashboardLayout: React.FC = () => {
   }
   return (
     <div>
-      <Navbar />
+      <Navbar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       <div className="flex flex-col md:flex-row min-h-screen">
         <div className="hidden xl:block">
           {userData && userData.menuItems && (
-            <Sidebar menuItems={userData.menuItems} />
+            <Sidebar
+              menuItems={userData.menuItems}
+              isCollapsed={isCollapsed}
+              setIsCollapsed={setIsCollapsed}
+            />
           )}
         </div>
         <div className="flex-1 flex flex-col ">

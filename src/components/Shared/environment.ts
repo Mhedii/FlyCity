@@ -2,10 +2,10 @@ export const environment = {
   SearchOptions: {
     flight: {
       locationOptions: [
+        { label: "KUL", value: "KUL", subText: "Kuala Lumpur, Malaysia" },
+        { label: "SIN", value: "SIN", subText: "Changi , Singapore" },
         { label: "JFK", value: "JFK", subText: "New York, USA" },
         { label: "DAC", value: "DAC", subText: "Dhaka, Bangladesh" },
-        { label: "DHK", value: "DHK", subText: "Dhaka, Bangladesh" },
-        { label: "LHR", value: "LHR", subText: "London, UK" },
         { label: "DXB", value: "DXB", subText: "Dubai, UAE" },
         { label: "MEL", value: "MEL", subText: "MELBOURNE, Australia" },
         { label: "CCU", value: "CCU", subText: "Netaji Subash Chandra" },
@@ -24,9 +24,9 @@ export const environment = {
         "British Airways",
       ],
       fare_type: [
-        { label: "Regular Fare", value: 1 },
-        { label: "Umrah Fare", value: 2 },
-        { label: "NDC", value: 3 },
+        { label: "Regular Fare", value: 1, code: "ADT" },
+        { label: "Umrah Fare", value: 2, code: "UMARAH" },
+        { label: "NDC", value: 3, code: "NDC" },
       ],
       dropdownData: [
         {

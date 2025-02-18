@@ -107,7 +107,7 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
         </div>
       </div>
 
-      <div className="mt-[3%] lg:mt-[2%]">
+      <div className="mt-[3%] lg:mt-[2%] flex justify-center items-center">
         <img
           src="/assets/images/SwitchDestination.png"
           className={`w-8 h-8 transition-transform duration-300 cursor-pointer ${
@@ -192,11 +192,20 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
           <div className="relative ">
             <DashboardInfoCard
               label="Return"
-              mainText={String(
-                departureDate.getDate() < 10
-                  ? `0${departureDate.getDate()}`
-                  : departureDate.getDate()
-              )}
+              // mainText={String(
+              //   returnDate.getDate() < 10
+              //     ? `0${returnDate.getDate()}`
+              //     : returnDate.getDate()
+              // )}
+              mainText={
+                returnDate
+                  ? String(
+                      returnDate.getDate() < 10
+                        ? `0${returnDate.getDate()}`
+                        : returnDate.getDate()
+                    )
+                  : "" // Return empty string if returnDate is undefined
+              }
               subText={
                 returnDate?.toLocaleDateString("en-US", { month: "long" }) || ""
               }
