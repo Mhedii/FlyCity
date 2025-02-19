@@ -46,6 +46,7 @@ const FlightSearchResult = () => {
   const [selectedAirlines, setSelectedAirlines] = useState<Set<string>>(
     new Set()
   );
+
   const fareType = useSelector(selectFareType);
   const refundability = useSelector(selectRefundability);
   // const flightType = useSelector(selectFlightType);
@@ -68,10 +69,6 @@ const FlightSearchResult = () => {
   };
   const handleFilterChange = (value: string) => {
     setSelectedFilter(value);
-  };
-
-  const handleModify = () => {
-    console.log("Modify clicked");
   };
 
   useEffect(() => {
@@ -364,7 +361,12 @@ const FlightSearchResult = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  const [isModifyOpen, setIsModifyOpen] = useState(false);
 
+  const handleModifyToggle = () => {
+    console.log(isModifyOpen);
+    setIsModifyOpen((prev) => !prev);
+  };
   return (
     <div>
       {!loading && (
@@ -385,7 +387,8 @@ const FlightSearchResult = () => {
             ]}
             selected={selectedFilter}
             onSelect={handleFilterChange}
-            onModify={handleModify}
+            // onModify={handleModify}
+            onModify={handleModifyToggle}
           />
         </div>
       )}
@@ -411,8 +414,26 @@ const FlightSearchResult = () => {
               ]}
               selected={selectedFilter}
               onSelect={handleFilterChange}
-              onModify={handleModify}
+              // onModify={handleModify}
+              onModify={handleModifyToggle}
+              isModifyOpen={isModifyOpen}
+              handleModifyToggle={handleModifyToggle}
             />
+            {/* {isModifyOpen && (
+              <div className="bg-white p-4 shadow-md rounded-lg mt-4 transition-all duration-300 max-h-[400px] overflow-hidden">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-lg font-bold">Modify Search</h2>
+                  <button
+                    className="text-xl font-bold"
+                    onClick={handleModifyToggle}
+                  >
+                    ✖
+                  </button>
+                </div>
+                
+                <p>Modify your search settings here...</p>
+              </div>
+            )} */}
             <AirlineSlider
               airlines={uniqueCarriers}
               selectedAirlines={selectedAirlines}

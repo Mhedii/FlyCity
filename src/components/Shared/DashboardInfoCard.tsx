@@ -25,7 +25,7 @@ const DashboardInfoCard: React.FC<InfoCardProps> = ({
       <p className=" text-gray font-bold text-base lg:text-[1.188rem]">
         {label}
       </p>
-      <div className="cursor-pointer flex items-center bg-gray_light_4 rounded-lg pl-[1.625rem] py-2 lg:py-4 pe-[0.375rem] lg:max-w-[27.25rem]">
+      <div className="cursor-pointer flex items-center bg-gray_light_4 rounded-lg pl-[1.625rem] py-2 lg:py-4 pe-[0.375rem] ">
         {icon && <div className="text-primary">{icon}</div>}
 
         <div>

@@ -19,7 +19,7 @@ const Pagination: React.FC<PaginationProps> = ({
     <div className="flex justify-center space-x-2 py-8">
       <button
         onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-        className="px-4 py-2 border rounded-md disabled:opacity-50 bg-primary text-white"
+        className="px-4 py-2 border rounded-xl disabled:opacity-50 bg-primary text-white"
         disabled={currentPage === 1}
       >
         Previous
@@ -37,7 +37,7 @@ const Pagination: React.FC<PaginationProps> = ({
       ))}
       <button
         onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-        className="px-4 py-2 border rounded-md disabled:opacity-50 bg-primary text-white"
+        className="px-4 py-2 border rounded-xl disabled:opacity-50 bg-primary text-white"
         disabled={currentPage === totalPages}
       >
         Next
