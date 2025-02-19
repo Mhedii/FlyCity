@@ -18,7 +18,7 @@ const initialState: FiltersState = {
   flightType: "",
   stops: [],
   baggagePolicy: [],
-  priceRange: { min: 0, max: 10000 },
+  priceRange: { min: 0, max: 100000 },
   schedule: [], // Initialize schedule as empty array
   layover: [],
 };

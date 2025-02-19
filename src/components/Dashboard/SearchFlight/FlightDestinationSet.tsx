@@ -10,7 +10,10 @@ interface FlightCardProps {
   selectedFrom: string;
   selectedTo: string;
   locationOptions: { label: string; value: string; subText: string }[];
-  onLocationChange: (type: "from" | "to", value: string) => void;
+  onLocationChange: (
+    type: "from" | "to" | "departure" | "return",
+    value: string | Date
+  ) => void;
   departureDate: Date;
   returnDate?: Date;
   setDepartureDate: (date: Date) => void;
@@ -29,6 +32,8 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
   setDepartureDate,
   returnDate,
   setReturnDate,
+  selectedReturn,
+  selectedDeparture,
 }) => {
   const [showLocationDropdown, setShowLocationDropdown] = useState<
     string | null
@@ -37,7 +42,10 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
   const dropdownRef = useRef<HTMLUListElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const handleSelectLocation = (type: "from" | "to", value: string) => {
+  const handleSelectLocation = (
+    type: "from" | "to" | "departure" | "return",
+    value: string | Date
+  ) => {
     onLocationChange(type, value);
     setShowLocationDropdown(null);
   };
@@ -155,14 +163,14 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
           <DashboardInfoCard
             label="Departure"
             mainText={String(
-              departureDate.getDate() < 10
-                ? `0${departureDate.getDate()}`
-                : departureDate.getDate()
+              selectedDeparture.getDate() < 10
+                ? `0${selectedDeparture.getDate()}`
+                : selectedDeparture.getDate()
             )}
-            subText={departureDate.toLocaleDateString("en-US", {
+            subText={selectedDeparture.toLocaleDateString("en-US", {
               month: "long",
             })}
-            description={departureDate.toLocaleDateString("en-US", {
+            description={selectedDeparture.toLocaleDateString("en-US", {
               weekday: "long",
               year: "numeric",
             })}
@@ -172,8 +180,9 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
           {showLocationDropdown === "departure" && (
             <div className="absolute mt-2 z-20">
               <DatePicker
-                selected={departureDate}
-                onChange={(date) => handleDateChange(date as Date, "departure")}
+                selected={selectedDeparture}
+                // onChange={(date) => handleDateChange(date as Date, "departure")}
+                onChange={(date) => handleSelectLocation("departure", date)}
                 className="  bg-white rounded-lg shadow  w-full max-h-48"
                 dateFormat="dd/MM/yyyy"
                 inline
@@ -198,21 +207,23 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
               //     : returnDate.getDate()
               // )}
               mainText={
-                returnDate
+                selectedReturn
                   ? String(
-                      returnDate.getDate() < 10
-                        ? `0${returnDate.getDate()}`
-                        : returnDate.getDate()
+                      selectedReturn.getDate() < 10
+                        ? `0${selectedReturn.getDate()}`
+                        : selectedReturn.getDate()
                     )
-                  : "" // Return empty string if returnDate is undefined
+                  : "" // Return empty string if selectedReturn is undefined
               }
               subText={
-                returnDate?.toLocaleDateString("en-US", { month: "long" }) || ""
+                selectedReturn?.toLocaleDateString("en-US", {
+                  month: "long",
+                }) || ""
               }
-              // subText={returnDate?.toLocaleDateString("en-US", {
+              // subText={selectedReturn?.toLocaleDateString("en-US", {
               //   month: "long",
               // })}
-              description={returnDate?.toLocaleDateString("en-US", {
+              description={selectedReturn?.toLocaleDateString("en-US", {
                 weekday: "long",
                 year: "numeric",
               })}
@@ -222,8 +233,9 @@ const FlightDestinationSet: React.FC<FlightCardProps> = ({
             {showLocationDropdown === "return" && (
               <div className="absolute z-20 mt-2">
                 <DatePicker
-                  selected={returnDate}
-                  onChange={(date) => handleDateChange(date as Date, "return")}
+                  selected={selectedReturn}
+                  // onChange={(date) => handleDateChange(date as Date, "return")}
+                  onChange={(date) => handleSelectLocation("return", date)}
                   className=" bg-white rounded-lg shadow w-full max-h-48"
                   dateFormat="dd/MM/yyyy"
                   inline

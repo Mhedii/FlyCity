@@ -25,15 +25,23 @@ export const parseQueryToObject = (
 ): ParsedQuery => {
   // console.log(apiId, query);
   const params = new URLSearchParams(query);
-  const origin = params.get("origin");
-  const destination = params.get("dest");
-  const flyDate = params.get("flyDate");
+  // const origin = params.get("origin");
+  // const destination = params.get("dest");
+  // const flyDate = params.get("flyDate");
+  const origins = params.getAll("origin");
+  const destinations = params.getAll("dest");
+  const flyDates = params.getAll("flyDate");
   const returnDate = params.get("returnDate");
   const tripType = params.get("tripType");
   const fareType = params.get("fareType");
   const tripClass = params.get("tripClass");
   // const airline = params.get("airlines");
-  if (!origin || !destination || !flyDate) {
+  // if (!origin || !destination || !flyDate) {
+  //   throw new Error(
+  //     "Missing required parameters: origin, destination, or flyDate"
+  //   );
+  // }
+  if (!origins.length || !destinations.length || !flyDates.length) {
     throw new Error(
       "Missing required parameters: origin, destination, or flyDate"
     );
@@ -64,18 +72,47 @@ export const parseQueryToObject = (
   }
 
   // Setting up trip options
-  const OriginDestinationOptions: OriginDestination[] = [
-    {
-      DepartureAirport: origin,
-      ArrivalAirport: destination,
-      FlyDate: flyDate,
-    },
-  ];
+  // const OriginDestinationOptions: OriginDestination[] = [
+  //   {
+  //     DepartureAirport: origin,
+  //     ArrivalAirport: destination,
+  //     FlyDate: flyDate,
+  //   },
+  // ];
 
+  const OriginDestinationOptions: OriginDestination[] = [];
+
+  const maxLength = Math.max(
+    origins.length,
+    destinations.length,
+    flyDates.length
+  );
+
+  // Generate the OriginDestinationOptions array
+  for (let i = 0; i < maxLength; i++) {
+    const departureAirport = origins[i] || origins[origins.length - 1]; // Default to last origin if not enough
+    const arrivalAirport =
+      destinations[i] || destinations[destinations.length - 1]; // Default to last destination if not enough
+    const flyDate = flyDates[i] || flyDates[flyDates.length - 1]; // Default to last flyDate if not enough
+
+    // Add to the OriginDestinationOptions
+    OriginDestinationOptions.push({
+      DepartureAirport: departureAirport,
+      ArrivalAirport: arrivalAirport,
+      FlyDate: flyDate,
+    });
+  }
+  // if (tripType === "2" && returnDate) {
+  //   OriginDestinationOptions.push({
+  //     DepartureAirport: destinations[0],
+  //     ArrivalAirport: origin,
+  //     FlyDate: returnDate,
+  //   });
+  // }
   if (tripType === "2" && returnDate) {
     OriginDestinationOptions.push({
-      DepartureAirport: destination,
-      ArrivalAirport: origin,
+      DepartureAirport: destinations[destinations.length - 1],
+      ArrivalAirport: origins[origins.length - 1],
       FlyDate: returnDate,
     });
   }

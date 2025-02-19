@@ -42,7 +42,7 @@ const FlightSearchResult = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [initialPosition, setInitialPosition] = useState(0);
   const [uniqueCarriers, setUniqueCarriers] = useState<any>([]);
-  const [searchId, setSearchId] = useState<string>("");
+  const [searchId, setSearchId] = useState([]);
   const [selectedAirlines, setSelectedAirlines] = useState<Set<string>>(
     new Set()
   );
@@ -91,14 +91,18 @@ const FlightSearchResult = () => {
           flightApis.map(async (apiId: number) => {
             const queryParams = await parseQueryToObject(search, apiId);
             const response = await flightSearch(queryParams, token);
-            await setSearchId(response?.searchId);
+            // await setSearchId(response?.searchId);
+            // if (apiId === flightApis[flightApis.length - 1]) {
+            setSearchId((prev) => [...prev, response?.searchId]);
+            console.log(apiId);
             return response?.results || [];
           })
         );
 
         const flights = allFlights.flat();
 
-        setFlightData(flights);
+        // setFlightData(flights);
+        setFlightData((prevFlights) => [...prevFlights, ...flights]);
         const carriers = [
           ...Array.from(
             flights
@@ -129,7 +133,7 @@ const FlightSearchResult = () => {
 
     fetchFlights();
   }, [search]);
-  console.log(searchId);
+  console.log(searchId, flightData);
   const convertToMinutes = (timeString: string) => {
     let totalMinutes = 0;
     const dayMatch = timeString.match(/(\d+)d/);
@@ -157,7 +161,7 @@ const FlightSearchResult = () => {
       ) {
         return false;
       }
-      // 2. Fare Type Filter
+      // // 2. Fare Type Filter
       if (
         fareType.length > 0 &&
         !fareType.includes(flight.fares[0]?.fareInfoTitle)
@@ -165,7 +169,7 @@ const FlightSearchResult = () => {
         return false;
       }
 
-      //3.  Refundability Filter
+      // //3.  Refundability Filter
       if (
         refundability &&
         flight.totalFare.refundable !== Boolean(refundability)
@@ -189,21 +193,6 @@ const FlightSearchResult = () => {
       ) {
         return false;
       }
-
-      // if (
-      //   Array.isArray(stops) && stops.length > 0
-      //     ? !stops.includes(flight.stops)
-      //     : flight.stops < stops
-      // ) {
-      //   return false;
-      // }
-      // if (
-      //   Array.isArray(stops) && stops.length > 0
-      //     ? !stops.includes(flight.stops)
-      //     : flight.stops < stops
-      // ) {
-      //   return false;
-      // }
 
       //6. Baggage Policy Filter
       const baggageWeights =

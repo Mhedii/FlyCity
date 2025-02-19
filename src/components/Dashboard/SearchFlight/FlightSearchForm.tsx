@@ -18,8 +18,18 @@ const FlightSearchForm: React.FC = () => {
   const [selectedTrip, setSelectedTrip] = useState<number>(1);
   const [selectedFareOption, setSelectedFareOption] = useState<number>(1);
   const [flights, setFlights] = useState<number[]>([1]);
-  const [flightData, setFlightData] = useState<{ from: string; to: string }[]>([
-    { from: "KUL", to: "SIN" },
+  // const [flightData, setFlightData] = useState<{ from: string; to: string }[]>([
+  //   { from: "KUL", to: "SIN" },
+  // ]);
+  const [flightData, setFlightData] = useState<
+    { from: string; to: string; departure: Date; return: Date }[]
+  >([
+    {
+      from: "KUL",
+      to: "SIN",
+      departure: new Date(),
+      return: new Date(new Date().setDate(new Date().getDate() + 1)),
+    },
   ]);
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const dropdownRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -56,17 +66,21 @@ const FlightSearchForm: React.FC = () => {
 
   const handleLocationChange = (
     index: number,
-    type: "from" | "to",
-    value: string
+    type: "from" | "to" | "departure" | "return",
+    value: string | Date
   ) => {
     const updatedFlightData = [...flightData];
     updatedFlightData[index][type] = value;
     setFlightData(updatedFlightData);
   };
+  console.log(flightData);
   const handleAddFlight = () => {
     if (flights.length < MAX_FLIGHT_SETS) {
       setFlights((prev) => [...prev, prev.length + 1]);
-      setFlightData((prev) => [...prev, { from: "KUL", to: "SIN" }]);
+      setFlightData((prev) => [
+        ...prev,
+        { from: "KUL", to: "SIN", departure: new Date(), return: undefined },
+      ]);
     }
   };
 
@@ -77,7 +91,9 @@ const FlightSearchForm: React.FC = () => {
   const handleSearch = () => {
     const formattedDepartureDate = departureDate.toISOString().split("T");
     const formattedReturnDate = returnDate.toISOString().split("T");
-    console.log(formattedDepartureDate, formattedReturnDate);
+    // const formattedDepartureDate = departureDate.toISOString().split("T");
+    // const formattedReturnDate = returnDate.toISOString().split("T");
+
     // const query = `origin=${flightData[0].from}&dest=${flightData[0].to}&flyDate=${formattedDepartureDate}&returnDate=${formattedReturnDate}&tripType=${selectedTrip}&fareType=${selectedFareOption}&tripClass=${selectedEconomyIndex}&adult=${passengerCounts.adults}&child=${passengerCounts.children}&infant=${passengerCounts.infants}&airlines=${airlineSearch}`;
     // const query = [
     //   `origin=${flightData[0].from}`,
@@ -100,17 +116,28 @@ const FlightSearchForm: React.FC = () => {
       flightData.forEach((flight, index) => {
         queryParams.push(`origin=${flight.from}`);
         queryParams.push(`dest=${flight.to}`);
-        queryParams.push(`flyDate=${formattedDepartureDate[index]}`);
+        queryParams.push(
+          `flyDate=${flight.departure.toISOString().split("T")[0]}`
+        );
+        console.log(flight);
+        // queryParams.push(`flyDate=${formattedDepartureDate[index]}`);
       });
     } else {
       // One-way & Round-trip
       queryParams.push(`origin=${flightData[0].from}`);
       queryParams.push(`dest=${flightData[0].to}`);
-      queryParams.push(`flyDate=${formattedDepartureDate[0]}`);
-      console.log(formattedDepartureDate, formattedDepartureDate[0]);
+      queryParams.push(
+        `flyDate=${flightData[0].departure.toISOString().split("T")[0]}`
+      );
+      // queryParams.push(`flyDate=${formattedDepartureDate[0]}`);
+      // console.log(formattedDepartureDate, formattedDepartureDate[0]);
       if (selectedTrip === 2) {
-        queryParams.push(`returnDate=${formattedReturnDate[0]}`);
+        queryParams.push(
+          `returnDate=${flightData[0]?.return?.toISOString().split("T")[0]}`
+        );
+        // queryParams.push(`returnDate=${formattedReturnDate[0]}`);
       }
+      console.log(flightData[0].departure.toISOString().split("T")[0]);
     }
 
     // Common query params
@@ -286,6 +313,8 @@ const FlightSearchForm: React.FC = () => {
               allowRemove={selectedTrip === 3 && flights.length > 1}
               selectedFrom={flightData[index].from}
               selectedTo={flightData[index].to}
+              selectedDeparture={flightData[index].departure}
+              selectedReturn={flightData[index].return}
               locationOptions={envData.locationOptions}
               departureDate={departureDate}
               returnDate={returnDate}

@@ -37,9 +37,9 @@ const FlightSearchResultSidebar: React.FC = () => {
         <PriceRangeSlider
           title="Price Range"
           min={0}
-          max={10000}
-          defaultMinValue={50}
-          defaultMaxValue={10000}
+          max={100000}
+          defaultMinValue={0}
+          defaultMaxValue={100000}
           popularityData={[10, 30, 50, 70, 90, 60, 40, 20]}
           // onChange={handlePriceChange}
           onChange={(values) => dispatch(setPriceRange(values))}
